@@ -37,7 +37,7 @@ def prepare_bandwitch(value):
 
     return None
 
-def get_instances(session, region_name, dc_inst, dc_region):
+def get_instances(session, region_name, dc_region):
     pricing_client = session.client('pricing')
     tenancy='Shared'
     os='Linux'
@@ -66,36 +66,32 @@ def get_instances(session, region_name, dc_inst, dc_region):
         dcc['regionCode']=price['product']['attributes']['regionCode']
         dcc['ecu']=ecu
         dcc['networkPerformance']=prepare_bandwitch(price['product']['attributes']['networkPerformance'])
-        #dcc['carbon'] = calc_carbon(price['product']['attributes']['instanceType'], dcc['regionCode'])
         onde=price['terms']['OnDemand']
 
         for on_demand in onde.values():
             for price_dimensions in on_demand['priceDimensions'].values():
                 dcc['pricePerUnit']=float(price_dimensions['pricePerUnit']['USD'])
 
-        dc_inst_el = dc_inst.get(price['product']['attributes']['instanceType'], {})
-        dc_inst_el[dcc['regionCode']]=dcc
-        dc_inst[price['product']['attributes']['instanceType']]=dc_inst_el
         dc_region_list = dc_region.get(dcc['regionCode'], {})
         dc_region_list[price['product']['attributes']['instanceType']]=dcc
         dc_region[dcc['regionCode']]=dc_region_list
 
 
-def generate_aws_dict():
+def generate_aws_dict(regions):
 
     session = boto3.Session(
         aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
         aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
         region_name=os.environ['AWS_DEFAULT_REGION']
     )
-    print(os.environ['AWS_ACCESS_KEY_ID'], os.environ['AWS_SECRET_ACCESS_KEY'])
-    regions=get_aws_regions_full()
 
-    dccx={}
+    if session:
+        print("acess data",os.environ['AWS_ACCESS_KEY_ID'], os.environ['AWS_SECRET_ACCESS_KEY'], os.environ['AWS_DEFAULT_REGION'])
+        
     dccv={}
     for region in regions:
         print(region)
-        get_instances(session, region, dccx, dccv)
+        get_instances(session, region, dccv)
 
 
     for region, val in dccv.items():
@@ -107,4 +103,4 @@ def generate_aws_dict():
 
     regions=list(dccv.keys())
 
-    return dccx, dccv, regions
+    return dccv, regions
