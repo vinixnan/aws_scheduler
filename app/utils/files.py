@@ -14,6 +14,10 @@ def save_yaml(dc, filename):
     with open(filename, "w") as outfile:
         outfile.write(json_object)
 
+def save_xml(xml_data, filename):
+  with open(filename, "w") as outfile:
+    outfile.write(xml_data)
+
 
 def generate_simgrid_xml(sol):
   doc, tag, text = Doc().tagtext()
@@ -24,14 +28,14 @@ def generate_simgrid_xml(sol):
   with tag('platform', version="4"):
       with tag('AS', id="AS0",  routing="Floyd"):
           for id, machine in machines.items():
-            doc.stag('host', id='host'+str(id), core=machine[1]['vcpu'], speed=machine[1]['flop'])
-            doc.stag('link', id='link'+str(id), bandwidth=machine[1]['networkPerformance'], latency="0.0001s")
+            doc.stag('host', id='host'+str(id), core=machine[1]['vcpu'], speed=str(machine[1]['flop'])+'f')
+            doc.stag('link', id='link'+str(id), bandwidth=str(machine[1]['networkPerformance'])+'Bps', latency="0.0001s")
           idlink=0
-          for idi in range(len(machines)):
-            for idj in range(idi+1, len(machines)):
-                with tag('route', src="host"+str(idi), dst="host"+str(idj)):
-                  doc.stag('link_ctn', id="link"+str(idlink))
-                idlink = idlink + 1
+          idi=0
+          for idj in range(idi+1, len(machines)):
+              with tag('route', src="host"+str(idi), dst="host"+str(idj)):
+                doc.stag('link_ctn', id="link"+str(idlink))
+              idlink = idlink + 1
 
   result = indent(
       doc.getvalue(),

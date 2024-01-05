@@ -59,22 +59,22 @@ def get_instances(session, region_name, dc_region):
         ecu=-1
         if is_float(price['product']['attributes'].get('ecu')):
             ecu = float(price['product']['attributes']['ecu'])
-        dcc={}
-        dcc['clockSpeed']=float(price['product']['attributes'].get('clockSpeed', '0').replace(" GHz", "").replace("Up to ",""))
-        dcc['vcpu']=int(price['product']['attributes']['vcpu'])
-        dcc['memory']=int(float(price['product']['attributes']['memory'].replace(" GiB", "")) * 1024)
-        dcc['regionCode']=price['product']['attributes']['regionCode']
-        dcc['ecu']=ecu
-        dcc['networkPerformance']=prepare_bandwitch(price['product']['attributes']['networkPerformance'])
-        onde=price['terms']['OnDemand']
+            dcc={}
+            dcc['clockSpeed']=float(price['product']['attributes'].get('clockSpeed', '0').replace(" GHz", "").replace("Up to ",""))
+            dcc['vcpu']=int(price['product']['attributes']['vcpu'])
+            dcc['memory']=int(float(price['product']['attributes']['memory'].replace(" GiB", "")) * 1024)
+            dcc['regionCode']=price['product']['attributes']['regionCode']
+            dcc['ecu']=ecu
+            dcc['networkPerformance']=prepare_bandwitch(price['product']['attributes']['networkPerformance'])
+            onde=price['terms']['OnDemand']
 
-        for on_demand in onde.values():
-            for price_dimensions in on_demand['priceDimensions'].values():
-                dcc['pricePerUnit']=float(price_dimensions['pricePerUnit']['USD'])
+            for on_demand in onde.values():
+                for price_dimensions in on_demand['priceDimensions'].values():
+                    dcc['pricePerUnit']=float(price_dimensions['pricePerUnit']['USD'])
 
-        dc_region_list = dc_region.get(dcc['regionCode'], {})
-        dc_region_list[price['product']['attributes']['instanceType']]=dcc
-        dc_region[dcc['regionCode']]=dc_region_list
+            dc_region_list = dc_region.get(dcc['regionCode'], {})
+            dc_region_list[price['product']['attributes']['instanceType']]=dcc
+            dc_region[dcc['regionCode']]=dc_region_list
 
 
 def generate_aws_dict(regions):
