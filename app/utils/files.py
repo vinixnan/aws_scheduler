@@ -41,8 +41,9 @@ def generate_simgrid_xml(sol):
   return result
 
 def get_dot(dot_path):
-    urllib.request.urlretrieve("https://raw.githubusercontent.com/vinixnan/pysimgrid/master/test/data/basic_graph.dot", "basic_graph.dot")
-    graph=pydotplus.graphviz.graph_from_dot_file('basic_graph.dot')
+    dot_file = "/home/pysimgrid/dots/basic_graph.dot"
+    urllib.request.urlretrieve("https://raw.githubusercontent.com/vinixnan/pysimgrid/master/test/data/basic_graph.dot", dot_file)
+    graph=pydotplus.graphviz.graph_from_dot_file(dot_file)
     nodes=graph.get_nodes()
     number_of_tasks=len(nodes)
     return number_of_tasks
