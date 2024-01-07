@@ -1,0 +1,74 @@
+digraph DAG {
+  ranksep=5.0
+  node [style=filled,color="#444444",fillcolor="#ffed6f"]
+  edge [arrowhead=normal,arrowsize=1.0]
+
+  root [label="root",size="0.000000e+00"];
+  end [label="end",size="0.000000e+00"];
+  ID00000 [label="fastqSplit_chr21_ID00000",size="4.347840e+11"];
+  ID00001 [label="filterContams_chr21_ID00001",size="2.944200e+10"];
+  ID00002 [label="filterContams_chr21_ID00002",size="3.456600e+10"];
+  ID00003 [label="filterContams_chr21_ID00003",size="3.423000e+10"];
+  ID00004 [label="filterContams_chr21_ID00004",size="3.885000e+10"];
+  ID00005 [label="filterContams_chr21_ID00005",size="4.993800e+10"];
+  ID00006 [label="sol2sanger_chr21_ID00006",size="9.912000e+09"];
+  ID00007 [label="sol2sanger_chr21_ID00007",size="1.486800e+10"];
+  ID00008 [label="sol2sanger_chr21_ID00008",size="1.369200e+10"];
+  ID00009 [label="sol2sanger_chr21_ID00009",size="1.285200e+10"];
+  ID00010 [label="sol2sanger_chr21_ID00010",size="2.108400e+10"];
+  ID00011 [label="fastq2bfq_chr21_ID00011",size="1.785000e+10"];
+  ID00012 [label="fastq2bfq_chr21_ID00012",size="2.482200e+10"];
+  ID00013 [label="fastq2bfq_chr21_ID00013",size="1.692600e+10"];
+  ID00014 [label="fastq2bfq_chr21_ID00014",size="1.982400e+10"];
+  ID00015 [label="fastq2bfq_chr21_ID00015",size="2.167200e+10"];
+  ID00016 [label="map_chr21_ID00016",size="1.188827e+13"];
+  ID00017 [label="map_chr21_ID00017",size="1.342488e+13"];
+  ID00018 [label="map_chr21_ID00018",size="1.018630e+13"];
+  ID00019 [label="map_chr21_ID00019",size="1.521694e+13"];
+  ID00020 [label="map_chr21_ID00020",size="1.706443e+13"];
+  ID00021 [label="mapMerge_chr21_ID00021",size="7.236600e+10"];
+  ID00022 [label="maqindex_chr21_ID00022",size="2.100000e+08"];
+  ID00023 [label="pileup_chr21_ID00023",size="5.775924e+12"];
+
+  root -> ID00000 [size="4.468594e+08"];
+  root -> ID00016 [size="1.249174e+09"];
+  root -> ID00017 [size="1.249174e+09"];
+  root -> ID00018 [size="1.249174e+09"];
+  root -> ID00019 [size="1.249174e+09"];
+  root -> ID00020 [size="1.249174e+09"];
+  root -> ID00023 [size="1.249174e+09"];
+  ID00000 -> ID00001 [size="8.553431e+07"];
+  ID00000 -> ID00002 [size="9.826218e+07"];
+  ID00000 -> ID00003 [size="8.062318e+07"];
+  ID00000 -> ID00004 [size="9.859252e+07"];
+  ID00000 -> ID00005 [size="8.384717e+07"];
+  ID00001 -> end [size="4.146828e+07"];
+  ID00001 -> ID00006 [size="4.406604e+07"];
+  ID00002 -> end [size="5.011984e+07"];
+  ID00002 -> ID00007 [size="4.814234e+07"];
+  ID00003 -> end [size="4.206966e+07"];
+  ID00003 -> ID00008 [size="3.855352e+07"];
+  ID00004 -> end [size="5.115680e+07"];
+  ID00004 -> ID00009 [size="4.743572e+07"];
+  ID00005 -> end [size="4.053265e+07"];
+  ID00005 -> ID00010 [size="4.331452e+07"];
+  ID00006 -> ID00011 [size="2.461328e+07"];
+  ID00007 -> ID00012 [size="4.475397e+07"];
+  ID00008 -> ID00013 [size="2.496934e+07"];
+  ID00009 -> ID00014 [size="3.670182e+07"];
+  ID00010 -> ID00015 [size="3.731003e+07"];
+  ID00011 -> ID00016 [size="6.918721e+06"];
+  ID00012 -> ID00017 [size="1.032331e+07"];
+  ID00013 -> ID00018 [size="5.956867e+06"];
+  ID00014 -> ID00019 [size="9.015905e+06"];
+  ID00015 -> ID00020 [size="9.039432e+06"];
+  ID00016 -> ID00021 [size="7.520348e+06"];
+  ID00017 -> ID00021 [size="1.122099e+07"];
+  ID00018 -> ID00021 [size="6.474855e+06"];
+  ID00019 -> ID00021 [size="9.799896e+06"];
+  ID00020 -> ID00021 [size="9.825469e+06"];
+  ID00021 -> end [size="1.767836e+06"];
+  ID00021 -> ID00022 [size="4.230336e+07"];
+  ID00022 -> ID00023 [size="6.415520e+05"];
+  ID00023 -> end [size="3.795582e+06"];
+}

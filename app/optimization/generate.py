@@ -10,7 +10,7 @@ import numpy as np
 
 
 def generate_solutions(problem_file_path, full_name_regions, seed=None, verbose=False):
-    number_of_tasks = get_dot(problem_file_path)
+    number_of_tasks = get_dot(problem_file_path)/2
     dccv, regions = generate_aws_dict(full_name_regions)
     problems = get_problems(number_of_tasks, regions, dccv, problem_file_path)
     all_regions_pop = run_all(problems, seed, verbose)

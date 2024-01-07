@@ -7,7 +7,6 @@ from optimization.generate import (
 from optimization.problem import invert_maximization, remove_dominated
 from dotenv import load_dotenv
 import numpy as np
-import random
 
 load_dotenv()
 
@@ -19,9 +18,9 @@ algs = [
     "PEFT",
     # "SimHEFT",
 ]
-random.shuffle(algs)
-dot_file = "datasets/basic_graph.dot"
-dot_file = "datasets/Montage_25.xml"
+
+dot_file = "datasets/Montage_25.dot"
+dot_file = "datasets/Montage_1000.dot"
 full_name_regions = get_aws_regions_full()
 full_name_regions = [full_name_regions[0]]
 print("Generating solutions for " + str(full_name_regions))
