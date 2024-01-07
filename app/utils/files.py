@@ -25,7 +25,7 @@ def get_dot(dot_path):
     number_of_tasks = -1
     if "https" in dot_path:
         urllib.request.urlretrieve(dot_path, "tmp")
-    
+
     graph = pydotplus.graphviz.graph_from_dot_file(dot_path)
     nodes = graph.get_nodes()
     number_of_tasks = len(nodes)
