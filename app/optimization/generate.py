@@ -5,6 +5,7 @@ from optimization.problem import remove_dominated
 from utils.files import generate_simgrid_xml, save_xml
 import subprocess
 import tempfile
+import json
 
 def generate_solutions(dot_path, full_name_regions, seed=None, verbose=False):
     number_of_tasks = get_dot(dot_path)
@@ -28,15 +29,12 @@ def get_pysim_data(solution, problem, alg="HEFT"):
   save_xml(xml_data, tf.name)
   p = subprocess.Popen("pysim --conf "+tf.name+' -p '+ problem+' -a '+alg, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
   retval = p.wait()
-  total_time = None
   if retval==0:
-      returned_str = p.stdout.readlines()[0].decode("utf-8").rstrip().split(' ')
-      returned = [float(s) for s in returned_str]
-      total_time = returned[-1]
+      returned_str = p.stdout.readlines()[0].decode("utf-8").rstrip()
+      return json.loads(returned_str)
   else:
       print(xml_data)
       print(p.stdout.readlines())
 
-  return total_time
       
 
