@@ -57,7 +57,7 @@ class AWSProblem(ElementwiseProblem):
                         "host",
                         id="host" + str(id),
                         core=machine[1]["vcpu"],
-                        speed=str(machine[1]["flop"]) + "f",
+                        speed=machine[1]["flop"],
                     )
                     doc.stag(
                         "link",
@@ -75,11 +75,13 @@ class AWSProblem(ElementwiseProblem):
         result = indent(doc.getvalue(), indentation=" " * 4, newline="\r\n")
         return result, machines
 
-    def update_decision_variables(self, sol):
+    def update_decision_variables(self, sol, makespan):
         self.aws_to_x(sol)
-        total, power, _ = self.calculate_fitness(sol.X)
-        sol.F[0] = total
-        sol.F[1] = power
+        total, _, _ = self.calculate_fitness(sol.X)
+        # seconds to hours
+        makespan = makespan / (60 * 60)
+        sol.F[0] = total * makespan
+        sol.F[1] = makespan
 
 
 def dominates(s1s, s2s):

@@ -111,7 +111,7 @@ def get_instances(session, region_name, dc_region):
             )
             dcc["regionCode"] = price["product"]["attributes"]["regionCode"]
             dcc["ecu"] = ecu
-            dcc["flop"] = ecu * 4.4
+            dcc["flop"] = str(int(ecu * 4.4)) + "e9flops"
             dcc["networkPerformance"] = prepare_bandwitch(
                 price["product"]["attributes"]["networkPerformance"]
             )

@@ -20,7 +20,7 @@ def generate_solutions(config, full_name_regions):
 
 
 def select_one_solution(population):
-    qtd_obj = 3
+    qtd_obj = 2
     max_data = []
     min_data = []
     mean_data = []
@@ -79,11 +79,10 @@ def get_pysim_data(solution, algs, selections):
 
     selections[selected["alg"]] = 1 + selections.get(selected["alg"], 0)
 
-    total_time = float(selected["makespan"])
+    makespan = float(selected["makespan"])
     tasks = selected["tasks"]
     ids = [int(el.replace("host", "")) for el in tasks.keys()]
     solution.x_aws = [machines[id][0] for id in ids]
-    solution.F = np.append(solution.F, total_time)
     solution.x_aws_tasks = tasks
     solution.alg = selected["alg"]
-    problem.update_decision_variables(solution)
+    problem.update_decision_variables(solution, makespan)
