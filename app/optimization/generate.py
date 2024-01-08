@@ -9,11 +9,12 @@ import json
 import numpy as np
 
 
-def generate_solutions(problem_file_path, full_name_regions, seed=None, verbose=False):
-    number_of_tasks = get_dot(problem_file_path) / 2
-    dccv, regions = generate_aws_dict(full_name_regions)
-    problems = get_problems(number_of_tasks, regions, dccv, problem_file_path)
-    all_regions_pop = run_all(problems, seed, verbose)
+def generate_solutions(config, full_name_regions):
+    print(config)
+    number_of_tasks = int(get_dot(config.problem_file_path) / 2)
+    dccv, regions = generate_aws_dict(full_name_regions, config.eager_aws)
+    problems = get_problems(number_of_tasks, regions, dccv, config.problem_file_path)
+    all_regions_pop = run_all(problems, config)
     non_dominated_population = remove_dominated(all_regions_pop)
     return non_dominated_population
 
@@ -40,20 +41,20 @@ def select_one_solution(population):
             s.valid = True
             if s.F[i] > mean_data[i]:
                 s.valid = False
+        s.fitness = float(s.fitness)
 
     filtered = list(filter(lambda s: s.valid, population))
     print(len(filtered))
-    return min(filtered, key=lambda s: s.fitness)
+    return min(filtered, key=lambda s: s.fitness), filtered
 
 
-def get_pysim_data(solution, algs=["HEFT", "DLS"]):
+def get_pysim_data(solution, algs, selections):
     problem = solution.problem
     tf = tempfile.NamedTemporaryFile()
     xml_data, machines = problem.generate_simgrid_xml(solution)
     save_xml(xml_data, tf.name)
     data_arr = []
     for alg in algs:
-        print(alg, machines.keys())
         p = subprocess.Popen(
             "pysim --conf "
             + tf.name
@@ -75,12 +76,14 @@ def get_pysim_data(solution, algs=["HEFT", "DLS"]):
             print(xml_data)
             print(p.stdout.readlines())
     selected = min(data_arr, key=lambda x: x["makespan"])
-    print("Selected ", selected["alg"], selected["makespan"])
 
-    total_time = selected["makespan"]
+    selections[selected["alg"]] = 1 + selections.get(selected["alg"], 0)
+
+    total_time = float(selected["makespan"])
     tasks = selected["tasks"]
     ids = [int(el.replace("host", "")) for el in tasks.keys()]
     solution.x_aws = [machines[id][0] for id in ids]
     solution.F = np.append(solution.F, total_time)
     solution.x_aws_tasks = tasks
+    solution.alg = selected["alg"]
     problem.update_decision_variables(solution)

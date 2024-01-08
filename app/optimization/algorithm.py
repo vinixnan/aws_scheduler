@@ -1,4 +1,6 @@
 from pymoo.algorithms.moo.nsga2 import NSGA2
+from pymoo.algorithms.moo.age import AGEMOEA
+from pymoo.algorithms.moo.sms import SMSEMOA
 from pymoo.optimize import minimize
 from pymoo.operators.crossover.pntx import TwoPointCrossover
 from pymoo.operators.mutation.bitflip import BitflipMutation
@@ -6,24 +8,44 @@ from pymoo.operators.sampling.rnd import IntegerRandomSampling
 
 
 class Algorithm:
-    def __init__(self, problem, region, seed=None, verbose=False):
+    def __init__(
+        self, algorithm_name, n_gen, pop_size, problem, region, seed=None, verbose=False
+    ):
         self.problem = problem
-        self.pop_size = 100
+        self.pop_size = pop_size
         self.eliminate_duplicates = True
         self.algorithm = None
-        self.n_gen = 500
+        self.algorithm_name = algorithm_name.upper()
+        self.n_gen = n_gen
         self.seed = seed
         self.verbose = verbose
         self.region = region
 
     def create_algorithm(self):
-        self.algorithm = NSGA2(
-            pop_size=self.pop_size,
-            sampling=IntegerRandomSampling(),
-            crossover=TwoPointCrossover(),
-            mutation=BitflipMutation(),
-            eliminate_duplicates=self.eliminate_duplicates,
-        )
+        if "NSGA" in self.algorithm_name:
+            self.algorithm = NSGA2(
+                pop_size=self.pop_size,
+                sampling=IntegerRandomSampling(),
+                crossover=TwoPointCrossover(),
+                mutation=BitflipMutation(),
+                eliminate_duplicates=self.eliminate_duplicates,
+            )
+        elif self.algorithm_name == "AGEMOEA":
+            self.algorithm = AGEMOEA(
+                pop_size=self.pop_size,
+                sampling=IntegerRandomSampling(),
+                crossover=TwoPointCrossover(),
+                mutation=BitflipMutation(),
+                eliminate_duplicates=self.eliminate_duplicates,
+            )
+        elif self.algorithm_name == "SMSEMOA":
+            self.algorithm = SMSEMOA(
+                pop_size=self.pop_size,
+                sampling=IntegerRandomSampling(),
+                crossover=TwoPointCrossover(),
+                mutation=BitflipMutation(),
+                eliminate_duplicates=self.eliminate_duplicates,
+            )
 
     def run(self):
         self.create_algorithm()
@@ -41,10 +63,18 @@ class Algorithm:
         return res
 
 
-def run_all(problems, seed=None, verbose=False):
+def run_all(problems, config):
     all_regions_pop = []
     for problem in problems:
-        alg = Algorithm(problem, problem.region, seed, verbose)
+        alg = Algorithm(
+            config.algorithm_name,
+            config.n_gen,
+            config.pop_size,
+            problem,
+            problem.region,
+            config.seed,
+            config.verbose,
+        )
         res = alg.run()
         all_regions_pop.extend(res.pop)
     return all_regions_pop

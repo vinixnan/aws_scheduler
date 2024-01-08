@@ -1,6 +1,7 @@
 import boto3
 import json
 import os
+from utils.files import save_yaml, read_yaml
 
 
 def get_aws_regions(session):
@@ -126,31 +127,37 @@ def get_instances(session, region_name, dc_region):
             dc_region[dcc["regionCode"]] = dc_region_list
 
 
-def generate_aws_dict(regions):
-    session = boto3.Session(
-        aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
-        aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"],
-        region_name=os.environ["AWS_DEFAULT_REGION"],
-    )
-
-    if session:
-        print(
-            "acess data",
-            os.environ["AWS_ACCESS_KEY_ID"],
-            os.environ["AWS_SECRET_ACCESS_KEY"],
-            os.environ["AWS_DEFAULT_REGION"],
+def generate_aws_dict(regions, eager):
+    if eager or not os.path.isfile("aws_data.yml"):
+        session = boto3.Session(
+            aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
+            aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"],
+            region_name=os.environ["AWS_DEFAULT_REGION"],
         )
 
-    dccv = {}
-    for region in regions:
-        print(region)
-        get_instances(session, region, dccv)
+        if session:
+            print(
+                "acess data",
+                os.environ["AWS_ACCESS_KEY_ID"],
+                os.environ["AWS_SECRET_ACCESS_KEY"],
+                os.environ["AWS_DEFAULT_REGION"],
+            )
 
-    for region, val in dccv.items():
-        sorted_data = sorted(val.items(), key=lambda item: item[1]["pricePerUnit"])
-        for new_id, (_, item) in enumerate(sorted_data, start=1):
-            item["id"] = new_id
-        dccv[region] = dict(sorted_data)
+        dccv = {}
+        for region in regions:
+            print(region)
+            get_instances(session, region, dccv)
+
+        for region, val in dccv.items():
+            sorted_data = sorted(val.items(), key=lambda item: item[1]["pricePerUnit"])
+            for new_id, (_, item) in enumerate(sorted_data, start=1):
+                item["id"] = new_id
+            dccv[region] = dict(sorted_data)
+
+        save_yaml(dccv, "aws_data.yml")
+
+    else:
+        dccv = read_yaml("aws_data.yml")
 
     regions = list(dccv.keys())
 

@@ -16,9 +16,28 @@ def save_yaml(dc, filename):
         outfile.write(json_object)
 
 
+def read_yaml(filename):
+    with open(filename, "r") as stream:
+        try:
+            return yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(exc)
+
+
 def save_xml(xml_data, filename):
     with open(filename, "w") as outfile:
         outfile.write(xml_data)
+
+
+def format_solution(s):
+    dc = {}
+    dc["X"] = s.x_aws
+    dc["F"] = [float(f) for f in s.F]
+    dc["region"] = s.region
+    dc["x_aws_tasks"] = s.x_aws_tasks
+    dc["valid"] = s.valid
+    dc["fitness"] = s.fitness
+    return dc
 
 
 def get_dot(dot_path):

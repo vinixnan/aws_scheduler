@@ -78,8 +78,8 @@ class AWSProblem(ElementwiseProblem):
     def update_decision_variables(self, sol):
         self.aws_to_x(sol)
         total, power, _ = self.calculate_fitness(sol.X)
-        sol.X[0] = total
-        sol.X[1] = power
+        sol.F[0] = total
+        sol.F[1] = power
 
 
 def dominates(s1s, s2s):
