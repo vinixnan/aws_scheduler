@@ -86,3 +86,4 @@ def get_pysim_data(solution, algs, selections):
     solution.x_aws_tasks = tasks
     solution.alg = selected["alg"]
     problem.update_decision_variables(solution, makespan)
+    return makespan
