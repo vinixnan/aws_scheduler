@@ -1,0 +1,3226 @@
+seed: null
+algorithm_name: NSGA2
+heuristic_name: DLS
+n_gen: 500
+pop_size: 100
+problem_name: CyberShake_100
+problem_file_path: datasets/CyberShake_100.dot
+verbose: false
+eager_aws: false
+execution_id: '0'
+population:
+-   X:
+    - m5.xlarge
+    - c5.xlarge
+    - c5.xlarge
+    - m5.xlarge
+    - m5.xlarge
+    - m5.xlarge
+    - c5.xlarge
+    F:
+    - 0.014490728339484435
+    - 0.04002963629691833
+    region: us-east-1
+    x_aws_tasks:
+        host0:
+        -   target_host: host0
+            name: root
+            start_time: 0.0
+            finish_time: 0.0
+            kind: 2
+        -   target_host: host0
+            name: ID00002
+            start_time: 81.33254454759035
+            finish_time: 91.21694454759034
+            kind: 2
+        -   target_host: host0
+            name: ID00025
+            start_time: 109.75090756907628
+            finish_time: 111.24250756907628
+            kind: 2
+        -   target_host: host0
+            name: ID00047
+            start_time: 91.21694454759034
+            finish_time: 96.66194454759034
+            kind: 2
+        -   target_host: host0
+            name: ID00048
+            start_time: 97.73110756907627
+            finish_time: 101.57110756907628
+            kind: 2
+        -   target_host: host0
+            name: ID00050
+            start_time: 101.57110756907628
+            finish_time: 105.03070756907627
+            kind: 2
+        -   target_host: host0
+            name: ID00052
+            start_time: 105.03070756907627
+            finish_time: 107.63050756907627
+            kind: 2
+        -   target_host: host0
+            name: ID00080
+            start_time: 107.63050756907627
+            finish_time: 109.75090756907628
+            kind: 2
+        -   target_host: host0
+            name: ID00092
+            start_time: 111.24250756907628
+            finish_time: 112.55770756907629
+            kind: 2
+        host3:
+        -   target_host: host3
+            name: ID00000
+            start_time: 144.0730825083182
+            finish_time: 144.1064915992273
+            kind: 2
+        -   target_host: host3
+            name: ID00007
+            start_time: 131.56380267272124
+            finish_time: 133.4685981272667
+            kind: 2
+        -   target_host: host3
+            name: ID00011
+            start_time: 141.77457539999398
+            finish_time: 142.91430267272125
+            kind: 2
+        -   target_host: host3
+            name: ID00019
+            start_time: 140.34991630908488
+            finish_time: 141.77457539999398
+            kind: 2
+        -   target_host: host3
+            name: ID00027
+            start_time: 128.63430267272125
+            finish_time: 131.56380267272124
+            kind: 2
+        -   target_host: host3
+            name: ID00041
+            start_time: 142.91430267272125
+            finish_time: 143.95093903635762
+            kind: 2
+        -   target_host: host3
+            name: ID00042
+            start_time: 143.9511823791287
+            finish_time: 144.01895510640145
+            kind: 2
+        -   target_host: host3
+            name: ID00056
+            start_time: 138.6393708545394
+            finish_time: 140.34991630908488
+            kind: 2
+        -   target_host: host3
+            name: ID00072
+            start_time: 133.4685981272667
+            finish_time: 136.47971176363032
+            kind: 2
+        -   target_host: host3
+            name: ID00093
+            start_time: 144.01895510640145
+            finish_time: 144.07288692458326
+            kind: 2
+        -   target_host: host3
+            name: ID00094
+            start_time: 136.47971176363032
+            finish_time: 138.6393708545394
+            kind: 2
+        -   target_host: host3
+            name: end
+            start_time: 144.106690668906
+            finish_time: 144.106690668906
+            kind: 2
+        host4:
+        -   target_host: host4
+            name: ID00001
+            start_time: 143.95373924330832
+            finish_time: 143.98428469785378
+            kind: 2
+        -   target_host: host4
+            name: ID00005
+            start_time: 126.45947041620747
+            finish_time: 129.27681132529838
+            kind: 2
+        -   target_host: host4
+            name: ID00017
+            start_time: 138.29201587075292
+            finish_time: 139.71619768893473
+            kind: 2
+        -   target_host: host4
+            name: ID00021
+            start_time: 129.27681132529838
+            finish_time: 131.4851522343893
+            kind: 2
+        -   target_host: host4
+            name: ID00023
+            start_time: 136.6053340525711
+            finish_time: 138.29201587075292
+            kind: 2
+        -   target_host: host4
+            name: ID00064
+            start_time: 140.78910677984382
+            finish_time: 141.85294768893473
+            kind: 2
+        -   target_host: host4
+            name: ID00065
+            start_time: 141.85319103170582
+            finish_time: 141.8904183044331
+            kind: 2
+        -   target_host: host4
+            name: ID00074
+            start_time: 139.71619768893473
+            finish_time: 140.78910677984382
+            kind: 2
+        -   target_host: host4
+            name: ID00078
+            start_time: 134.2919931434802
+            finish_time: 136.6053340525711
+            kind: 2
+        -   target_host: host4
+            name: ID00086
+            start_time: 131.4851522343893
+            finish_time: 134.2919931434802
+            kind: 2
+        host5:
+        -   target_host: host5
+            name: ID00003
+            start_time: 121.97888347433307
+            finish_time: 124.23908347433307
+            kind: 2
+        -   target_host: host5
+            name: ID00014
+            start_time: 137.02273425952177
+            finish_time: 137.08393425952178
+            kind: 2
+        -   target_host: host5
+            name: ID00016
+            start_time: 140.4423147229863
+            finish_time: 140.48191472298632
+            kind: 2
+        -   target_host: host5
+            name: ID00024
+            start_time: 139.67392203921955
+            finish_time: 139.72912203921956
+            kind: 2
+        -   target_host: host5
+            name: ID00029
+            start_time: 119.00828347433307
+            finish_time: 121.97888347433307
+            kind: 2
+        -   target_host: host5
+            name: ID00031
+            start_time: 129.69308347433306
+            finish_time: 131.67728347433305
+            kind: 2
+        -   target_host: host5
+            name: ID00033
+            start_time: 127.57868347433308
+            finish_time: 129.69308347433306
+            kind: 2
+        -   target_host: host5
+            name: ID00036
+            start_time: 139.61512203921956
+            finish_time: 139.67392203921955
+            kind: 2
+        -   target_host: host5
+            name: ID00040
+            start_time: 136.78933425952178
+            finish_time: 136.8751342595218
+            kind: 2
+        -   target_host: host5
+            name: ID00044
+            start_time: 140.48191472298632
+            finish_time: 140.5185147229863
+            kind: 2
+        -   target_host: host5
+            name: ID00051
+            start_time: 136.95433425952177
+            finish_time: 137.02273425952177
+            kind: 2
+        -   target_host: host5
+            name: ID00055
+            start_time: 136.8751342595218
+            finish_time: 136.95433425952177
+            kind: 2
+        -   target_host: host5
+            name: ID00057
+            start_time: 140.3529147229863
+            finish_time: 140.3991147229863
+            kind: 2
+        -   target_host: host5
+            name: ID00063
+            start_time: 136.70113425952178
+            finish_time: 136.78933425952178
+            kind: 2
+        -   target_host: host5
+            name: ID00066
+            start_time: 131.67728347433305
+            finish_time: 133.44368347433306
+            kind: 2
+        -   target_host: host5
+            name: ID00073
+            start_time: 140.5185147229863
+            finish_time: 140.55391472298632
+            kind: 2
+        -   target_host: host5
+            name: ID00077
+            start_time: 139.72912203921956
+            finish_time: 139.78012203921955
+            kind: 2
+        -   target_host: host5
+            name: ID00079
+            start_time: 136.6081342595218
+            finish_time: 136.70113425952178
+            kind: 2
+        -   target_host: host5
+            name: ID00081
+            start_time: 140.3991147229863
+            finish_time: 140.4423147229863
+            kind: 2
+        -   target_host: host5
+            name: ID00088
+            start_time: 124.23908347433307
+            finish_time: 127.57868347433308
+            kind: 2
+        host2:
+        -   target_host: host2
+            name: ID00004
+            start_time: 140.9538038574014
+            finish_time: 141.01680385740138
+            kind: 2
+        -   target_host: host2
+            name: ID00006
+            start_time: 143.24010108662264
+            finish_time: 143.27430108662264
+            kind: 2
+        -   target_host: host2
+            name: ID00008
+            start_time: 140.8836038574014
+            finish_time: 140.9538038574014
+            kind: 2
+        -   target_host: host2
+            name: ID00009
+            start_time: 113.89638526738237
+            finish_time: 116.10738526738237
+            kind: 2
+        -   target_host: host2
+            name: ID00012
+            start_time: 142.91730108662267
+            finish_time: 142.97430108662266
+            kind: 2
+        -   target_host: host2
+            name: ID00022
+            start_time: 143.02770108662267
+            finish_time: 143.07810108662267
+            kind: 2
+        -   target_host: host2
+            name: ID00026
+            start_time: 140.80020385740139
+            finish_time: 140.8836038574014
+            kind: 2
+        -   target_host: host2
+            name: ID00030
+            start_time: 143.12310108662265
+            finish_time: 143.16570108662265
+            kind: 2
+        -   target_host: host2
+            name: ID00034
+            start_time: 129.6960818882345
+            finish_time: 129.78488188823448
+            kind: 2
+        -   target_host: host2
+            name: ID00045
+            start_time: 110.84058526738237
+            finish_time: 113.89638526738237
+            kind: 2
+        -   target_host: host2
+            name: ID00049
+            start_time: 141.01680385740138
+            finish_time: 141.0768038574014
+            kind: 2
+        -   target_host: host2
+            name: ID00054
+            start_time: 118.97592819057621
+            finish_time: 122.00892819057621
+            kind: 2
+        -   target_host: host2
+            name: ID00058
+            start_time: 124.55892819057621
+            finish_time: 126.4663281905762
+            kind: 2
+        -   target_host: host2
+            name: ID00059
+            start_time: 128.0827281905762
+            finish_time: 128.1775281905762
+            kind: 2
+        -   target_host: host2
+            name: ID00069
+            start_time: 140.7138038574014
+            finish_time: 140.80020385740139
+            kind: 2
+        -   target_host: host2
+            name: ID00070
+            start_time: 126.4663281905762
+            finish_time: 128.0827281905762
+            kind: 2
+        -   target_host: host2
+            name: ID00085
+            start_time: 143.16570108662265
+            finish_time: 143.20470108662263
+            kind: 2
+        -   target_host: host2
+            name: ID00095
+            start_time: 143.07810108662267
+            finish_time: 143.12310108662265
+            kind: 2
+        -   target_host: host2
+            name: ID00096
+            start_time: 122.00892819057621
+            finish_time: 124.55892819057621
+            kind: 2
+        -   target_host: host2
+            name: ID00097
+            start_time: 142.97430108662266
+            finish_time: 143.02770108662267
+            kind: 2
+        -   target_host: host2
+            name: ID00099
+            start_time: 143.20470108662263
+            finish_time: 143.24010108662264
+            kind: 2
+        host1:
+        -   target_host: host1
+            name: ID00010
+            start_time: 127.8009317766748
+            finish_time: 127.8975317766748
+            kind: 2
+        -   target_host: host1
+            name: ID00013
+            start_time: 110.84058526738237
+            finish_time: 114.15858526738236
+            kind: 2
+        -   target_host: host1
+            name: ID00018
+            start_time: 142.17297381389537
+            finish_time: 142.20717381389537
+            kind: 2
+        -   target_host: host1
+            name: ID00020
+            start_time: 141.7775738138954
+            finish_time: 141.8405738138954
+            kind: 2
+        -   target_host: host1
+            name: ID00028
+            start_time: 134.3841933504309
+            finish_time: 134.4723933504309
+            kind: 2
+        -   target_host: host1
+            name: ID00032
+            start_time: 142.09437381389537
+            finish_time: 142.13637381389537
+            kind: 2
+        -   target_host: host1
+            name: ID00037
+            start_time: 114.15858526738236
+            finish_time: 116.36898526738236
+            kind: 2
+        -   target_host: host1
+            name: ID00038
+            start_time: 134.4723933504309
+            finish_time: 134.5569933504309
+            kind: 2
+        -   target_host: host1
+            name: ID00046
+            start_time: 142.00377381389538
+            finish_time: 142.05177381389538
+            kind: 2
+        -   target_host: host1
+            name: ID00053
+            start_time: 141.8405738138954
+            finish_time: 141.89757381389538
+            kind: 2
+        -   target_host: host1
+            name: ID00060
+            start_time: 121.9635317766748
+            finish_time: 124.3161317766748
+            kind: 2
+        -   target_host: host1
+            name: ID00061
+            start_time: 141.89757381389538
+            finish_time: 141.9527738138954
+            kind: 2
+        -   target_host: host1
+            name: ID00062
+            start_time: 124.3161317766748
+            finish_time: 126.1425317766748
+            kind: 2
+        -   target_host: host1
+            name: ID00067
+            start_time: 142.13637381389537
+            finish_time: 142.17297381389537
+            kind: 2
+        -   target_host: host1
+            name: ID00071
+            start_time: 134.6283933504309
+            finish_time: 134.6931933504309
+            kind: 2
+        -   target_host: host1
+            name: ID00075
+            start_time: 141.9527738138954
+            finish_time: 142.00377381389538
+            kind: 2
+        -   target_host: host1
+            name: ID00087
+            start_time: 134.2947933504309
+            finish_time: 134.3841933504309
+            kind: 2
+        -   target_host: host1
+            name: ID00089
+            start_time: 142.05177381389538
+            finish_time: 142.09437381389537
+            kind: 2
+        -   target_host: host1
+            name: ID00090
+            start_time: 126.1425317766748
+            finish_time: 127.8009317766748
+            kind: 2
+        -   target_host: host1
+            name: ID00091
+            start_time: 134.5569933504309
+            finish_time: 134.6283933504309
+            kind: 2
+        -   target_host: host1
+            name: ID00098
+            start_time: 118.9755317766748
+            finish_time: 121.9635317766748
+            kind: 2
+        host6:
+        -   target_host: host6
+            name: ID00015
+            start_time: 126.45610089804542
+            finish_time: 129.15555544349996
+            kind: 2
+        -   target_host: host6
+            name: ID00035
+            start_time: 138.16360089804542
+            finish_time: 139.61212362531813
+            kind: 2
+        -   target_host: host6
+            name: ID00039
+            start_time: 129.15555544349996
+            finish_time: 131.36962362531816
+            kind: 2
+        -   target_host: host6
+            name: ID00043
+            start_time: 136.4382599889545
+            finish_time: 138.16360089804542
+            kind: 2
+        -   target_host: host6
+            name: ID00068
+            start_time: 139.61212362531813
+            finish_time: 140.71080544349996
+            kind: 2
+        -   target_host: host6
+            name: ID00076
+            start_time: 134.3592599889545
+            finish_time: 136.4382599889545
+            kind: 2
+        -   target_host: host6
+            name: ID00082
+            start_time: 140.71080544349996
+            finish_time: 141.75078271622723
+            kind: 2
+        -   target_host: host6
+            name: ID00083
+            start_time: 141.75102605899832
+            finish_time: 141.82500333172558
+            kind: 2
+        -   target_host: host6
+            name: ID00084
+            start_time: 131.36962362531816
+            finish_time: 134.3592599889545
+            kind: 2
+    valid: true
+    fitness: 0.2328343851356376
+-   X: &id001
+    - c5.12xlarge
+    - c5.xlarge
+    - c5n.2xlarge
+    - c5.xlarge
+    - c5.xlarge
+    F:
+    - 0.07753895369714874
+    - 0.029348582020116858
+    region: us-east-2
+    x_aws_tasks: &id002
+        host0:
+        -   target_host: host0
+            name: root
+            start_time: 0.0
+            finish_time: 0.0
+            kind: 2
+        -   target_host: host0
+            name: ID00000
+            start_time: 105.64759948070025
+            finish_time: 105.6511544988381
+            kind: 2
+        -   target_host: host0
+            name: ID00001
+            start_time: 105.6511544988381
+            finish_time: 105.65440480113556
+            kind: 2
+        -   target_host: host0
+            name: ID00002
+            start_time: 81.33254454759036
+            finish_time: 82.1691926733461
+            kind: 2
+        -   target_host: host0
+            name: ID00003
+            start_time: 89.54238170455415
+            finish_time: 89.73369246634374
+            kind: 2
+        -   target_host: host0
+            name: ID00005
+            start_time: 85.5062680407089
+            finish_time: 85.80605764167626
+            kind: 2
+        -   target_host: host0
+            name: ID00009
+            start_time: 89.73369246634374
+            finish_time: 89.92083877831472
+            kind: 2
+        -   target_host: host0
+            name: ID00013
+            start_time: 86.6688097577585
+            finish_time: 86.94965619064845
+            kind: 2
+        -   target_host: host0
+            name: ID00015
+            start_time: 86.09888956428811
+            finish_time: 86.3861350298262
+            kind: 2
+        -   target_host: host0
+            name: ID00017
+            start_time: 91.46077106368354
+            finish_time: 91.61231640830265
+            kind: 2
+        -   target_host: host0
+            name: ID00019
+            start_time: 91.30917493309103
+            finish_time: 91.46077106368354
+            kind: 2
+        -   target_host: host0
+            name: ID00021
+            start_time: 88.4511434941551
+            finish_time: 88.68613019306683
+            kind: 2
+        -   target_host: host0
+            name: ID00023
+            start_time: 90.47354252680323
+            finish_time: 90.65302015679114
+            kind: 2
+        -   target_host: host0
+            name: ID00027
+            start_time: 84.89587142644046
+            finish_time: 85.2075957311563
+            kind: 2
+        -   target_host: host0
+            name: ID00029
+            start_time: 87.71794639621073
+            finish_time: 87.96938775050336
+            kind: 2
+        -   target_host: host0
+            name: ID00031
+            start_time: 90.83249778677906
+            finish_time: 91.00044700080566
+            kind: 2
+        -   target_host: host0
+            name: ID00035
+            start_time: 91.15503950382863
+            finish_time: 91.30917493309103
+            kind: 2
+        -   target_host: host0
+            name: ID00037
+            start_time: 89.92083877831472
+            finish_time: 90.1079343043123
+            kind: 2
+        -   target_host: host0
+            name: ID00039
+            start_time: 88.2155473635626
+            finish_time: 88.4511434941551
+            kind: 2
+        -   target_host: host0
+            name: ID00043
+            start_time: 90.1079343043123
+            finish_time: 90.29152559814543
+            kind: 2
+        -   target_host: host0
+            name: ID00045
+            start_time: 86.94965619064845
+            finish_time: 87.20830915316357
+            kind: 2
+        -   target_host: host0
+            name: ID00047
+            start_time: 82.40226342309236
+            finish_time: 82.86314613167761
+            kind: 2
+        -   target_host: host0
+            name: ID00048
+            start_time: 83.93230915316354
+            finish_time: 84.25733938290962
+            kind: 2
+        -   target_host: host0
+            name: ID00050
+            start_time: 85.80605764167626
+            finish_time: 86.09888956428811
+            kind: 2
+        -   target_host: host0
+            name: ID00052
+            start_time: 88.90735389318775
+            finish_time: 89.12740951592052
+            kind: 2
+        -   target_host: host0
+            name: ID00054
+            start_time: 87.20830915316357
+            finish_time: 87.46503224868957
+            kind: 2
+        -   target_host: host0
+            name: ID00056
+            start_time: 90.29152559814543
+            finish_time: 90.47354252680323
+            kind: 2
+        -   target_host: host0
+            name: ID00060
+            start_time: 89.34324990286127
+            finish_time: 89.54238170455415
+            kind: 2
+        -   target_host: host0
+            name: ID00062
+            start_time: 91.00044700080566
+            finish_time: 91.15503950382863
+            kind: 2
+        -   target_host: host0
+            name: ID00066
+            start_time: 91.61231640830265
+            finish_time: 91.76183031398584
+            kind: 2
+        -   target_host: host0
+            name: ID00070
+            start_time: 91.76183031398584
+            finish_time: 91.89864772631958
+            kind: 2
+        -   target_host: host0
+            name: ID00071
+            start_time: 91.89889106909067
+            finish_time: 91.90437595421763
+            kind: 2
+        -   target_host: host0
+            name: ID00072
+            start_time: 84.25733938290962
+            finish_time: 84.5777480890765
+            kind: 2
+        -   target_host: host0
+            name: ID00076
+            start_time: 88.68613019306683
+            finish_time: 88.90735389318775
+            kind: 2
+        -   target_host: host0
+            name: ID00078
+            start_time: 87.96938775050336
+            finish_time: 88.2155473635626
+            kind: 2
+        -   target_host: host0
+            name: ID00080
+            start_time: 90.65302015679114
+            finish_time: 90.83249778677906
+            kind: 2
+        -   target_host: host0
+            name: ID00084
+            start_time: 84.5777480890765
+            finish_time: 84.89587142644046
+            kind: 2
+        -   target_host: host0
+            name: ID00086
+            start_time: 85.2075957311563
+            finish_time: 85.5062680407089
+            kind: 2
+        -   target_host: host0
+            name: ID00088
+            start_time: 86.3861350298262
+            finish_time: 86.6688097577585
+            kind: 2
+        -   target_host: host0
+            name: ID00096
+            start_time: 89.12740951592052
+            finish_time: 89.34324990286127
+            kind: 2
+        -   target_host: host0
+            name: ID00098
+            start_time: 87.46503224868957
+            finish_time: 87.71794639621073
+            kind: 2
+        -   target_host: host0
+            name: end
+            start_time: 105.65489527242069
+            finish_time: 105.65489527242069
+            kind: 2
+        host2:
+        -   target_host: host2
+            name: ID00004
+            start_time: 103.37913222734473
+            finish_time: 103.42924586370836
+            kind: 2
+        -   target_host: host2
+            name: ID00008
+            start_time: 103.27938222734473
+            finish_time: 103.33522313643563
+            kind: 2
+        -   target_host: host2
+            name: ID00010
+            start_time: 103.42924586370836
+            finish_time: 103.50608677279926
+            kind: 2
+        -   target_host: host2
+            name: ID00018
+            start_time: 105.16818764999225
+            finish_time: 105.1953921954468
+            kind: 2
+        -   target_host: host2
+            name: ID00020
+            start_time: 105.11807401362861
+            finish_time: 105.16818764999225
+            kind: 2
+        -   target_host: host2
+            name: ID00022
+            start_time: 102.4031820678551
+            finish_time: 102.443272976946
+            kind: 2
+        -   target_host: host2
+            name: ID00024
+            start_time: 104.25231245063021
+            finish_time: 104.29622154153931
+            kind: 2
+        -   target_host: host2
+            name: ID00030
+            start_time: 87.97076803328363
+            finish_time: 88.00465439692
+            kind: 2
+        -   target_host: host2
+            name: ID00032
+            start_time: 104.33058517790295
+            finish_time: 104.36399426881204
+            kind: 2
+        -   target_host: host2
+            name: ID00034
+            start_time: 104.14492608699385
+            finish_time: 104.21556245063022
+            kind: 2
+        -   target_host: host2
+            name: ID00036
+            start_time: 105.07130128635589
+            finish_time: 105.11807401362861
+            kind: 2
+        -   target_host: host2
+            name: ID00038
+            start_time: 103.50608677279926
+            finish_time: 103.57338222734472
+            kind: 2
+        -   target_host: host2
+            name: ID00040
+            start_time: 102.33493206785509
+            finish_time: 102.4031820678551
+            kind: 2
+        -   target_host: host2
+            name: ID00041
+            start_time: 85.5448257500601
+            finish_time: 86.58146211369646
+            kind: 2
+        -   target_host: host2
+            name: ID00053
+            start_time: 102.48384115876419
+            finish_time: 102.5291820678551
+            kind: 2
+        -   target_host: host2
+            name: ID00057
+            start_time: 104.21556245063022
+            finish_time: 104.25231245063021
+            kind: 2
+        -   target_host: host2
+            name: ID00059
+            start_time: 104.92573310453771
+            finish_time: 105.0011421954468
+            kind: 2
+        -   target_host: host2
+            name: ID00061
+            start_time: 103.33522313643563
+            finish_time: 103.37913222734473
+            kind: 2
+        -   target_host: host2
+            name: ID00063
+            start_time: 105.0011421954468
+            finish_time: 105.07130128635589
+            kind: 2
+        -   target_host: host2
+            name: ID00077
+            start_time: 102.443272976946
+            finish_time: 102.48384115876419
+            kind: 2
+        -   target_host: host2
+            name: ID00079
+            start_time: 88.21692764634288
+            finish_time: 88.29090491907016
+            kind: 2
+        -   target_host: host2
+            name: ID00081
+            start_time: 104.29622154153931
+            finish_time: 104.33058517790295
+            kind: 2
+        -   target_host: host2
+            name: ID00082
+            start_time: 86.58146211369646
+            finish_time: 87.62143938642373
+            kind: 2
+        -   target_host: host2
+            name: ID00083
+            start_time: 87.62168272919482
+            finish_time: 87.69566000192209
+            kind: 2
+        -   target_host: host2
+            name: ID00095
+            start_time: 102.29913661330964
+            finish_time: 102.33493206785509
+            kind: 2
+        -   target_host: host2
+            name: ID00097
+            start_time: 102.5291820678551
+            finish_time: 102.57165934058237
+            kind: 2
+        -   target_host: host2
+            name: ID00099
+            start_time: 87.71932667899101
+            finish_time: 87.7474857699001
+            kind: 2
+        host1:
+        -   target_host: host1
+            name: ID00006
+            start_time: 85.8083496764298
+            finish_time: 85.8223496764298
+            kind: 2
+        -   target_host: host1
+            name: ID00007
+            start_time: 102.29636944085073
+            finish_time: 103.27661505488581
+            kind: 2
+        -   target_host: host1
+            name: ID00014
+            start_time: 86.95194822540199
+            finish_time: 86.97700085698094
+            kind: 2
+        -   target_host: host1
+            name: ID00028
+            start_time: 85.20988776590984
+            finish_time: 85.24599302906773
+            kind: 2
+        -   target_host: host1
+            name: ID00033
+            start_time: 103.27661505488581
+            finish_time: 104.14215891453493
+            kind: 2
+        -   target_host: host1
+            name: ID00042
+            start_time: 86.58563781686603
+            finish_time: 86.62051500984848
+            kind: 2
+        -   target_host: host1
+            name: ID00046
+            start_time: 87.2106011879171
+            finish_time: 87.23025031072413
+            kind: 2
+        -   target_host: host1
+            name: ID00049
+            start_time: 84.25963141766316
+            finish_time: 84.28419282117193
+            kind: 2
+        -   target_host: host1
+            name: ID00051
+            start_time: 86.10118159904165
+            finish_time: 86.12918159904166
+            kind: 2
+        -   target_host: host1
+            name: ID00058
+            start_time: 104.14215891453493
+            finish_time: 104.9229659320788
+            kind: 2
+        -   target_host: host1
+            name: ID00067
+            start_time: 105.63131453800777
+            finish_time: 105.64629699414812
+            kind: 2
+        -   target_host: host1
+            name: ID00073
+            start_time: 84.58004012383003
+            finish_time: 84.5945313519002
+            kind: 2
+        -   target_host: host1
+            name: ID00085
+            start_time: 84.898163461194
+            finish_time: 84.91412837347471
+            kind: 2
+        -   target_host: host1
+            name: ID00087
+            start_time: 85.50856007546244
+            finish_time: 85.54515656669051
+            kind: 2
+        -   target_host: host1
+            name: ID00089
+            start_time: 86.67110179251203
+            finish_time: 86.68854038900326
+            kind: 2
+        -   target_host: host1
+            name: ID00090
+            start_time: 104.9229659320788
+            finish_time: 105.60184312506125
+            kind: 2
+        -   target_host: host1
+            name: ID00091
+            start_time: 105.60208646783234
+            finish_time: 105.63131453800777
+            kind: 2
+        -   target_host: host1
+            name: ID00094
+            start_time: 101.1849659320788
+            finish_time: 102.29636944085073
+            kind: 2
+        host4:
+        -   target_host: host4
+            name: ID00011
+            start_time: 98.33011342316546
+            finish_time: 99.46984069589273
+            kind: 2
+        -   target_host: host4
+            name: ID00012
+            start_time: 99.47008403866381
+            finish_time: 99.51542494775472
+            kind: 2
+        -   target_host: host4
+            name: ID00068
+            start_time: 96.04874037398692
+            finish_time: 97.14742219216873
+            kind: 2
+        -   target_host: host4
+            name: ID00069
+            start_time: 97.14766553493982
+            finish_time: 97.21639280766709
+            kind: 2
+        -   target_host: host4
+            name: ID00074
+            start_time: 97.21639280766709
+            finish_time: 98.28930189857618
+            kind: 2
+        -   target_host: host4
+            name: ID00075
+            start_time: 98.28954524134727
+            finish_time: 98.33011342316546
+            kind: 2
+        host3:
+        -   target_host: host3
+            name: ID00016
+            start_time: 86.38822885762904
+            finish_time: 86.41972885762904
+            kind: 2
+        -   target_host: host3
+            name: ID00025
+            start_time: 98.2801207026518
+            finish_time: 99.4666207026518
+            kind: 2
+        -   target_host: host3
+            name: ID00026
+            start_time: 99.46686404542288
+            finish_time: 99.53320495451379
+            kind: 2
+        -   target_host: host3
+            name: ID00044
+            start_time: 98.25100706628817
+            finish_time: 98.2801207026518
+            kind: 2
+        -   target_host: host3
+            name: ID00055
+            start_time: 87.4671260764924
+            finish_time: 87.53012607649241
+            kind: 2
+        -   target_host: host3
+            name: ID00064
+            start_time: 97.14969554169889
+            finish_time: 98.2135364507898
+            kind: 2
+        -   target_host: host3
+            name: ID00065
+            start_time: 98.21377979356089
+            finish_time: 98.25100706628817
+            kind: 2
+        -   target_host: host3
+            name: ID00092
+            start_time: 96.04933856256416
+            finish_time: 97.09552038074598
+            kind: 2
+        -   target_host: host3
+            name: ID00093
+            start_time: 97.09576372351707
+            finish_time: 97.14969554169889
+            kind: 2
+    valid: true
+    fitness: 0.0728055456340484
+-   X:
+    - c5.xlarge
+    - c5.4xlarge
+    - c5.4xlarge
+    - c5.4xlarge
+    - c5n.2xlarge
+    - c5d.2xlarge
+    - c5d.large
+    - c5.xlarge
+    F:
+    - 0.061489737475216154
+    - 0.03489769436731904
+    region: us-east-2
+    x_aws_tasks:
+        host0:
+        -   target_host: host0
+            name: root
+            start_time: 0.0
+            finish_time: 0.0
+            kind: 2
+        -   target_host: host0
+            name: ID00002
+            start_time: 86.73351342309236
+            finish_time: 94.59610433218327
+            kind: 2
+        -   target_host: host0
+            name: ID00011
+            start_time: 98.05590833577946
+            finish_time: 99.19563560850673
+            kind: 2
+        -   target_host: host0
+            name: ID00014
+            start_time: 118.08413869128285
+            finish_time: 118.13282050946466
+            kind: 2
+        -   target_host: host0
+            name: ID00017
+            start_time: 118.13282050946466
+            finish_time: 119.55700232764649
+            kind: 2
+        -   target_host: host0
+            name: ID00019
+            start_time: 99.19563560850673
+            finish_time: 100.62029469941582
+            kind: 2
+        -   target_host: host0
+            name: ID00020
+            start_time: 100.62053804218691
+            finish_time: 100.67065167855054
+            kind: 2
+        -   target_host: host0
+            name: ID00025
+            start_time: 96.86940833577947
+            finish_time: 98.05590833577946
+            kind: 2
+        -   target_host: host0
+            name: ID00041
+            start_time: 95.8327719721431
+            finish_time: 96.86940833577947
+            kind: 2
+        -   target_host: host0
+            name: ID00047
+            start_time: 82.40226342309236
+            finish_time: 86.73351342309236
+            kind: 2
+        host2:
+        -   target_host: host2
+            name: ID00000
+            start_time: 125.6221130787587
+            finish_time: 125.63127195726338
+            kind: 2
+        -   target_host: host2
+            name: ID00005
+            start_time: 115.84681448326893
+            finish_time: 116.61916962345585
+            kind: 2
+        -   target_host: host2
+            name: ID00013
+            start_time: 117.35920700663341
+            finish_time: 118.08275840850257
+            kind: 2
+        -   target_host: host2
+            name: ID00015
+            start_time: 116.61916962345585
+            finish_time: 117.35920700663341
+            kind: 2
+        -   target_host: host2
+            name: ID00023
+            start_time: 119.17174906270819
+            finish_time: 119.63414158607267
+            kind: 2
+        -   target_host: host2
+            name: ID00024
+            start_time: 119.63438492884376
+            finish_time: 119.64642231202133
+            kind: 2
+        -   target_host: host2
+            name: ID00027
+            start_time: 115.04371167953062
+            finish_time: 115.84681448326893
+            kind: 2
+        -   target_host: host2
+            name: ID00032
+            start_time: 119.64642231202133
+            finish_time: 119.65558119052601
+            kind: 2
+        -   target_host: host2
+            name: ID00037
+            start_time: 118.6897303711194
+            finish_time: 119.17174906270819
+            kind: 2
+        -   target_host: host2
+            name: ID00039
+            start_time: 118.08275840850257
+            finish_time: 118.6897303711194
+            kind: 2
+        -   target_host: host2
+            name: ID00042
+            start_time: 111.34652818417945
+            finish_time: 111.36510762343178
+            kind: 2
+        -   target_host: host2
+            name: ID00048
+            start_time: 106.23379886009995
+            finish_time: 107.07118203767004
+            kind: 2
+        -   target_host: host2
+            name: ID00052
+            start_time: 110.01445306570743
+            finish_time: 110.58138764514668
+            kind: 2
+        -   target_host: host2
+            name: ID00062
+            start_time: 110.58138764514668
+            finish_time: 110.97966801897846
+            kind: 2
+        -   target_host: host2
+            name: ID00070
+            start_time: 110.97966801897846
+            finish_time: 111.33215400028686
+            kind: 2
+        -   target_host: host2
+            name: ID00071
+            start_time: 111.33239734305795
+            finish_time: 111.34652818417945
+            kind: 2
+        -   target_host: host2
+            name: ID00072
+            start_time: 107.07118203767004
+            finish_time: 107.89665867318406
+            kind: 2
+        -   target_host: host2
+            name: ID00076
+            start_time: 109.44450914047378
+            finish_time: 110.01445306570743
+            kind: 2
+        -   target_host: host2
+            name: ID00084
+            start_time: 107.89665867318406
+            finish_time: 108.7162474582308
+            kind: 2
+        -   target_host: host2
+            name: ID00088
+            start_time: 108.7162474582308
+            finish_time: 109.44450914047378
+            kind: 2
+        -   target_host: host2
+            name: end
+            start_time: 125.63169972234854
+            finish_time: 125.63169972234854
+            kind: 2
+        host3:
+        -   target_host: host3
+            name: ID00001
+            start_time: 125.61950929489615
+            finish_time: 125.62788312667185
+            kind: 2
+        -   target_host: host3
+            name: ID00006
+            start_time: 119.9250794898202
+            finish_time: 119.93253743374544
+            kind: 2
+        -   target_host: host3
+            name: ID00009
+            start_time: 124.6492098773587
+            finish_time: 125.13135941006898
+            kind: 2
+        -   target_host: host3
+            name: ID00012
+            start_time: 119.91264958327815
+            finish_time: 119.9250794898202
+            kind: 2
+        -   target_host: host3
+            name: ID00016
+            start_time: 119.93253743374544
+            finish_time: 119.94117294776413
+            kind: 2
+        -   target_host: host3
+            name: ID00018
+            start_time: 125.61205135097092
+            finish_time: 125.61950929489615
+            kind: 2
+        -   target_host: host3
+            name: ID00026
+            start_time: 119.87522902253049
+            finish_time: 119.89341593841834
+            kind: 2
+        -   target_host: host3
+            name: ID00028
+            start_time: 119.89341593841834
+            finish_time: 119.91264958327815
+            kind: 2
+        -   target_host: host3
+            name: ID00033
+            start_time: 125.13135941006898
+            finish_time: 125.59244352221852
+            kind: 2
+        -   target_host: host3
+            name: ID00034
+            start_time: 125.5926868649896
+            finish_time: 125.61205135097092
+            kind: 2
+        -   target_host: host3
+            name: ID00045
+            start_time: 123.982836045583
+            finish_time: 124.6492098773587
+            kind: 2
+        -   target_host: host3
+            name: ID00049
+            start_time: 107.07677101586344
+            finish_time: 107.08985512801297
+            kind: 2
+        -   target_host: host3
+            name: ID00066
+            start_time: 119.11257446480614
+            finish_time: 119.49777072648838
+            kind: 2
+        -   target_host: host3
+            name: ID00073
+            start_time: 107.90224765137746
+            finish_time: 107.90996727754569
+            kind: 2
+        -   target_host: host3
+            name: ID00086
+            start_time: 117.19496698817062
+            finish_time: 117.96444362368464
+            kind: 2
+        -   target_host: host3
+            name: ID00090
+            start_time: 119.49777072648838
+            finish_time: 119.85941558630147
+            kind: 2
+        -   target_host: host3
+            name: ID00091
+            start_time: 119.85965892907255
+            finish_time: 119.87522902253049
+            kind: 2
+        -   target_host: host3
+            name: ID00094
+            start_time: 117.96444362368464
+            finish_time: 118.556499698451
+            kind: 2
+        -   target_host: host3
+            name: ID00096
+            start_time: 118.556499698451
+            finish_time: 119.11257446480614
+            kind: 2
+        host7:
+        -   target_host: host7
+            name: ID00003
+            start_time: 124.62269324076523
+            finish_time: 125.11557174543813
+            kind: 2
+        -   target_host: host7
+            name: ID00029
+            start_time: 123.97489884824186
+            finish_time: 124.62269324076523
+            kind: 2
+        -   target_host: host7
+            name: ID00043
+            start_time: 125.11557174543813
+            finish_time: 125.58856239964373
+            kind: 2
+        -   target_host: host7
+            name: ID00044
+            start_time: 125.58880574241482
+            finish_time: 125.59678705082604
+            kind: 2
+        -   target_host: host7
+            name: ID00050
+            start_time: 117.18881900497351
+            finish_time: 117.94324891151557
+            kind: 2
+        -   target_host: host7
+            name: ID00058
+            start_time: 119.0904638647866
+            finish_time: 119.50640779002025
+            kind: 2
+        -   target_host: host7
+            name: ID00060
+            start_time: 118.57743582740342
+            finish_time: 119.0904638647866
+            kind: 2
+        -   target_host: host7
+            name: ID00065
+            start_time: 119.82668851596891
+            finish_time: 119.83689412344555
+            kind: 2
+        -   target_host: host7
+            name: ID00074
+            start_time: 119.50640779002025
+            finish_time: 119.80053863114175
+            kind: 2
+        -   target_host: host7
+            name: ID00075
+            start_time: 119.80078197391283
+            finish_time: 119.81190346923994
+            kind: 2
+        -   target_host: host7
+            name: ID00078
+            start_time: 117.94324891151557
+            finish_time: 118.57743582740342
+            kind: 2
+        -   target_host: host7
+            name: ID00093
+            start_time: 119.81190346923994
+            finish_time: 119.82668851596891
+            kind: 2
+        host1:
+        -   target_host: host1
+            name: ID00004
+            start_time: 125.17370347666882
+            finish_time: 125.19949295035303
+            kind: 2
+        -   target_host: host1
+            name: ID00010
+            start_time: 125.13415961701969
+            finish_time: 125.17370347666882
+            kind: 2
+        -   target_host: host1
+            name: ID00021
+            start_time: 105.01069525635438
+            finish_time: 106.14715139670525
+            kind: 2
+        -   target_host: host1
+            name: ID00036
+            start_time: 125.2341245293004
+            finish_time: 125.258194704739
+            kind: 2
+        -   target_host: host1
+            name: ID00038
+            start_time: 125.19949295035303
+            finish_time: 125.2341245293004
+            kind: 2
+        -   target_host: host1
+            name: ID00054
+            start_time: 101.69973035039658
+            finish_time: 102.941309297765
+            kind: 2
+        -   target_host: host1
+            name: ID00064
+            start_time: 103.809309297765
+            finish_time: 104.35678298197553
+            kind: 2
+        -   target_host: host1
+            name: ID00080
+            start_time: 102.941309297765
+            finish_time: 103.809309297765
+            kind: 2
+        host6:
+        -   target_host: host6
+            name: ID00007
+            start_time: 110.09605217516126
+            finish_time: 111.07629778919635
+            kind: 2
+        -   target_host: host6
+            name: ID00031
+            start_time: 111.07629778919635
+            finish_time: 111.88854340323144
+            kind: 2
+        -   target_host: host6
+            name: ID00056
+            start_time: 104.69846949968674
+            finish_time: 105.57875020144112
+            kind: 2
+        -   target_host: host6
+            name: ID00092
+            start_time: 105.57875020144112
+            finish_time: 106.1171361663534
+            kind: 2
+        -   target_host: host6
+            name: ID00098
+            start_time: 103.4753116049499
+            finish_time: 104.69846949968674
+            kind: 2
+        host4:
+        -   target_host: host4
+            name: ID00008
+            start_time: 124.906328018303
+            finish_time: 125.01800983648482
+            kind: 2
+        -   target_host: host4
+            name: ID00022
+            start_time: 125.01800983648482
+            finish_time: 125.09819165466664
+            kind: 2
+        -   target_host: host4
+            name: ID00030
+            start_time: 124.62569165466664
+            finish_time: 124.69346438193936
+            kind: 2
+        -   target_host: host4
+            name: ID00040
+            start_time: 124.769828018303
+            finish_time: 124.906328018303
+            kind: 2
+        -   target_host: host4
+            name: ID00046
+            start_time: 124.69346438193936
+            finish_time: 124.769828018303
+            kind: 2
+        -   target_host: host4
+            name: ID00051
+            start_time: 117.94743656712123
+            finish_time: 118.05625474893941
+            kind: 2
+        -   target_host: host4
+            name: ID00053
+            start_time: 119.26742424766499
+            finish_time: 119.35810606584681
+            kind: 2
+        -   target_host: host4
+            name: ID00055
+            start_time: 118.25480020348486
+            finish_time: 118.38080020348487
+            kind: 2
+        -   target_host: host4
+            name: ID00059
+            start_time: 119.51059544562591
+            finish_time: 119.66141362744409
+            kind: 2
+        -   target_host: host4
+            name: ID00061
+            start_time: 119.09465152039226
+            finish_time: 119.18246970221044
+            kind: 2
+        -   target_host: host4
+            name: ID00077
+            start_time: 118.63208005619688
+            finish_time: 118.71321641983324
+            kind: 2
+        -   target_host: host4
+            name: ID00079
+            start_time: 118.71321641983324
+            finish_time: 118.86117096528778
+            kind: 2
+        -   target_host: host4
+            name: ID00081
+            start_time: 119.35810606584681
+            finish_time: 119.42683333857408
+            kind: 2
+        -   target_host: host4
+            name: ID00085
+            start_time: 108.72040361166887
+            finish_time: 108.78244906621433
+            kind: 2
+        -   target_host: host4
+            name: ID00087
+            start_time: 118.05625474893941
+            finish_time: 118.19848202166668
+            kind: 2
+        -   target_host: host4
+            name: ID00089
+            start_time: 109.44866529391186
+            finish_time: 109.51643802118458
+            kind: 2
+        -   target_host: host4
+            name: ID00095
+            start_time: 118.56048914710597
+            finish_time: 118.63208005619688
+            kind: 2
+        -   target_host: host4
+            name: ID00097
+            start_time: 119.18246970221044
+            finish_time: 119.26742424766499
+            kind: 2
+        -   target_host: host4
+            name: ID00099
+            start_time: 118.19848202166668
+            finish_time: 118.25480020348486
+            kind: 2
+        host5:
+        -   target_host: host5
+            name: ID00035
+            start_time: 119.60103290241607
+            finish_time: 121.0495556296888
+            kind: 2
+        -   target_host: host5
+            name: ID00057
+            start_time: 105.58240517586677
+            finish_time: 105.61915517586677
+            kind: 2
+        -   target_host: host5
+            name: ID00063
+            start_time: 119.53087381150698
+            finish_time: 119.60103290241607
+            kind: 2
+        -   target_host: host5
+            name: ID00067
+            start_time: 119.50176017514335
+            finish_time: 119.53087381150698
+            kind: 2
+        -   target_host: host5
+            name: ID00068
+            start_time: 97.10705152952342
+            finish_time: 98.20573334770523
+            kind: 2
+        -   target_host: host5
+            name: ID00069
+            start_time: 105.61915517586677
+            finish_time: 105.68788244859404
+            kind: 2
+        -   target_host: host5
+            name: ID00082
+            start_time: 95.99285364129778
+            finish_time: 97.03283091402506
+            kind: 2
+        -   target_host: host5
+            name: ID00083
+            start_time: 97.03307425679614
+            finish_time: 97.10705152952342
+            kind: 2
+    valid: true
+    fitness: 0.16437202686979846
+-   X:
+    - c5.xlarge
+    - c5.xlarge
+    - r5.large
+    - c5.xlarge
+    - c5.xlarge
+    - c5.xlarge
+    - c5.large
+    F:
+    - 0.014965734065633975
+    - 0.03928014190455111
+    region: us-west-2
+    x_aws_tasks:
+        host0:
+        -   target_host: host0
+            name: root
+            start_time: 0.0
+            finish_time: 0.0
+            kind: 2
+        -   target_host: host0
+            name: ID00001
+            start_time: 140.96644113974966
+            finish_time: 140.99698659429512
+            kind: 2
+        -   target_host: host0
+            name: ID00002
+            start_time: 81.33254454759035
+            finish_time: 89.19513545668126
+            kind: 2
+        -   target_host: host0
+            name: ID00007
+            start_time: 103.07382120543991
+            finish_time: 104.97861665998536
+            kind: 2
+        -   target_host: host0
+            name: ID00012
+            start_time: 139.90157347289974
+            finish_time: 139.94691438199064
+            kind: 2
+        -   target_host: host0
+            name: ID00020
+            start_time: 138.76184620017247
+            finish_time: 138.81195983653612
+            kind: 2
+        -   target_host: host0
+            name: ID00030
+            start_time: 140.0247098365361
+            finish_time: 140.05859620017245
+            kind: 2
+        -   target_host: host0
+            name: ID00043
+            start_time: 104.97861665998536
+            finish_time: 106.70395756907627
+            kind: 2
+        -   target_host: host0
+            name: ID00044
+            start_time: 140.05859620017245
+            finish_time: 140.08770983653608
+            kind: 2
+        -   target_host: host0
+            name: ID00047
+            start_time: 89.19513545668126
+            finish_time: 93.52638545668125
+            kind: 2
+        -   target_host: host0
+            name: ID00048
+            start_time: 94.59554847816719
+            finish_time: 97.65009393271265
+            kind: 2
+        -   target_host: host0
+            name: ID00054
+            start_time: 100.66120756907628
+            finish_time: 103.07382120543991
+            kind: 2
+        -   target_host: host0
+            name: ID00062
+            start_time: 106.70395756907627
+            finish_time: 108.15677575089445
+            kind: 2
+        -   target_host: host0
+            name: ID00064
+            start_time: 109.47595756907627
+            finish_time: 110.53979847816719
+            kind: 2
+        -   target_host: host0
+            name: ID00065
+            start_time: 139.9874825638088
+            finish_time: 140.0247098365361
+            kind: 2
+        -   target_host: host0
+            name: ID00072
+            start_time: 97.65009393271265
+            finish_time: 100.66120756907628
+            kind: 2
+        -   target_host: host0
+            name: ID00077
+            start_time: 139.94691438199064
+            finish_time: 139.9874825638088
+            kind: 2
+        -   target_host: host0
+            name: ID00090
+            start_time: 108.15677575089445
+            finish_time: 109.47595756907627
+            kind: 2
+        host2:
+        -   target_host: host2
+            name: ID00000
+            start_time: 141.3749026957962
+            finish_time: 141.4083117867053
+            kind: 2
+        -   target_host: host2
+            name: ID00003
+            start_time: 133.85092151354374
+            finish_time: 135.6488078771801
+            kind: 2
+        -   target_host: host2
+            name: ID00011
+            start_time: 138.76014878627103
+            finish_time: 139.8998760589983
+            kind: 2
+        -   target_host: host2
+            name: ID00019
+            start_time: 137.33548969536193
+            finish_time: 138.76014878627103
+            kind: 2
+        -   target_host: host2
+            name: ID00027
+            start_time: 125.54804180713631
+            finish_time: 128.4775418071363
+            kind: 2
+        -   target_host: host2
+            name: ID00028
+            start_time: 128.4777851499074
+            finish_time: 128.5479442408165
+            kind: 2
+        -   target_host: host2
+            name: ID00078
+            start_time: 131.53758060445284
+            finish_time: 133.85092151354374
+            kind: 2
+        -   target_host: host2
+            name: ID00080
+            start_time: 135.6488078771801
+            finish_time: 137.33548969536193
+            kind: 2
+        -   target_host: host2
+            name: ID00084
+            start_time: 128.5479442408165
+            finish_time: 131.53758060445284
+            kind: 2
+        -   target_host: host2
+            name: ID00092
+            start_time: 139.8998760589983
+            finish_time: 140.94605787718012
+            kind: 2
+        -   target_host: host2
+            name: ID00093
+            start_time: 140.9463012199512
+            finish_time: 141.00023303813302
+            kind: 2
+        -   target_host: host2
+            name: end
+            start_time: 141.408510856384
+            finish_time: 141.408510856384
+            kind: 2
+        host6:
+        -   target_host: host6
+            name: ID00004
+            start_time: 139.9319968921549
+            finish_time: 140.03222416488217
+            kind: 2
+        -   target_host: host6
+            name: ID00010
+            start_time: 136.94433304884055
+            finish_time: 137.09801486702236
+            kind: 2
+        -   target_host: host6
+            name: ID00023
+            start_time: 117.1393868591815
+            finish_time: 120.51275049554513
+            kind: 2
+        -   target_host: host6
+            name: ID00025
+            start_time: 120.51275049554513
+            finish_time: 122.88575049554514
+            kind: 2
+        -   target_host: host6
+            name: ID00026
+            start_time: 139.79931507397308
+            finish_time: 139.9319968921549
+            kind: 2
+        -   target_host: host6
+            name: ID00029
+            start_time: 108.09411413190878
+            finish_time: 112.82006867736332
+            kind: 2
+        -   target_host: host6
+            name: ID00034
+            start_time: 137.2459694124769
+            finish_time: 137.38724213974965
+            kind: 2
+        -   target_host: host6
+            name: ID00057
+            start_time: 140.1171787103367
+            finish_time: 140.1906787103367
+            kind: 2
+        -   target_host: host6
+            name: ID00069
+            start_time: 139.66186052851853
+            finish_time: 139.79931507397308
+            kind: 2
+        -   target_host: host6
+            name: ID00079
+            start_time: 137.09801486702236
+            finish_time: 137.2459694124769
+            kind: 2
+        -   target_host: host6
+            name: ID00094
+            start_time: 112.82006867736332
+            finish_time: 117.1393868591815
+            kind: 2
+        -   target_host: host6
+            name: ID00097
+            start_time: 140.03222416488217
+            finish_time: 140.1171787103367
+            kind: 2
+        -   target_host: host6
+            name: ID00099
+            start_time: 140.1906787103367
+            finish_time: 140.24699689215487
+            kind: 2
+        host3:
+        -   target_host: host3
+            name: ID00005
+            start_time: 122.66074001408704
+            finish_time: 125.47808092317794
+            kind: 2
+        -   target_host: host3
+            name: ID00006
+            start_time: 128.31906032156783
+            finish_time: 128.34626486702237
+            kind: 2
+        -   target_host: host3
+            name: ID00014
+            start_time: 128.19115123065873
+            finish_time: 128.23983304884055
+            kind: 2
+        -   target_host: host3
+            name: ID00016
+            start_time: 128.28756032156784
+            finish_time: 128.31906032156783
+            kind: 2
+        -   target_host: host3
+            name: ID00035
+            start_time: 137.1118557761133
+            finish_time: 138.560378503386
+            kind: 2
+        -   target_host: host3
+            name: ID00041
+            start_time: 139.65906032156784
+            finish_time: 140.6956966852042
+            kind: 2
+        -   target_host: host3
+            name: ID00042
+            start_time: 140.6959400279753
+            finish_time: 140.76371275524804
+            kind: 2
+        -   target_host: host3
+            name: ID00049
+            start_time: 128.23983304884055
+            finish_time: 128.28756032156784
+            kind: 2
+        -   target_host: host3
+            name: ID00056
+            start_time: 135.40131032156782
+            finish_time: 137.1118557761133
+            kind: 2
+        -   target_host: host3
+            name: ID00060
+            start_time: 133.52992395793146
+            finish_time: 135.40131032156782
+            kind: 2
+        -   target_host: host3
+            name: ID00068
+            start_time: 138.560378503386
+            finish_time: 139.65906032156784
+            kind: 2
+        -   target_host: host3
+            name: ID00086
+            start_time: 128.34626486702237
+            finish_time: 131.15310577611328
+            kind: 2
+        -   target_host: host3
+            name: ID00098
+            start_time: 131.15310577611328
+            finish_time: 133.52992395793146
+            kind: 2
+        host5:
+        -   target_host: host5
+            name: ID00008
+            start_time: 141.09595800284276
+            finish_time: 141.15179891193367
+            kind: 2
+        -   target_host: host5
+            name: ID00009
+            start_time: 135.18278284188986
+            finish_time: 136.94153284188985
+            kind: 2
+        -   target_host: host5
+            name: ID00013
+            start_time: 125.54903284188987
+            finish_time: 128.18835102370804
+            kind: 2
+        -   target_host: host5
+            name: ID00031
+            start_time: 136.94153284188985
+            finish_time: 138.51987375098076
+            kind: 2
+        -   target_host: host5
+            name: ID00039
+            start_time: 128.18835102370804
+            finish_time: 130.40241920552623
+            kind: 2
+        -   target_host: host5
+            name: ID00046
+            start_time: 141.24104891193366
+            finish_time: 141.27923073011547
+            kind: 2
+        -   target_host: host5
+            name: ID00050
+            start_time: 130.40241920552623
+            finish_time: 133.15437375098077
+            kind: 2
+        -   target_host: host5
+            name: ID00053
+            start_time: 141.15179891193367
+            finish_time: 141.19713982102456
+            kind: 2
+        -   target_host: host5
+            name: ID00061
+            start_time: 141.19713982102456
+            finish_time: 141.24104891193366
+            kind: 2
+        -   target_host: host5
+            name: ID00066
+            start_time: 138.51987375098076
+            finish_time: 139.92496466007168
+            kind: 2
+        -   target_host: host5
+            name: ID00073
+            start_time: 141.34413982102456
+            finish_time: 141.37229891193365
+            kind: 2
+        -   target_host: host5
+            name: ID00082
+            start_time: 139.92496466007168
+            finish_time: 140.96494193279895
+            kind: 2
+        -   target_host: host5
+            name: ID00083
+            start_time: 140.96518527557004
+            finish_time: 141.0391625482973
+            kind: 2
+        -   target_host: host5
+            name: ID00085
+            start_time: 141.31311709375183
+            finish_time: 141.34413982102456
+            kind: 2
+        -   target_host: host5
+            name: ID00089
+            start_time: 141.27923073011547
+            finish_time: 141.31311709375183
+            kind: 2
+        -   target_host: host5
+            name: ID00091
+            start_time: 141.0391625482973
+            finish_time: 141.09595800284276
+            kind: 2
+        -   target_host: host5
+            name: ID00096
+            start_time: 133.15437375098077
+            finish_time: 135.18278284188986
+            kind: 2
+        host4:
+        -   target_host: host4
+            name: ID00015
+            start_time: 125.54824001408704
+            finish_time: 128.2476945595416
+            kind: 2
+        -   target_host: host4
+            name: ID00017
+            start_time: 138.46705819590522
+            finish_time: 139.89124001408703
+            kind: 2
+        -   target_host: host4
+            name: ID00018
+            start_time: 141.34501274135974
+            finish_time: 141.37221728681428
+            kind: 2
+        -   target_host: host4
+            name: ID00021
+            start_time: 128.2476945595416
+            finish_time: 130.4560354686325
+            kind: 2
+        -   target_host: host4
+            name: ID00022
+            start_time: 141.23714910499612
+            finish_time: 141.27724001408703
+            kind: 2
+        -   target_host: host4
+            name: ID00032
+            start_time: 141.31160365045065
+            finish_time: 141.34501274135974
+            kind: 2
+        -   target_host: host4
+            name: ID00036
+            start_time: 141.14980819590522
+            finish_time: 141.19658092317795
+            kind: 2
+        -   target_host: host4
+            name: ID00037
+            start_time: 135.1915354686325
+            finish_time: 136.94980819590523
+            kind: 2
+        -   target_host: host4
+            name: ID00040
+            start_time: 140.96414910499612
+            finish_time: 141.03239910499613
+            kind: 2
+        -   target_host: host4
+            name: ID00051
+            start_time: 141.09539910499612
+            finish_time: 141.14980819590522
+            kind: 2
+        -   target_host: host4
+            name: ID00055
+            start_time: 141.03239910499613
+            finish_time: 141.09539910499612
+            kind: 2
+        -   target_host: host4
+            name: ID00058
+            start_time: 136.94980819590523
+            finish_time: 138.46705819590522
+            kind: 2
+        -   target_host: host4
+            name: ID00074
+            start_time: 139.89124001408703
+            finish_time: 140.96414910499612
+            kind: 2
+        -   target_host: host4
+            name: ID00075
+            start_time: 141.19658092317795
+            finish_time: 141.23714910499612
+            kind: 2
+        -   target_host: host4
+            name: ID00076
+            start_time: 133.1125354686325
+            finish_time: 135.1915354686325
+            kind: 2
+        -   target_host: host4
+            name: ID00081
+            start_time: 141.27724001408703
+            finish_time: 141.31160365045065
+            kind: 2
+        -   target_host: host4
+            name: ID00088
+            start_time: 130.4560354686325
+            finish_time: 133.1125354686325
+            kind: 2
+        host1:
+        -   target_host: host1
+            name: ID00024
+            start_time: 139.14090385740136
+            finish_time: 139.22872203921955
+            kind: 2
+        -   target_host: host1
+            name: ID00033
+            start_time: 114.20415958645425
+            finish_time: 117.56797776827243
+            kind: 2
+        -   target_host: host1
+            name: ID00038
+            start_time: 138.90322203921954
+            finish_time: 139.03781294831046
+            kind: 2
+        -   target_host: host1
+            name: ID00045
+            start_time: 105.2066141319088
+            finish_time: 110.0681141319088
+            kind: 2
+        -   target_host: host1
+            name: ID00052
+            start_time: 110.0681141319088
+            finish_time: 114.20415958645425
+            kind: 2
+        -   target_host: host1
+            name: ID00059
+            start_time: 138.46985840285592
+            finish_time: 138.6206765846741
+            kind: 2
+        -   target_host: host1
+            name: ID00063
+            start_time: 138.76290385740137
+            finish_time: 138.90322203921954
+            kind: 2
+        -   target_host: host1
+            name: ID00067
+            start_time: 139.92776486702238
+            finish_time: 139.98599213974964
+            kind: 2
+        -   target_host: host1
+            name: ID00070
+            start_time: 117.56797776827243
+            finish_time: 120.13952322281789
+            kind: 2
+        -   target_host: host1
+            name: ID00071
+            start_time: 139.03781294831046
+            finish_time: 139.14090385740136
+            kind: 2
+        -   target_host: host1
+            name: ID00087
+            start_time: 138.6206765846741
+            finish_time: 138.76290385740137
+            kind: 2
+        -   target_host: host1
+            name: ID00095
+            start_time: 139.22872203921955
+            finish_time: 139.30031294831045
+            kind: 2
+    valid: true
+    fitness: 0.21961306977247227
+-   X:
+    - m5d.24xlarge
+    - c5.metal
+    - r5d.metal
+    - r5d.24xlarge
+    - x1.32xlarge
+    - m5.metal
+    - r5.24xlarge
+    - m5d.12xlarge
+    - c5.9xlarge
+    - m5.8xlarge
+    - r5.4xlarge
+    - m5.8xlarge
+    F:
+    - 1.9913393956221448
+    - 0.02722342915215925
+    region: af-south-1
+    x_aws_tasks:
+        host10:
+        -   target_host: host10
+            name: root
+            start_time: 0.0
+            finish_time: 0.0
+            kind: 2
+        -   target_host: host10
+            name: ID00002
+            start_time: 81.33254454759036
+            finish_time: 81.79941904151748
+            kind: 2
+        -   target_host: host10
+            name: ID00021
+            start_time: 85.01567745672406
+            finish_time: 85.14680701137993
+            kind: 2
+        -   target_host: host10
+            name: ID00037
+            start_time: 85.39070174822203
+            finish_time: 85.49510660652162
+            kind: 2
+        -   target_host: host10
+            name: ID00045
+            start_time: 84.59071794255402
+            finish_time: 84.73505397494269
+            kind: 2
+        -   target_host: host10
+            name: ID00047
+            start_time: 82.40226342309236
+            finish_time: 82.65944965791017
+            kind: 2
+        -   target_host: host10
+            name: ID00048
+            start_time: 83.72861267939611
+            finish_time: 83.90998919761473
+            kind: 2
+        -   target_host: host10
+            name: ID00054
+            start_time: 84.73505397494269
+            finish_time: 84.87831308425443
+            kind: 2
+        -   target_host: host10
+            name: ID00058
+            start_time: 85.49510660652162
+            finish_time: 85.58519972393053
+            kind: 2
+        -   target_host: host10
+            name: ID00070
+            start_time: 85.58519972393053
+            finish_time: 85.66154790206818
+            kind: 2
+        -   target_host: host10
+            name: ID00072
+            start_time: 83.90998919761473
+            finish_time: 84.08878676846494
+            kind: 2
+        -   target_host: host10
+            name: ID00076
+            start_time: 85.14680701137993
+            finish_time: 85.27025640409248
+            kind: 2
+        -   target_host: host10
+            name: ID00078
+            start_time: 84.87831308425443
+            finish_time: 85.01567745672406
+            kind: 2
+        -   target_host: host10
+            name: ID00082
+            start_time: 85.66154790206818
+            finish_time: 85.72330093850543
+            kind: 2
+        -   target_host: host10
+            name: ID00084
+            start_time: 84.08878676846494
+            finish_time: 84.26630903567143
+            kind: 2
+        -   target_host: host10
+            name: ID00086
+            start_time: 84.26630903567143
+            finish_time: 84.43297705186576
+            kind: 2
+        -   target_host: host10
+            name: ID00088
+            start_time: 84.43297705186576
+            finish_time: 84.59071794255402
+            kind: 2
+        -   target_host: host10
+            name: ID00096
+            start_time: 85.27025640409248
+            finish_time: 85.39070174822203
+            kind: 2
+        host16:
+        -   target_host: host16
+            name: ID00000
+            start_time: 98.00236405991278
+            finish_time: 98.00414587809459
+            kind: 2
+        -   target_host: host16
+            name: ID00004
+            start_time: 97.72804919756173
+            finish_time: 97.73072192483446
+            kind: 2
+        -   target_host: host16
+            name: ID00008
+            start_time: 97.73072192483446
+            finish_time: 97.73370010665263
+            kind: 2
+        -   target_host: host16
+            name: ID00010
+            start_time: 97.73604192483445
+            finish_time: 97.74014010665263
+            kind: 2
+        -   target_host: host16
+            name: ID00014
+            start_time: 93.02267501773781
+            finish_time: 93.02527138137417
+            kind: 2
+        -   target_host: host16
+            name: ID00016
+            start_time: 92.87047318287543
+            finish_time: 92.87215318287542
+            kind: 2
+        -   target_host: host16
+            name: ID00020
+            start_time: 97.91032522247338
+            finish_time: 97.9129979497461
+            kind: 2
+        -   target_host: host16
+            name: ID00022
+            start_time: 93.42732419204974
+            finish_time: 93.42946237386792
+            kind: 2
+        -   target_host: host16
+            name: ID00024
+            start_time: 97.83168691563313
+            finish_time: 97.83402873381495
+            kind: 2
+        -   target_host: host16
+            name: ID00026
+            start_time: 97.96803365516665
+            finish_time: 97.97157183698484
+            kind: 2
+        -   target_host: host16
+            name: ID00028
+            start_time: 92.3936383204901
+            finish_time: 92.39738013867192
+            kind: 2
+        -   target_host: host16
+            name: ID00030
+            start_time: 93.29600529296717
+            finish_time: 93.29781256569444
+            kind: 2
+        -   target_host: host16
+            name: ID00034
+            start_time: 97.82791964290585
+            finish_time: 97.83168691563313
+            kind: 2
+        -   target_host: host16
+            name: ID00036
+            start_time: 97.84770419069423
+            finish_time: 97.85019873614877
+            kind: 2
+        -   target_host: host16
+            name: ID00038
+            start_time: 97.74014010665263
+            finish_time: 97.74372919756172
+            kind: 2
+        -   target_host: host16
+            name: ID00040
+            start_time: 93.42368419204973
+            finish_time: 93.42732419204974
+            kind: 2
+        -   target_host: host16
+            name: ID00042
+            start_time: 97.9174739307233
+            finish_time: 97.92108847617784
+            kind: 2
+        -   target_host: host16
+            name: ID00046
+            start_time: 92.8739604556027
+            finish_time: 92.87599681923906
+            kind: 2
+        -   target_host: host16
+            name: ID00053
+            start_time: 93.66748235718735
+            finish_time: 93.66990053900554
+            kind: 2
+        -   target_host: host16
+            name: ID00055
+            start_time: 93.16124105610312
+            finish_time: 93.16460105610312
+            kind: 2
+        -   target_host: host16
+            name: ID00059
+            start_time: 97.85394055433059
+            finish_time: 97.8579623725124
+            kind: 2
+        -   target_host: host16
+            name: ID00061
+            start_time: 97.73370010665263
+            finish_time: 97.73604192483445
+            kind: 2
+        -   target_host: host16
+            name: ID00063
+            start_time: 97.85019873614877
+            finish_time: 97.85394055433059
+            kind: 2
+        -   target_host: host16
+            name: ID00069
+            start_time: 97.97772531092204
+            finish_time: 97.9813907654675
+            kind: 2
+        -   target_host: host16
+            name: ID00071
+            start_time: 97.92411756708694
+            finish_time: 97.92686665799603
+            kind: 2
+        -   target_host: host16
+            name: ID00073
+            start_time: 84.09280565679106
+            finish_time: 84.09430747497288
+            kind: 2
+        -   target_host: host16
+            name: ID00077
+            start_time: 93.5501345673625
+            finish_time: 93.55229820372614
+            kind: 2
+        -   target_host: host16
+            name: ID00079
+            start_time: 93.29781256569444
+            finish_time: 93.3017580202399
+            kind: 2
+        -   target_host: host16
+            name: ID00083
+            start_time: 97.9813907654675
+            finish_time: 97.98533622001295
+            kind: 2
+        -   target_host: host16
+            name: ID00085
+            start_time: 92.39738013867192
+            finish_time: 92.39903468412646
+            kind: 2
+        -   target_host: host16
+            name: ID00087
+            start_time: 92.39903468412646
+            finish_time: 92.40282741139919
+            kind: 2
+        -   target_host: host16
+            name: ID00089
+            start_time: 92.87215318287542
+            finish_time: 92.8739604556027
+            kind: 2
+        -   target_host: host16
+            name: ID00091
+            start_time: 97.92108847617784
+            finish_time: 97.92411756708694
+            kind: 2
+        -   target_host: host16
+            name: ID00093
+            start_time: 97.99929211254148
+            finish_time: 98.00216847617784
+            kind: 2
+        -   target_host: host16
+            name: ID00095
+            start_time: 93.54822547645341
+            finish_time: 93.5501345673625
+            kind: 2
+        -   target_host: host16
+            name: ID00097
+            start_time: 93.66990053900554
+            finish_time: 93.67216599355099
+            kind: 2
+        -   target_host: host16
+            name: ID00099
+            start_time: 93.1597392379213
+            finish_time: 93.16124105610312
+            kind: 2
+        -   target_host: host16
+            name: end
+            start_time: 98.0043449477733
+            finish_time: 98.0043449477733
+            kind: 2
+        host0:
+        -   target_host: host0
+            name: ID00001
+            start_time: 97.99787218837105
+            finish_time: 97.99963365626095
+            kind: 2
+        -   target_host: host0
+            name: ID00005
+            start_time: 92.39213911353939
+            finish_time: 92.55460700344764
+            kind: 2
+        -   target_host: host0
+            name: ID00009
+            start_time: 93.66598315023664
+            finish_time: 93.76740516858527
+            kind: 2
+        -   target_host: host0
+            name: ID00013
+            start_time: 92.86897397592472
+            finish_time: 93.0211758107871
+            kind: 2
+        -   target_host: host0
+            name: ID00015
+            start_time: 92.71330425115407
+            finish_time: 92.86897397592472
+            kind: 2
+        -   target_host: host0
+            name: ID00027
+            start_time: 92.22320333372288
+            finish_time: 92.39213911353939
+            kind: 2
+        -   target_host: host0
+            name: ID00029
+            start_time: 93.15824003097059
+            finish_time: 93.29450608601645
+            kind: 2
+        -   target_host: host0
+            name: ID00039
+            start_time: 93.29450608601645
+            finish_time: 93.42218498509902
+            kind: 2
+        -   target_host: host0
+            name: ID00049
+            start_time: 83.91176382649077
+            finish_time: 83.91451612006875
+            kind: 2
+        -   target_host: host0
+            name: ID00050
+            start_time: 92.55460700344764
+            finish_time: 92.71330425115407
+            kind: 2
+        -   target_host: host0
+            name: ID00052
+            start_time: 93.5467262695027
+            finish_time: 93.66598315023664
+            kind: 2
+        -   target_host: host0
+            name: ID00064
+            start_time: 93.94074461812656
+            finish_time: 94.00209324197976
+            kind: 2
+        -   target_host: host0
+            name: ID00065
+            start_time: 94.00233658475085
+            finish_time: 94.00448337374168
+            kind: 2
+        -   target_host: host0
+            name: ID00080
+            start_time: 93.76740516858527
+            finish_time: 93.86467122363115
+            kind: 2
+        -   target_host: host0
+            name: ID00090
+            start_time: 93.86467122363115
+            finish_time: 93.94074461812656
+            kind: 2
+        -   target_host: host0
+            name: ID00094
+            start_time: 93.42218498509902
+            finish_time: 93.5467262695027
+            kind: 2
+        -   target_host: host0
+            name: ID00098
+            start_time: 93.0211758107871
+            finish_time: 93.15824003097059
+            kind: 2
+        host2:
+        -   target_host: host2
+            name: ID00003
+            start_time: 97.61849190559077
+            finish_time: 97.72524899061102
+            kind: 2
+        -   target_host: host2
+            name: ID00017
+            start_time: 97.82511943595514
+            finish_time: 97.90968623757458
+            kind: 2
+        -   target_host: host2
+            name: ID00033
+            start_time: 97.72524899061102
+            finish_time: 97.82511943595514
+            kind: 2
+        -   target_host: host2
+            name: ID00068
+            start_time: 97.90968623757458
+            finish_time: 97.97492510397133
+            kind: 2
+        host1:
+        -   target_host: host1
+            name: ID00006
+            start_time: 92.55617262976598
+            finish_time: 92.5577322388865
+            kind: 2
+        -   target_host: host1
+            name: ID00007
+            start_time: 97.61858690477348
+            finish_time: 97.72778690477348
+            kind: 2
+        -   target_host: host1
+            name: ID00011
+            start_time: 97.90752501552267
+            finish_time: 97.97286442920344
+            kind: 2
+        -   target_host: host1
+            name: ID00012
+            start_time: 97.97310777197453
+            finish_time: 97.97570712050873
+            kind: 2
+        -   target_host: host1
+            name: ID00019
+            start_time: 97.82585074842169
+            finish_time: 97.90752501552267
+            kind: 2
+        -   target_host: host1
+            name: ID00051
+            start_time: 92.71486987747241
+            finish_time: 92.71798909571345
+            kind: 2
+        -   target_host: host1
+            name: ID00056
+            start_time: 97.72778690477348
+            finish_time: 97.82585074842169
+            kind: 2
+        host19:
+        -   target_host: host19
+            name: ID00018
+            start_time: 97.91248644452529
+            finish_time: 97.9140635196241
+            kind: 2
+        -   target_host: host19
+            name: ID00032
+            start_time: 97.84861453480008
+            finish_time: 97.85055129369336
+            kind: 2
+        -   target_host: host19
+            name: ID00044
+            start_time: 97.82674542783242
+            finish_time: 97.828433174868
+            kind: 2
+        -   target_host: host19
+            name: ID00057
+            start_time: 97.8286509553724
+            finish_time: 97.83078139015501
+            kind: 2
+        -   target_host: host19
+            name: ID00067
+            start_time: 97.9140635196241
+            finish_time: 97.91575126665967
+            kind: 2
+        -   target_host: host19
+            name: ID00081
+            start_time: 97.85055129369336
+            finish_time: 97.85254338855502
+            kind: 2
+        host20:
+        -   target_host: host20
+            name: ID00023
+            start_time: 97.61849190559077
+            finish_time: 97.71864575174462
+            kind: 2
+        -   target_host: host20
+            name: ID00060
+            start_time: 97.14938911538832
+            finish_time: 97.26051057287819
+            kind: 2
+        -   target_host: host20
+            name: ID00066
+            start_time: 97.71864575174462
+            finish_time: 97.80207895012518
+            kind: 2
+        -   target_host: host20
+            name: ID00074
+            start_time: 97.80207895012518
+            finish_time: 97.86578745214948
+            kind: 2
+        -   target_host: host20
+            name: ID00075
+            start_time: 97.86603079492056
+            finish_time: 97.86843970180315
+            kind: 2
+        host3:
+        -   target_host: host3
+            name: ID00025
+            start_time: 97.82394522088171
+            finish_time: 97.96523344821594
+            kind: 2
+        -   target_host: host3
+            name: ID00043
+            start_time: 97.61849190559077
+            finish_time: 97.82394522088171
+            kind: 2
+        host32:
+        -   target_host: host32
+            name: ID00031
+            start_time: 97.61849190559077
+            finish_time: 97.84581432784937
+            kind: 2
+        -   target_host: host32
+            name: ID00092
+            start_time: 97.84581432784937
+            finish_time: 97.99649190559077
+            kind: 2
+        host34:
+        -   target_host: host34
+            name: ID00035
+            start_time: 97.61849190559077
+            finish_time: 97.84490398374352
+            kind: 2
+        host11:
+        -   target_host: host11
+            name: ID00041
+            start_time: 97.61849190559077
+            finish_time: 97.9146737237726
+            kind: 2
+        host17:
+        -   target_host: host17
+            name: ID00062
+            start_time: 97.14938911538832
+            finish_time: 97.37647259673822
+            kind: 2
+    valid: true
+    fitness: 1.0
+-   X:
+    - m5d.24xlarge
+    - c5.metal
+    - r5d.metal
+    - r5.24xlarge
+    - c5d.9xlarge
+    - m5d.12xlarge
+    - m5.8xlarge
+    - m5d.24xlarge
+    - r5d.24xlarge
+    F:
+    - 1.281518415203001
+    - 0.027296549697601622
+    region: af-south-1
+    x_aws_tasks:
+        host10:
+        -   target_host: host10
+            name: root
+            start_time: 0.0
+            finish_time: 0.0
+            kind: 2
+        -   target_host: host10
+            name: ID00002
+            start_time: 81.33254454759035
+            finish_time: 81.79941904151747
+            kind: 2
+        -   target_host: host10
+            name: ID00009
+            start_time: 85.39070174822201
+            finish_time: 85.49513494660258
+            kind: 2
+        -   target_host: host10
+            name: ID00019
+            start_time: 85.59528879275642
+            finish_time: 85.67988393445683
+            kind: 2
+        -   target_host: host10
+            name: ID00021
+            start_time: 85.01567745672405
+            finish_time: 85.14680701137992
+            kind: 2
+        -   target_host: host10
+            name: ID00025
+            start_time: 85.67988393445683
+            finish_time: 85.75033737575237
+            kind: 2
+        -   target_host: host10
+            name: ID00045
+            start_time: 84.59071794255401
+            finish_time: 84.73505397494267
+            kind: 2
+        -   target_host: host10
+            name: ID00047
+            start_time: 82.40226342309235
+            finish_time: 82.65944965791016
+            kind: 2
+        -   target_host: host10
+            name: ID00048
+            start_time: 83.7286126793961
+            finish_time: 83.90998919761472
+            kind: 2
+        -   target_host: host10
+            name: ID00054
+            start_time: 84.73505397494267
+            finish_time: 84.87831308425442
+            kind: 2
+        -   target_host: host10
+            name: ID00072
+            start_time: 83.90998919761472
+            finish_time: 84.08878676846493
+            kind: 2
+        -   target_host: host10
+            name: ID00076
+            start_time: 85.14680701137992
+            finish_time: 85.27025640409246
+            kind: 2
+        -   target_host: host10
+            name: ID00078
+            start_time: 84.87831308425442
+            finish_time: 85.01567745672405
+            kind: 2
+        -   target_host: host10
+            name: ID00080
+            start_time: 85.49513494660258
+            finish_time: 85.59528879275642
+            kind: 2
+        -   target_host: host10
+            name: ID00084
+            start_time: 84.08878676846493
+            finish_time: 84.26630903567141
+            kind: 2
+        -   target_host: host10
+            name: ID00086
+            start_time: 84.26630903567141
+            finish_time: 84.43297705186575
+            kind: 2
+        -   target_host: host10
+            name: ID00088
+            start_time: 84.43297705186575
+            finish_time: 84.59071794255401
+            kind: 2
+        -   target_host: host10
+            name: ID00092
+            start_time: 85.75033737575237
+            finish_time: 85.81245883324225
+            kind: 2
+        -   target_host: host10
+            name: ID00093
+            start_time: 85.81270217601333
+            finish_time: 85.81590460516313
+            kind: 2
+        -   target_host: host10
+            name: ID00096
+            start_time: 85.27025640409246
+            finish_time: 85.39070174822201
+            kind: 2
+        host13:
+        -   target_host: host13
+            name: ID00000
+            start_time: 98.26559802350532
+            finish_time: 98.26737984168713
+            kind: 2
+        -   target_host: host13
+            name: ID00004
+            start_time: 97.93099600688328
+            finish_time: 97.933668734156
+            kind: 2
+        -   target_host: host13
+            name: ID00006
+            start_time: 92.67404045597605
+            finish_time: 92.67549136506696
+            kind: 2
+        -   target_host: host13
+            name: ID00008
+            start_time: 97.9280178250651
+            finish_time: 97.93099600688328
+            kind: 2
+        -   target_host: host13
+            name: ID00010
+            start_time: 97.933668734156
+            finish_time: 97.93776691597418
+            kind: 2
+        -   target_host: host13
+            name: ID00012
+            start_time: 98.14043260607356
+            finish_time: 98.14285078789175
+            kind: 2
+        -   target_host: host13
+            name: ID00014
+            start_time: 93.14060926331551
+            finish_time: 93.14320562695187
+            kind: 2
+        -   target_host: host13
+            name: ID00016
+            start_time: 92.98840742845313
+            finish_time: 92.99008742845312
+            kind: 2
+        -   target_host: host13
+            name: ID00018
+            start_time: 98.12966533334628
+            finish_time: 98.13111624243719
+            kind: 2
+        -   target_host: host13
+            name: ID00020
+            start_time: 98.12699260607356
+            finish_time: 98.12966533334628
+            kind: 2
+        -   target_host: host13
+            name: ID00022
+            start_time: 93.54525843762744
+            finish_time: 93.54739661944562
+            kind: 2
+        -   target_host: host13
+            name: ID00024
+            start_time: 97.94708327961054
+            finish_time: 97.94942509779236
+            kind: 2
+        -   target_host: host13
+            name: ID00026
+            start_time: 98.13689442425537
+            finish_time: 98.14043260607356
+            kind: 2
+        -   target_host: host13
+            name: ID00028
+            start_time: 92.5115725660678
+            finish_time: 92.51531438424962
+            kind: 2
+        -   target_host: host13
+            name: ID00030
+            start_time: 93.41393953854487
+            finish_time: 93.41574681127214
+            kind: 2
+        -   target_host: host13
+            name: ID00032
+            start_time: 97.94942509779236
+            finish_time: 97.95120691597417
+            kind: 2
+        -   target_host: host13
+            name: ID00034
+            start_time: 97.94331600688326
+            finish_time: 97.94708327961054
+            kind: 2
+        -   target_host: host13
+            name: ID00036
+            start_time: 98.12449806061902
+            finish_time: 98.12699260607356
+            kind: 2
+        -   target_host: host13
+            name: ID00038
+            start_time: 97.93776691597418
+            finish_time: 97.94135600688327
+            kind: 2
+        -   target_host: host13
+            name: ID00040
+            start_time: 93.54161843762743
+            finish_time: 93.54525843762744
+            kind: 2
+        -   target_host: host13
+            name: ID00042
+            start_time: 98.15046169698266
+            finish_time: 98.1540762424372
+            kind: 2
+        -   target_host: host13
+            name: ID00046
+            start_time: 92.9918947011804
+            finish_time: 92.99393106481676
+            kind: 2
+        -   target_host: host13
+            name: ID00053
+            start_time: 93.78541660276505
+            finish_time: 93.78783478458324
+            kind: 2
+        -   target_host: host13
+            name: ID00055
+            start_time: 93.27917530168082
+            finish_time: 93.28253530168082
+            kind: 2
+        -   target_host: host13
+            name: ID00057
+            start_time: 97.94135600688327
+            finish_time: 97.94331600688326
+            kind: 2
+        -   target_host: host13
+            name: ID00059
+            start_time: 98.1204762424372
+            finish_time: 98.12449806061902
+            kind: 2
+        -   target_host: host13
+            name: ID00063
+            start_time: 98.11673442425538
+            finish_time: 98.1204762424372
+            kind: 2
+        -   target_host: host13
+            name: ID00069
+            start_time: 98.14285078789175
+            finish_time: 98.1465162424372
+            kind: 2
+        -   target_host: host13
+            name: ID00071
+            start_time: 98.13414533334628
+            finish_time: 98.13689442425537
+            kind: 2
+        -   target_host: host13
+            name: ID00073
+            start_time: 84.09281643205726
+            finish_time: 84.09431825023908
+            kind: 2
+        -   target_host: host13
+            name: ID00077
+            start_time: 93.6680688129402
+            finish_time: 93.67023244930384
+            kind: 2
+        -   target_host: host13
+            name: ID00079
+            start_time: 93.41574681127214
+            finish_time: 93.4196922658176
+            kind: 2
+        -   target_host: host13
+            name: ID00083
+            start_time: 98.1465162424372
+            finish_time: 98.15046169698266
+            kind: 2
+        -   target_host: host13
+            name: ID00085
+            start_time: 92.51531438424962
+            finish_time: 92.51696892970416
+            kind: 2
+        -   target_host: host13
+            name: ID00087
+            start_time: 92.67549136506696
+            finish_time: 92.67928409233969
+            kind: 2
+        -   target_host: host13
+            name: ID00089
+            start_time: 92.99008742845312
+            finish_time: 92.9918947011804
+            kind: 2
+        -   target_host: host13
+            name: ID00091
+            start_time: 98.13111624243719
+            finish_time: 98.13414533334628
+            kind: 2
+        -   target_host: host13
+            name: ID00095
+            start_time: 93.66615972203111
+            finish_time: 93.6680688129402
+            kind: 2
+        -   target_host: host13
+            name: ID00097
+            start_time: 93.78783478458324
+            finish_time: 93.79010023912869
+            kind: 2
+        -   target_host: host13
+            name: ID00099
+            start_time: 93.277673483499
+            finish_time: 93.27917530168082
+            kind: 2
+        -   target_host: host13
+            name: end
+            start_time: 98.26757891136585
+            finish_time: 98.26757891136585
+            kind: 2
+        host0:
+        -   target_host: host0
+            name: ID00001
+            start_time: 98.26191773895134
+            finish_time: 98.26367920684125
+            kind: 2
+        -   target_host: host0
+            name: ID00003
+            start_time: 93.78391739581434
+            finish_time: 93.88759629489691
+            kind: 2
+        -   target_host: host0
+            name: ID00005
+            start_time: 92.51007335911709
+            finish_time: 92.67254124902534
+            kind: 2
+        -   target_host: host0
+            name: ID00013
+            start_time: 92.98690822150242
+            finish_time: 93.1391100563648
+            kind: 2
+        -   target_host: host0
+            name: ID00015
+            start_time: 92.83123849673177
+            finish_time: 92.98690822150242
+            kind: 2
+        -   target_host: host0
+            name: ID00027
+            start_time: 92.34113757930058
+            finish_time: 92.51007335911709
+            kind: 2
+        -   target_host: host0
+            name: ID00029
+            start_time: 93.27617427654829
+            finish_time: 93.41244033159415
+            kind: 2
+        -   target_host: host0
+            name: ID00033
+            start_time: 93.88759629489691
+            finish_time: 93.98458712058498
+            kind: 2
+        -   target_host: host0
+            name: ID00035
+            start_time: 93.98458712058498
+            finish_time: 94.06811923067671
+            kind: 2
+        -   target_host: host0
+            name: ID00039
+            start_time: 93.41244033159415
+            finish_time: 93.54011923067672
+            kind: 2
+        -   target_host: host0
+            name: ID00049
+            start_time: 83.91176717373794
+            finish_time: 83.91451946731593
+            kind: 2
+        -   target_host: host0
+            name: ID00050
+            start_time: 92.67254124902534
+            finish_time: 92.83123849673177
+            kind: 2
+        -   target_host: host0
+            name: ID00052
+            start_time: 93.6646605150804
+            finish_time: 93.78391739581434
+            kind: 2
+        -   target_host: host0
+            name: ID00070
+            start_time: 94.06811923067671
+            finish_time: 94.14226601966755
+            kind: 2
+        -   target_host: host0
+            name: ID00082
+            start_time: 94.14226601966755
+            finish_time: 94.20223849673177
+            kind: 2
+        -   target_host: host0
+            name: ID00094
+            start_time: 93.54011923067672
+            finish_time: 93.6646605150804
+            kind: 2
+        -   target_host: host0
+            name: ID00098
+            start_time: 93.1391100563648
+            finish_time: 93.27617427654829
+            kind: 2
+        host17:
+        -   target_host: host17
+            name: ID00007
+            start_time: 97.8121123549565
+            finish_time: 97.92521761811439
+            kind: 2
+        -   target_host: host17
+            name: ID00043
+            start_time: 97.92521761811439
+            finish_time: 98.02766701082695
+            kind: 2
+        -   target_host: host17
+            name: ID00051
+            start_time: 92.83285045893463
+            finish_time: 92.8360812281654
+            kind: 2
+        -   target_host: host17
+            name: ID00062
+            start_time: 98.02766701082695
+            finish_time: 98.11393421730467
+            kind: 2
+        -   target_host: host17
+            name: ID00064
+            start_time: 98.19736741568524
+            finish_time: 98.26053745617106
+            kind: 2
+        -   target_host: host17
+            name: ID00065
+            start_time: 98.26078079894215
+            finish_time: 98.26299132525794
+            kind: 2
+        -   target_host: host17
+            name: ID00066
+            start_time: 98.11393421730467
+            finish_time: 98.19736741568524
+            kind: 2
+        host11:
+        -   target_host: host11
+            name: ID00011
+            start_time: 96.67269847153307
+            finish_time: 96.83684904436448
+            kind: 2
+        -   target_host: host11
+            name: ID00023
+            start_time: 96.42977212128757
+            finish_time: 96.67269847153307
+            kind: 2
+        host2:
+        -   target_host: host2
+            name: ID00017
+            start_time: 96.63914695214007
+            finish_time: 96.80873829178825
+            kind: 2
+        -   target_host: host2
+            name: ID00037
+            start_time: 96.42977212128757
+            finish_time: 96.63914695214007
+            kind: 2
+        -   target_host: host2
+            name: ID00041
+            start_time: 96.80873829178825
+            finish_time: 96.93218078163939
+            kind: 2
+        host14:
+        -   target_host: host14
+            name: ID00031
+            start_time: 96.42977212128757
+            finish_time: 96.67647549606555
+            kind: 2
+        -   target_host: host14
+            name: ID00068
+            start_time: 96.67647549606555
+            finish_time: 96.84820551382754
+            kind: 2
+        host26:
+        -   target_host: host26
+            name: ID00044
+            start_time: 98.03036811430229
+            finish_time: 98.03209685924156
+            kind: 2
+        -   target_host: host26
+            name: ID00061
+            start_time: 97.60660100262585
+            finish_time: 97.60920829007524
+            kind: 2
+        -   target_host: host26
+            name: ID00067
+            start_time: 98.20006851916058
+            finish_time: 98.20179726409985
+            kind: 2
+        -   target_host: host26
+            name: ID00081
+            start_time: 98.03209685924156
+            finish_time: 98.03413734507153
+            kind: 2
+        host1:
+        -   target_host: host1
+            name: ID00056
+            start_time: 97.6038998991505
+            finish_time: 97.70547074935294
+            kind: 2
+        -   target_host: host1
+            name: ID00058
+            start_time: 97.70547074935294
+            finish_time: 97.79556386676185
+            kind: 2
+        -   target_host: host1
+            name: ID00060
+            start_time: 97.49277844166063
+            finish_time: 97.6038998991505
+            kind: 2
+        -   target_host: host1
+            name: ID00074
+            start_time: 97.87389585056752
+            finish_time: 97.93760435259182
+            kind: 2
+        -   target_host: host1
+            name: ID00075
+            start_time: 97.9378476953629
+            finish_time: 97.9402566022455
+            kind: 2
+        -   target_host: host1
+            name: ID00090
+            start_time: 97.79556386676185
+            finish_time: 97.87389585056752
+            kind: 2
+    valid: true
+    fitness: 0.6432642411869053
+selected:
+    X: *id001
+    F:
+    - 0.07753895369714874
+    - 0.029348582020116858
+    region: us-east-2
+    x_aws_tasks: *id002
+    valid: true
+    fitness: 0.0728055456340484
+selections:
+    DLS: 217
