@@ -5,11 +5,22 @@ from pymoo.optimize import minimize
 from pymoo.operators.crossover.pntx import TwoPointCrossover
 from pymoo.operators.mutation.bitflip import BitflipMutation
 from pymoo.operators.sampling.rnd import IntegerRandomSampling
+from interative.NSGA2 import INSGA2
+from interative.AGEMOEA import IAGEMOEA
+from interative.SMSEMOA import ISMSEMOA
 
 
 class Algorithm:
     def __init__(
-        self, algorithm_name, n_gen, pop_size, problem, region, seed=None, verbose=False
+        self,
+        algorithm_name,
+        n_gen,
+        pop_size,
+        problem,
+        region,
+        seed=None,
+        verbose=False,
+        interative=False,
     ):
         self.problem = problem
         self.pop_size = pop_size
@@ -20,6 +31,7 @@ class Algorithm:
         self.seed = seed
         self.verbose = verbose
         self.region = region
+        self.interative = interative
 
     def create_algorithm(self):
         if "NSGA" in self.algorithm_name:
@@ -47,8 +59,40 @@ class Algorithm:
                 eliminate_duplicates=self.eliminate_duplicates,
             )
 
-    def run(self):
-        self.create_algorithm()
+    def create_I_algorithm(self, heuristic_name):
+        if "NSGA" in self.algorithm_name:
+            self.algorithm = INSGA2(
+                heuristic_name,
+                pop_size=self.pop_size,
+                sampling=IntegerRandomSampling(),
+                crossover=TwoPointCrossover(),
+                mutation=BitflipMutation(),
+                eliminate_duplicates=self.eliminate_duplicates,
+            )
+        elif self.algorithm_name == "AGEMOEA":
+            self.algorithm = IAGEMOEA(
+                heuristic_name,
+                pop_size=self.pop_size,
+                sampling=IntegerRandomSampling(),
+                crossover=TwoPointCrossover(),
+                mutation=BitflipMutation(),
+                eliminate_duplicates=self.eliminate_duplicates,
+            )
+        elif self.algorithm_name == "SMSEMOA":
+            self.algorithm = ISMSEMOA(
+                heuristic_name,
+                pop_size=self.pop_size,
+                sampling=IntegerRandomSampling(),
+                crossover=TwoPointCrossover(),
+                mutation=BitflipMutation(),
+                eliminate_duplicates=self.eliminate_duplicates,
+            )
+
+    def run(self, heuristic_name=None):
+        if not self.interative:
+            self.create_algorithm()
+        else:
+            self.create_I_algorithm(heuristic_name)
         res = minimize(
             self.problem,
             self.algorithm,
@@ -74,7 +118,8 @@ def run_all(problems, config):
             problem.region,
             config.seed,
             config.verbose,
+            config.interative,
         )
-        res = alg.run()
+        res = alg.run(config.heuristic_name)
         all_regions_pop.extend(res.pop)
     return all_regions_pop

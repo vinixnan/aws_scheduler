@@ -1,7 +1,6 @@
 from aws.ec2 import get_aws_regions_full
 from optimization.generate import (
     generate_solutions,
-    get_pysim_data,
     select_one_solution,
 )
 from optimization.problem import remove_dominated
@@ -33,16 +32,6 @@ def run_exp(config):
     print("Generating solutions for " + str(full_name_regions))
     non_dominated_population = generate_solutions(config, full_name_regions)
     # non_dominated_population has as objective price per hour and power
-    print(len(non_dominated_population))
-    print("Running scheduler")
-    selections = {}
-    for sol in non_dominated_population:
-        get_pysim_data(sol, [config.heuristic_name], selections)
-
-    # not each solution in non_dominated_population have as objective the price and the makespan
-    print("Removing non-dominated from the new problem setup")
-    non_dominated_population = remove_dominated(non_dominated_population)
-
     s, filtered = select_one_solution(non_dominated_population)
 
     # print(format_solution(s))
@@ -50,7 +39,7 @@ def run_exp(config):
     to_save = dict(config._asdict())
     to_save["population"] = [format_solution(ss) for ss in filtered]
     to_save["selected"] = format_solution(s)
-    to_save["selections"] = selections
+    to_save["selections"] = {}
 
     file_output = (
         "output/"
@@ -94,7 +83,7 @@ def run(
     problem = "datasets/" + problem
     problem_name = problem.split("/")[1].replace(".dot", "")
     config = Config(
-        None, alg, heu, gen, pop, problem_name, problem, False, False, idexec, False
+        None, alg, heu, gen, pop, problem_name, problem, False, False, idexec, True
     )
     run_exp(config)
 

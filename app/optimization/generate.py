@@ -77,7 +77,8 @@ def get_pysim_data(solution, algs, selections):
             print(p.stdout.readlines())
     selected = min(data_arr, key=lambda x: x["makespan"])
 
-    selections[selected["alg"]] = 1 + selections.get(selected["alg"], 0)
+    if selections:
+        selections[selected["alg"]] = 1 + selections.get(selected["alg"], 0)
 
     makespan = float(selected["makespan"])
     tasks = selected["tasks"]
