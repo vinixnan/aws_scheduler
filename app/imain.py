@@ -3,7 +3,7 @@ from optimization.generate import (
     generate_solutions,
     select_one_solution,
 )
-from optimization.problem import remove_dominated
+
 from dotenv import load_dotenv
 import numpy as np
 from collections import namedtuple

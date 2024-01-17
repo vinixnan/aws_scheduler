@@ -1,9 +1,9 @@
 from aws.ec2 import get_aws_regions_full
 from optimization.generate import (
     generate_solutions,
-    get_pysim_data,
     select_one_solution,
 )
+from optimization.pysimgrid_bridge import get_pysim_data
 from optimization.problem import remove_dominated
 from dotenv import load_dotenv
 import numpy as np

@@ -5,9 +5,9 @@ from pymoo.optimize import minimize
 from pymoo.operators.crossover.pntx import TwoPointCrossover
 from pymoo.operators.mutation.bitflip import BitflipMutation
 from pymoo.operators.sampling.rnd import IntegerRandomSampling
-from interative.NSGA2 import INSGA2
-from interative.AGEMOEA import IAGEMOEA
-from interative.SMSEMOA import ISMSEMOA
+from optimization.interative.NSGA2 import INSGA2
+from optimization.interative.AGEMOEA import IAGEMOEA
+from optimization.interative.SMSEMOA import ISMSEMOA
 
 
 class Algorithm:
@@ -62,7 +62,8 @@ class Algorithm:
     def create_I_algorithm(self, heuristic_name):
         if "NSGA" in self.algorithm_name:
             self.algorithm = INSGA2(
-                heuristic_name,
+                problem=self.problem,
+                heuristic_name=heuristic_name,
                 pop_size=self.pop_size,
                 sampling=IntegerRandomSampling(),
                 crossover=TwoPointCrossover(),

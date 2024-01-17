@@ -1,5 +1,8 @@
 from pymoo.algorithms.moo.age import AGEMOEA
-from optimization.generate import get_pysim_data
+from pymoo.algorithms.moo.nsga2 import binary_tournament
+from optimization.pysimgrid_bridge import get_pysim_data
+from pymoo.operators.selection.tournament import TournamentSelection
+from pymoo.util.display.multi import MultiObjectiveOutput
 
 
 class IAGEMOEA(AGEMOEA):
@@ -8,21 +11,18 @@ class IAGEMOEA(AGEMOEA):
         heuristic_name,
         pop_size,
         sampling,
-        selection,
         crossover,
         mutation,
-        survival,
-        output,
+        eliminate_duplicates,
     ):
         self.heuristic_name = heuristic_name
         super().__init__(
             pop_size=pop_size,
             sampling=sampling,
-            selection=selection,
+            selection=TournamentSelection(func_comp=binary_tournament),
             crossover=crossover,
             mutation=mutation,
-            survival=survival,
-            output=output,
+            output=MultiObjectiveOutput(),
         )
 
     def _infill(self):

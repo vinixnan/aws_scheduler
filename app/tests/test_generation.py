@@ -1,4 +1,5 @@
-from optimization.generate import generate_solutions, get_pysim_data
+from optimization.generate import generate_solutions
+from optimization.pysimgrid_bridge import get_pysim_data
 import pytest
 from dotenv import load_dotenv
 from collections import namedtuple
