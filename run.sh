@@ -1,21 +1,24 @@
-#!/bin/bash 
+#!/bin/bash
+
+a=$1
 problems="CyberShake_100.dot Epigenomics_100.dot Inspiral_100.dot Montage_100.dot Sipht_100.dot CyberShake_1000.dot Epigenomics_24.dot Inspiral_1000.dot Montage_1000.dot Sipht_1000.dot CyberShake_30.dot Epigenomics_46.dot Inspiral_30.dot Montage_25.dot Sipht_30.dot CyberShake_50.dot Epigenomics_997.dot Inspiral_50.dot Montage_50.dot Sipht_60.dot" 
 
 problems="CyberShake_100.dot Epigenomics_100.dot Inspiral_100.dot Montage_100.dot Sipht_100.dot Epigenomics_24.dot CyberShake_30.dot Epigenomics_46.dot Inspiral_30.dot Montage_25.dot Sipht_30.dot CyberShake_50.dot Inspiral_50.dot Montage_50.dot Sipht_60.dot" 
 algs="AGEMOEA NSGA2 SMSEMOA"
-heur="DLS HCPT HEFT Lookahead PEFT"
+heur="DLS HCPT HEFT PEFT Lookahead"
+heur="HCPT HEFT PEFT Lookahead"
 pop=100
 gen=500
 idexec=1
-qtdExp=30
-qtdExp=1
+qtdExp=20
+ 
 
-problems="CyberShake_100.dot Epigenomics_100.dot"
+#problems="CyberShake_100.dot Epigenomics_100.dot"
 
-for a in $algs
+for h in $heur
 do
-    for h in $heur
-    do
+    #for a in $algs
+    #do
         for problem in $problems
         do
             idexec=0
@@ -25,5 +28,5 @@ do
                 let idexec=$idexec+1;
             done
         done
-    done
+    #done
 done

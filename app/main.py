@@ -8,7 +8,7 @@ from optimization.problem import remove_dominated
 from dotenv import load_dotenv
 import numpy as np
 from collections import namedtuple
-from utils.files import save_yaml, format_solution
+from utils.files import save_yaml, format_solution, save_json
 import click
 
 load_dotenv()
@@ -46,6 +46,7 @@ def run_exp(config):
     s, filtered = select_one_solution(non_dominated_population)
 
     # print(format_solution(s))
+    print(len(non_dominated_population))
 
     to_save = dict(config._asdict())
     to_save["population"] = [format_solution(ss) for ss in filtered]
@@ -61,9 +62,9 @@ def run_exp(config):
         + config.problem_name
         + "_"
         + config.heuristic_name
-        + ".yml"
     )
-    save_yaml(to_save, file_output)
+    save_yaml(to_save, file_output + ".yml")
+    save_json(to_save, file_output + ".json")
 
 
 @click.command()

@@ -1,0 +1,4637 @@
+{
+    "seed": null,
+    "algorithm_name": "AGEMOEA",
+    "heuristic_name": "HCPT",
+    "n_gen": 1000,
+    "pop_size": 100,
+    "problem_name": "Sipht_100",
+    "problem_file_path": "datasets/Sipht_100.dot",
+    "verbose": false,
+    "eager_aws": false,
+    "execution_id": "3",
+    "population": [
+        {
+            "X": [
+                "r3.large",
+                "c5.12xlarge",
+                "c5d.2xlarge",
+                "c5.9xlarge",
+                "c5.4xlarge",
+                "c5.12xlarge",
+                "c5.xlarge",
+                "c5.4xlarge",
+                "c5.xlarge",
+                "m5d.2xlarge",
+                "c5.4xlarge",
+                "c5.xlarge",
+                "c5.4xlarge",
+                "z1d.metal",
+                "c5.24xlarge",
+                "c5.24xlarge",
+                "c5.24xlarge",
+                "c5.24xlarge",
+                "h1.16xlarge",
+                "m5d.2xlarge",
+                "m5d.2xlarge",
+                "c5n.2xlarge",
+                "c5.xlarge"
+            ],
+            "F": [
+                0.07261908342738008,
+                0.004002815755009375
+            ],
+            "region": "us-east-2",
+            "x_aws_tasks": {
+                "host0": [
+                    {
+                        "target_host": "host0",
+                        "name": "root",
+                        "start_time": 0.0,
+                        "finish_time": 0.0,
+                        "kind": 2
+                    }
+                ],
+                "host14": [
+                    {
+                        "target_host": "host14",
+                        "name": "ID00000",
+                        "start_time": 0.4287478523573787,
+                        "finish_time": 0.4290490131796278,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00006",
+                        "start_time": 0.4146885035944061,
+                        "finish_time": 0.4218335821917459,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00016",
+                        "start_time": 0.4054886245133904,
+                        "finish_time": 0.4146885035944061,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00049",
+                        "start_time": 0.34239523411261186,
+                        "finish_time": 0.34923915188770255,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00062",
+                        "start_time": 0.40494927747590553,
+                        "finish_time": 0.4054886245133904,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00064",
+                        "start_time": 0.34923915188770255,
+                        "finish_time": 0.3542141458417533,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00071",
+                        "start_time": 0.36937528248020557,
+                        "finish_time": 0.37733395237137846,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00076",
+                        "start_time": 0.36183407329036277,
+                        "finish_time": 0.36937528248020557,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00082",
+                        "start_time": 0.3542141458417533,
+                        "finish_time": 0.36183407329036277,
+                        "kind": 2
+                    }
+                ],
+                "host28": [
+                    {
+                        "target_host": "host28",
+                        "name": "ID00001",
+                        "start_time": 0.12159771311233418,
+                        "finish_time": 0.15296262539303593,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host28",
+                        "name": "ID00069",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.12159771311233418,
+                        "kind": 2
+                    }
+                ],
+                "host8": [
+                    {
+                        "target_host": "host8",
+                        "name": "ID00002",
+                        "start_time": 0.23973352687896957,
+                        "finish_time": 0.24872262671530346,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00013",
+                        "start_time": 0.2287942797431267,
+                        "finish_time": 0.23973352687896957,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00035",
+                        "start_time": 0.1833614155860072,
+                        "finish_time": 0.1915366365352707,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00038",
+                        "start_time": 0.17461565453854402,
+                        "finish_time": 0.1833614155860072,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00041",
+                        "start_time": 0.16578603097062258,
+                        "finish_time": 0.17461565453854402,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00045",
+                        "start_time": 0.1915366365352707,
+                        "finish_time": 0.20172868236178462,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00066",
+                        "start_time": 0.2185582404632576,
+                        "finish_time": 0.2287942797431267,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00075",
+                        "start_time": 0.2081654745058108,
+                        "finish_time": 0.2185582404632576,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00081",
+                        "start_time": 0.20172868236178462,
+                        "finish_time": 0.2081654745058108,
+                        "kind": 2
+                    }
+                ],
+                "host29": [
+                    {
+                        "target_host": "host29",
+                        "name": "ID00003",
+                        "start_time": 0.22425915486870843,
+                        "finish_time": 0.23918027636403552,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host29",
+                        "name": "ID00015",
+                        "start_time": 0.21063728570982992,
+                        "finish_time": 0.22425915486870843,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host29",
+                        "name": "ID00073",
+                        "start_time": 0.19383205206497012,
+                        "finish_time": 0.21063728570982992,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host29",
+                        "name": "ID00083",
+                        "start_time": 0.18406214552291403,
+                        "finish_time": 0.19383205206497012,
+                        "kind": 2
+                    }
+                ],
+                "host26": [
+                    {
+                        "target_host": "host26",
+                        "name": "ID00004",
+                        "start_time": 0.4172867735125753,
+                        "finish_time": 0.42506769249685583,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00012",
+                        "start_time": 0.408077245096614,
+                        "finish_time": 0.4172867735125753,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00017",
+                        "start_time": 0.4018056852417168,
+                        "finish_time": 0.408077245096614,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00048",
+                        "start_time": 0.36682329104582806,
+                        "finish_time": 0.37414307339165637,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00070",
+                        "start_time": 0.3942111507798063,
+                        "finish_time": 0.4018056852417168,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00074",
+                        "start_time": 0.3869523116020554,
+                        "finish_time": 0.3942111507798063,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00080",
+                        "start_time": 0.3803440407435306,
+                        "finish_time": 0.3869523116020554,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00085",
+                        "start_time": 0.37414307339165637,
+                        "finish_time": 0.3803440407435306,
+                        "kind": 2
+                    }
+                ],
+                "host17": [
+                    {
+                        "target_host": "host17",
+                        "name": "ID00005",
+                        "start_time": 0.0469912863807285,
+                        "finish_time": 0.0920887863807285,
+                        "kind": 2
+                    }
+                ],
+                "host18": [
+                    {
+                        "target_host": "host18",
+                        "name": "ID00007",
+                        "start_time": 0.17485690587115746,
+                        "finish_time": 0.19086531708611074,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00019",
+                        "start_time": 0.15666344792723222,
+                        "finish_time": 0.17485690587115746,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00063",
+                        "start_time": 0.1383718591421855,
+                        "finish_time": 0.15666344792723222,
+                        "kind": 2
+                    }
+                ],
+                "host16": [
+                    {
+                        "target_host": "host16",
+                        "name": "ID00008",
+                        "start_time": 0.0469912863807285,
+                        "finish_time": 0.09357310456254668,
+                        "kind": 2
+                    }
+                ],
+                "host27": [
+                    {
+                        "target_host": "host27",
+                        "name": "ID00009",
+                        "start_time": 0.1009222180419549,
+                        "finish_time": 0.12368777359751046,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host27",
+                        "name": "ID00079",
+                        "start_time": 0.07745147730121417,
+                        "finish_time": 0.1009222180419549,
+                        "kind": 2
+                    }
+                ],
+                "host12": [
+                    {
+                        "target_host": "host12",
+                        "name": "ID00010",
+                        "start_time": 0.14831521762127006,
+                        "finish_time": 0.16643147930351304,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00018",
+                        "start_time": 0.13657876902313923,
+                        "finish_time": 0.14831521762127006,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00039",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.10975503070538221,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00046",
+                        "start_time": 0.10975503070538221,
+                        "finish_time": 0.12651185313528876,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00077",
+                        "start_time": 0.12651185313528876,
+                        "finish_time": 0.13657876902313923,
+                        "kind": 2
+                    }
+                ],
+                "host15": [
+                    {
+                        "target_host": "host15",
+                        "name": "ID00011",
+                        "start_time": 0.03937623865060709,
+                        "finish_time": 0.08557146592333437,
+                        "kind": 2
+                    }
+                ],
+                "host22": [
+                    {
+                        "target_host": "host22",
+                        "name": "ID00014",
+                        "start_time": 0.16676699932910138,
+                        "finish_time": 0.18208718624498924,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host22",
+                        "name": "ID00072",
+                        "start_time": 0.15038045727302662,
+                        "finish_time": 0.16676699932910138,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host22",
+                        "name": "ID00084",
+                        "start_time": 0.1383718591421855,
+                        "finish_time": 0.15038045727302662,
+                        "kind": 2
+                    }
+                ],
+                "host6": [
+                    {
+                        "target_host": "host6",
+                        "name": "ID00020",
+                        "start_time": 0.45386520763896643,
+                        "finish_time": 6.98921671770608,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00029",
+                        "start_time": 11.198943461754086,
+                        "finish_time": 11.219016783901736,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00032",
+                        "start_time": 0.25064972106178524,
+                        "finish_time": 0.2563637646859463,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00043",
+                        "start_time": 0.2563637646859463,
+                        "finish_time": 0.260752623746349,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00088",
+                        "start_time": 0.260752623746349,
+                        "finish_time": 0.45386520763896643,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00090",
+                        "start_time": 8.176475833650656,
+                        "finish_time": 10.019695632308373,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00092",
+                        "start_time": 10.020047404798333,
+                        "finish_time": 10.034817522247998,
+                        "kind": 2
+                    }
+                ],
+                "host24": [
+                    {
+                        "target_host": "host24",
+                        "name": "ID00021",
+                        "start_time": 0.2534403106788223,
+                        "finish_time": 0.35221437128488287,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host24",
+                        "name": "ID00053",
+                        "start_time": 0.09559461370912532,
+                        "finish_time": 0.2534403106788223,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host24",
+                        "name": "ID00054",
+                        "start_time": 1.7647781168502337,
+                        "finish_time": 8.895014480486598,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host24",
+                        "name": "ID00055",
+                        "start_time": 8.906802110406277,
+                        "finish_time": 9.809333019497187,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host24",
+                        "name": "ID00058",
+                        "start_time": 9.809701175521283,
+                        "finish_time": 13.16404784218795,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host24",
+                        "name": "ID00061",
+                        "start_time": 13.164605076525298,
+                        "finish_time": 13.168320931070753,
+                        "kind": 2
+                    }
+                ],
+                "host19": [
+                    {
+                        "target_host": "host19",
+                        "name": "ID00022",
+                        "start_time": 0.3402943126080557,
+                        "finish_time": 0.46753243382017695,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host19",
+                        "name": "ID00024",
+                        "start_time": 10.036083477834627,
+                        "finish_time": 11.192886508137658,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host19",
+                        "name": "ID00025",
+                        "start_time": 11.193249668177819,
+                        "finish_time": 11.197067340905091,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host19",
+                        "name": "ID00028",
+                        "start_time": 11.199093249941235,
+                        "finish_time": 11.283093249941235,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host19",
+                        "name": "ID00052",
+                        "start_time": 0.25398558533532845,
+                        "finish_time": 0.3402943126080557,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host19",
+                        "name": "ID00060",
+                        "start_time": 9.813358095851537,
+                        "finish_time": 9.820272823124265,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host19",
+                        "name": "ID00089",
+                        "start_time": 2.580790123944155,
+                        "finish_time": 8.130593760307791,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host19",
+                        "name": "ID00095",
+                        "start_time": 10.026162568743718,
+                        "finish_time": 10.036083477834627,
+                        "kind": 2
+                    }
+                ],
+                "host23": [
+                    {
+                        "target_host": "host23",
+                        "name": "ID00023",
+                        "start_time": 4.699870180400752,
+                        "finish_time": 9.6789550288856,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host23",
+                        "name": "ID00031",
+                        "start_time": 0.3794883814688098,
+                        "finish_time": 0.37966223601426435,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host23",
+                        "name": "ID00033",
+                        "start_time": 0.2996670515067504,
+                        "finish_time": 0.3029751242340231,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host23",
+                        "name": "ID00044",
+                        "start_time": 0.30653646968856857,
+                        "finish_time": 0.31062319696129587,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host23",
+                        "name": "ID00050",
+                        "start_time": 0.3029751242340231,
+                        "finish_time": 0.30653646968856857,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host23",
+                        "name": "ID00057",
+                        "start_time": 9.813358095851537,
+                        "finish_time": 9.826784095851538,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host23",
+                        "name": "ID00086",
+                        "start_time": 0.37966223601426435,
+                        "finish_time": 3.993868902680931,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host23",
+                        "name": "ID00093",
+                        "start_time": 10.026162568743718,
+                        "finish_time": 13.421178932380082,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host23",
+                        "name": "ID00096",
+                        "start_time": 13.421738283183295,
+                        "finish_time": 13.425692137728749,
+                        "kind": 2
+                    }
+                ],
+                "host11": [
+                    {
+                        "target_host": "host11",
+                        "name": "ID00026",
+                        "start_time": 11.198943461754086,
+                        "finish_time": 11.214120225390449,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00027",
+                        "start_time": 11.214120225390449,
+                        "finish_time": 14.401861437511661,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00030",
+                        "start_time": 14.402398396748609,
+                        "finish_time": 14.40557817856679,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00034",
+                        "start_time": 0.26198412772770524,
+                        "finish_time": 0.26458252772770524,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00051",
+                        "start_time": 0.26906792369679167,
+                        "finish_time": 3.9716667115755797,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00056",
+                        "start_time": 9.813358095851537,
+                        "finish_time": 9.816597186760628,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00059",
+                        "start_time": 9.818201009451391,
+                        "finish_time": 9.90220100945139,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00091",
+                        "start_time": 10.026162568743718,
+                        "finish_time": 10.030536168743717,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00094",
+                        "start_time": 10.032002648060987,
+                        "finish_time": 10.116002648060986,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "end",
+                        "start_time": 14.41013671803375,
+                        "finish_time": 14.41013671803375,
+                        "kind": 2
+                    }
+                ],
+                "host7": [
+                    {
+                        "target_host": "host7",
+                        "name": "ID00036",
+                        "start_time": 0.13023538470261672,
+                        "finish_time": 0.13702807701030903,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00037",
+                        "start_time": 0.12287778289266198,
+                        "finish_time": 0.13023538470261672,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00040",
+                        "start_time": 0.11679633492886107,
+                        "finish_time": 0.12287778289266198,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00042",
+                        "start_time": 0.11045119918225474,
+                        "finish_time": 0.11679633492886107,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00047",
+                        "start_time": 0.13702807701030903,
+                        "finish_time": 0.14342309963474342,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00087",
+                        "start_time": 0.14342309963474342,
+                        "finish_time": 0.2566919910374583,
+                        "kind": 2
+                    }
+                ],
+                "host2": [
+                    {
+                        "target_host": "host2",
+                        "name": "ID00065",
+                        "start_time": 0.0469912863807285,
+                        "finish_time": 0.07843165675109887,
+                        "kind": 2
+                    }
+                ],
+                "host13": [
+                    {
+                        "target_host": "host13",
+                        "name": "ID00067",
+                        "start_time": 0.0469912863807285,
+                        "finish_time": 0.07469313823258035,
+                        "kind": 2
+                    }
+                ],
+                "host4": [
+                    {
+                        "target_host": "host4",
+                        "name": "ID00068",
+                        "start_time": 0.0469912863807285,
+                        "finish_time": 0.08454076006493902,
+                        "kind": 2
+                    }
+                ],
+                "host5": [
+                    {
+                        "target_host": "host5",
+                        "name": "ID00078",
+                        "start_time": 0.019577114552291396,
+                        "finish_time": 0.06589643273410958,
+                        "kind": 2
+                    }
+                ]
+            },
+            "valid": true,
+            "fitness": 0.3701916953907672
+        },
+        {
+            "X": [
+                "c5d.large",
+                "m5d.2xlarge",
+                "c5.4xlarge",
+                "m5d.2xlarge",
+                "c5.4xlarge",
+                "m5d.2xlarge",
+                "c5.4xlarge",
+                "c5.4xlarge",
+                "c5d.large",
+                "c5d.large",
+                "m5d.2xlarge",
+                "m5d.2xlarge",
+                "c5d.2xlarge",
+                "c5.4xlarge",
+                "c5.24xlarge",
+                "c5.9xlarge",
+                "c5.24xlarge",
+                "c5.9xlarge",
+                "c5.9xlarge"
+            ],
+            "F": [
+                0.05328896270359917,
+                0.00737869879584591
+            ],
+            "region": "us-east-2",
+            "x_aws_tasks": {
+                "host12": [
+                    {
+                        "target_host": "host12",
+                        "name": "root",
+                        "start_time": 0.0,
+                        "finish_time": 0.0,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00083",
+                        "start_time": 0.011304455220883533,
+                        "finish_time": 0.08258036431179262,
+                        "kind": 2
+                    }
+                ],
+                "host10": [
+                    {
+                        "target_host": "host10",
+                        "name": "ID00000",
+                        "start_time": 1.633801266611828,
+                        "finish_time": 1.6353386740192355,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host10",
+                        "name": "ID00001",
+                        "start_time": 1.6003356148269108,
+                        "finish_time": 1.6334430222343181,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host10",
+                        "name": "ID00019",
+                        "start_time": 1.5642856148269109,
+                        "finish_time": 1.6003356148269108,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host10",
+                        "name": "ID00064",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.5443382074195036,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host10",
+                        "name": "ID00077",
+                        "start_time": 1.5443382074195036,
+                        "finish_time": 1.5642856148269109,
+                        "kind": 2
+                    }
+                ],
+                "host18": [
+                    {
+                        "target_host": "host18",
+                        "name": "ID00002",
+                        "start_time": 1.6111396750553633,
+                        "finish_time": 1.6282497685133073,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00016",
+                        "start_time": 1.5874378058964849,
+                        "finish_time": 1.6111396750553633,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00034",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.5322974320647094,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00047",
+                        "start_time": 1.5322974320647094,
+                        "finish_time": 1.5499086470179804,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00071",
+                        "start_time": 1.5669336937469522,
+                        "finish_time": 1.5874378058964849,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00080",
+                        "start_time": 1.5499086470179804,
+                        "finish_time": 1.5669336937469522,
+                        "kind": 2
+                    }
+                ],
+                "host16": [
+                    {
+                        "target_host": "host16",
+                        "name": "ID00003",
+                        "start_time": 1.5948211703824666,
+                        "finish_time": 1.6243870963083926,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host16",
+                        "name": "ID00063",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.555185614826911,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host16",
+                        "name": "ID00068",
+                        "start_time": 1.555185614826911,
+                        "finish_time": 1.5948211703824666,
+                        "kind": 2
+                    }
+                ],
+                "host7": [
+                    {
+                        "target_host": "host7",
+                        "name": "ID00004",
+                        "start_time": 1.3533287386950568,
+                        "finish_time": 1.373374906919356,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00014",
+                        "start_time": 1.3380085517791689,
+                        "finish_time": 1.3533287386950568,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00039",
+                        "start_time": 1.254728177947393,
+                        "finish_time": 1.2718016358913184,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00042",
+                        "start_time": 1.2372543461716923,
+                        "finish_time": 1.254728177947393,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00050",
+                        "start_time": 1.2718016358913184,
+                        "finish_time": 1.2901076171997297,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00065",
+                        "start_time": 1.3221414489754306,
+                        "finish_time": 1.3380085517791689,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00075",
+                        "start_time": 1.3023595798165521,
+                        "finish_time": 1.3221414489754306,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00081",
+                        "start_time": 1.2901076171997297,
+                        "finish_time": 1.3023595798165521,
+                        "kind": 2
+                    }
+                ],
+                "host5": [
+                    {
+                        "target_host": "host5",
+                        "name": "ID00005",
+                        "start_time": 1.5894622814935777,
+                        "finish_time": 1.613959688900985,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00018",
+                        "start_time": 1.5662067259380221,
+                        "finish_time": 1.5894622814935777,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00079",
+                        "start_time": 1.5427359851972813,
+                        "finish_time": 1.5662067259380221,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00084",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.5427359851972813,
+                        "kind": 2
+                    }
+                ],
+                "host8": [
+                    {
+                        "target_host": "host8",
+                        "name": "ID00006",
+                        "start_time": 1.6062380884645129,
+                        "finish_time": 1.6246461258476905,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00015",
+                        "start_time": 1.5926162193056344,
+                        "finish_time": 1.6062380884645129,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00031",
+                        "start_time": 1.5583136024832045,
+                        "finish_time": 1.5592072473430176,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00033",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.5359452825319992,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00044",
+                        "start_time": 1.5359452825319992,
+                        "finish_time": 1.556951824588074,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00067",
+                        "start_time": 1.5786358454738587,
+                        "finish_time": 1.5926162193056344,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00076",
+                        "start_time": 1.5592072473430176,
+                        "finish_time": 1.5786358454738587,
+                        "kind": 2
+                    }
+                ],
+                "host15": [
+                    {
+                        "target_host": "host15",
+                        "name": "ID00007",
+                        "start_time": 1.6034095815974199,
+                        "finish_time": 1.619417992812373,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00017",
+                        "start_time": 1.587252011503962,
+                        "finish_time": 1.6034095815974199,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00038",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.5355880862703168,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00045",
+                        "start_time": 1.5355880862703168,
+                        "finish_time": 1.554987899354429,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00070",
+                        "start_time": 1.5676860301955506,
+                        "finish_time": 1.587252011503962,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00078",
+                        "start_time": 1.554987899354429,
+                        "finish_time": 1.5676860301955506,
+                        "kind": 2
+                    }
+                ],
+                "host4": [
+                    {
+                        "target_host": "host4",
+                        "name": "ID00008",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.6121048067461028,
+                        "kind": 2
+                    }
+                ],
+                "host3": [
+                    {
+                        "target_host": "host3",
+                        "name": "ID00009",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.6027598067461029,
+                        "kind": 2
+                    }
+                ],
+                "host14": [
+                    {
+                        "target_host": "host14",
+                        "name": "ID00010",
+                        "start_time": 1.5830663555676516,
+                        "finish_time": 1.6189633926046887,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00072",
+                        "start_time": 1.550596725938022,
+                        "finish_time": 1.5830663555676516,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00085",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.550596725938022,
+                        "kind": 2
+                    }
+                ],
+                "host1": [
+                    {
+                        "target_host": "host1",
+                        "name": "ID00011",
+                        "start_time": 1.5817570963083922,
+                        "finish_time": 1.606850800012096,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host1",
+                        "name": "ID00043",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.5512345037157997,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host1",
+                        "name": "ID00069",
+                        "start_time": 1.5512345037157997,
+                        "finish_time": 1.5817570963083922,
+                        "kind": 2
+                    }
+                ],
+                "host17": [
+                    {
+                        "target_host": "host17",
+                        "name": "ID00012",
+                        "start_time": 1.5819436265228173,
+                        "finish_time": 1.6264832756456242,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00046",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.5503969598561507,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00073",
+                        "start_time": 1.5503969598561507,
+                        "finish_time": 1.5819436265228173,
+                        "kind": 2
+                    }
+                ],
+                "host9": [
+                    {
+                        "target_host": "host9",
+                        "name": "ID00013",
+                        "start_time": 1.5996871855440473,
+                        "finish_time": 1.6205092416188136,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00032",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.5401596750553637,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00062",
+                        "start_time": 1.598297652833767,
+                        "finish_time": 1.5996871855440473,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00066",
+                        "start_time": 1.5784921984198497,
+                        "finish_time": 1.5979757498217189,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00074",
+                        "start_time": 1.5597910769245225,
+                        "finish_time": 1.5784921984198497,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00082",
+                        "start_time": 1.5401596750553637,
+                        "finish_time": 1.5597910769245225,
+                        "kind": 2
+                    }
+                ],
+                "host11": [
+                    {
+                        "target_host": "host11",
+                        "name": "ID00020",
+                        "start_time": 17.380504938592047,
+                        "finish_time": 22.10180130222841,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00022",
+                        "start_time": 1.8305508590924155,
+                        "finish_time": 1.9577889803045367,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00024",
+                        "start_time": 22.1747609703007,
+                        "finish_time": 23.33156400060373,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00025",
+                        "start_time": 23.33192716064389,
+                        "finish_time": 23.335744833371162,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00028",
+                        "start_time": 23.337770742407308,
+                        "finish_time": 23.421770742407308,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00053",
+                        "start_time": 1.5331959500015064,
+                        "finish_time": 1.6910416469712035,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00054",
+                        "start_time": 5.976962124371524,
+                        "finish_time": 13.107198488007889,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00055",
+                        "start_time": 13.118986117927568,
+                        "finish_time": 14.021517027018477,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00058",
+                        "start_time": 14.021885183042574,
+                        "finish_time": 17.376231849709242,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00061",
+                        "start_time": 17.376789084046592,
+                        "finish_time": 17.380504938592047,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host11",
+                        "name": "ID00088",
+                        "start_time": 1.6910416469712035,
+                        "finish_time": 1.8305508590924155,
+                        "kind": 2
+                    }
+                ],
+                "host2": [
+                    {
+                        "target_host": "host2",
+                        "name": "ID00021",
+                        "start_time": 1.7121707612171637,
+                        "finish_time": 1.9789092227556253,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00023",
+                        "start_time": 5.463490602171224,
+                        "finish_time": 18.909464415591845,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00037",
+                        "start_time": 1.5277398610534976,
+                        "finish_time": 1.5383849019700278,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00040",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.5277398610534976,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00048",
+                        "start_time": 1.5383849019700278,
+                        "finish_time": 1.5482923651451506,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00087",
+                        "start_time": 1.5482923651451506,
+                        "finish_time": 1.7121707612171637,
+                        "kind": 2
+                    }
+                ],
+                "host6": [
+                    {
+                        "target_host": "host6",
+                        "name": "ID00026",
+                        "start_time": 23.337620954220156,
+                        "finish_time": 23.35279771785652,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00027",
+                        "start_time": 23.367299172401975,
+                        "finish_time": 26.55504038452319,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00029",
+                        "start_time": 23.35279771785652,
+                        "finish_time": 23.367299172401975,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00030",
+                        "start_time": 26.555577343760135,
+                        "finish_time": 26.558757125578317,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00035",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.5219684794733754,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00051",
+                        "start_time": 1.5372027448031989,
+                        "finish_time": 5.239801532681987,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00056",
+                        "start_time": 14.02696517972718,
+                        "finish_time": 14.03020427063627,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00059",
+                        "start_time": 14.031808093327033,
+                        "finish_time": 14.115808093327033,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00089",
+                        "start_time": 8.248465840226322,
+                        "finish_time": 13.798269476589958,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00090",
+                        "start_time": 14.115808093327033,
+                        "finish_time": 15.4473947599937,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00091",
+                        "start_time": 15.44774653248366,
+                        "finish_time": 15.452120132483659,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00093",
+                        "start_time": 15.537586611800927,
+                        "finish_time": 18.93260297543729,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00094",
+                        "start_time": 15.453586611800928,
+                        "finish_time": 15.537586611800927,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00096",
+                        "start_time": 18.933162326240502,
+                        "finish_time": 18.937116180785956,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "end",
+                        "start_time": 26.563315665045277,
+                        "finish_time": 26.563315665045277,
+                        "kind": 2
+                    }
+                ],
+                "host13": [
+                    {
+                        "target_host": "host13",
+                        "name": "ID00036",
+                        "start_time": 1.527770793950388,
+                        "finish_time": 1.5375985189913044,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00041",
+                        "start_time": 1.5189411703824665,
+                        "finish_time": 1.527770793950388,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00049",
+                        "start_time": 1.5375985189913044,
+                        "finish_time": 1.5468618905133993,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00057",
+                        "start_time": 14.02696517972718,
+                        "finish_time": 14.063221971871206,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00086",
+                        "start_time": 1.5468618905133993,
+                        "finish_time": 11.3069944600715,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00092",
+                        "start_time": 15.450640916066256,
+                        "finish_time": 15.479455940616173,
+                        "kind": 2
+                    }
+                ],
+                "host0": [
+                    {
+                        "target_host": "host0",
+                        "name": "ID00052",
+                        "start_time": 0.6197799282348355,
+                        "finish_time": 0.8528558693150319,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host0",
+                        "name": "ID00060",
+                        "start_time": 14.023529565195654,
+                        "finish_time": 14.04220272395179,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host0",
+                        "name": "ID00095",
+                        "start_time": 15.449339916066256,
+                        "finish_time": 15.476131241761838,
+                        "kind": 2
+                    }
+                ]
+            },
+            "valid": true,
+            "fitness": 0.4447982675196293
+        },
+        {
+            "X": [
+                "r3.large",
+                "c5.12xlarge",
+                "m5d.2xlarge",
+                "c5.4xlarge",
+                "c5d.2xlarge",
+                "c5.4xlarge",
+                "c5.4xlarge",
+                "c5.4xlarge",
+                "m5d.2xlarge",
+                "z1d.large",
+                "c5.xlarge",
+                "c5.xlarge",
+                "z1d.metal",
+                "c5.24xlarge",
+                "c5.24xlarge",
+                "c5.24xlarge",
+                "c5.12xlarge",
+                "c5.24xlarge",
+                "c5n.2xlarge",
+                "c5.xlarge"
+            ],
+            "F": [
+                0.06857877601165116,
+                0.00525346836308037
+            ],
+            "region": "us-east-2",
+            "x_aws_tasks": {
+                "host14": [
+                    {
+                        "target_host": "host14",
+                        "name": "root",
+                        "start_time": 0.0,
+                        "finish_time": 0.0,
+                        "kind": 2
+                    }
+                ],
+                "host20": [
+                    {
+                        "target_host": "host20",
+                        "name": "ID00000",
+                        "start_time": 1.6536216982073466,
+                        "finish_time": 1.6539228590295958,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00004",
+                        "start_time": 1.645261011979442,
+                        "finish_time": 1.6530419309637225,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00006",
+                        "start_time": 1.6381159333821023,
+                        "finish_time": 1.645261011979442,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00010",
+                        "start_time": 1.6310841075054396,
+                        "finish_time": 1.6381159333821023,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00013",
+                        "start_time": 1.62300202769891,
+                        "finish_time": 1.6310841075054396,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00037",
+                        "start_time": 1.5602225294999292,
+                        "finish_time": 1.568087245340316,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00046",
+                        "start_time": 1.568087245340316,
+                        "finish_time": 1.5745914049533754,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00062",
+                        "start_time": 1.6224626806614253,
+                        "finish_time": 1.62300202769891,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00068",
+                        "start_time": 1.6104351292580912,
+                        "finish_time": 1.6181992888711505,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00071",
+                        "start_time": 1.6024764593669183,
+                        "finish_time": 1.6104351292580912,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00073",
+                        "start_time": 1.5959535089437018,
+                        "finish_time": 1.6024764593669183,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00076",
+                        "start_time": 1.588412299753859,
+                        "finish_time": 1.5959535089437018,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00082",
+                        "start_time": 1.5807923723052495,
+                        "finish_time": 1.588412299753859,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00085",
+                        "start_time": 1.5745914049533754,
+                        "finish_time": 1.5807923723052495,
+                        "kind": 2
+                    }
+                ],
+                "host3": [
+                    {
+                        "target_host": "host3",
+                        "name": "ID00001",
+                        "start_time": 1.392340884727012,
+                        "finish_time": 1.4254482921344194,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host3",
+                        "name": "ID00035",
+                        "start_time": 1.3101230134912907,
+                        "finish_time": 1.3409531069492344,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host3",
+                        "name": "ID00065",
+                        "start_time": 1.3609005143566417,
+                        "finish_time": 1.392340884727012,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host3",
+                        "name": "ID00077",
+                        "start_time": 1.3409531069492344,
+                        "finish_time": 1.3609005143566417,
+                        "kind": 2
+                    }
+                ],
+                "host16": [
+                    {
+                        "target_host": "host16",
+                        "name": "ID00002",
+                        "start_time": 1.6333574827709574,
+                        "finish_time": 1.6504675762289014,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host16",
+                        "name": "ID00012",
+                        "start_time": 1.6096307537989947,
+                        "finish_time": 1.6333574827709574,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host16",
+                        "name": "ID00064",
+                        "start_time": 1.5602225294999292,
+                        "finish_time": 1.5730397257616116,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host16",
+                        "name": "ID00070",
+                        "start_time": 1.5900647724905834,
+                        "finish_time": 1.6096307537989947,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host16",
+                        "name": "ID00080",
+                        "start_time": 1.5730397257616116,
+                        "finish_time": 1.5900647724905834,
+                        "kind": 2
+                    }
+                ],
+                "host0": [
+                    {
+                        "target_host": "host0",
+                        "name": "ID00003",
+                        "start_time": 0.7916587924011702,
+                        "finish_time": 0.8196686169625738,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host0",
+                        "name": "ID00017",
+                        "start_time": 0.7613279152081878,
+                        "finish_time": 0.7916587924011702,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host0",
+                        "name": "ID00038",
+                        "start_time": 0.707843002927486,
+                        "finish_time": 0.7390924766116965,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host0",
+                        "name": "ID00079",
+                        "start_time": 0.7390924766116965,
+                        "finish_time": 0.7613279152081878,
+                        "kind": 2
+                    }
+                ],
+                "host21": [
+                    {
+                        "target_host": "host21",
+                        "name": "ID00005",
+                        "start_time": 1.5713672073760288,
+                        "finish_time": 1.5837303849461222,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host21",
+                        "name": "ID00016",
+                        "start_time": 1.5476653382171504,
+                        "finish_time": 1.5713672073760288,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host21",
+                        "name": "ID00050",
+                        "start_time": 1.4973255251330382,
+                        "finish_time": 1.5156315064414494,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host21",
+                        "name": "ID00075",
+                        "start_time": 1.5278834690582719,
+                        "finish_time": 1.5476653382171504,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host21",
+                        "name": "ID00081",
+                        "start_time": 1.5156315064414494,
+                        "finish_time": 1.5278834690582719,
+                        "kind": 2
+                    }
+                ],
+                "host12": [
+                    {
+                        "target_host": "host12",
+                        "name": "ID00007",
+                        "start_time": 1.6209249594064714,
+                        "finish_time": 1.6369333706214246,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00014",
+                        "start_time": 1.6056047724905835,
+                        "finish_time": 1.6209249594064714,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00043",
+                        "start_time": 1.5602225294999292,
+                        "finish_time": 1.5765200995933872,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00072",
+                        "start_time": 1.5892182304345088,
+                        "finish_time": 1.6056047724905835,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00078",
+                        "start_time": 1.5765200995933872,
+                        "finish_time": 1.5892182304345088,
+                        "kind": 2
+                    }
+                ],
+                "host7": [
+                    {
+                        "target_host": "host7",
+                        "name": "ID00008",
+                        "start_time": 1.3961392751735335,
+                        "finish_time": 1.4089093686314775,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00019",
+                        "start_time": 1.3779458172296084,
+                        "finish_time": 1.3961392751735335,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00034",
+                        "start_time": 1.3275968452669915,
+                        "finish_time": 1.3409531069492344,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00042",
+                        "start_time": 1.3101230134912907,
+                        "finish_time": 1.3275968452669915,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00063",
+                        "start_time": 1.3409531069492344,
+                        "finish_time": 1.3592446957342812,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00074",
+                        "start_time": 1.3592446957342812,
+                        "finish_time": 1.3779458172296084,
+                        "kind": 2
+                    }
+                ],
+                "host8": [
+                    {
+                        "target_host": "host8",
+                        "name": "ID00009",
+                        "start_time": 1.60728327024067,
+                        "finish_time": 1.6300488257962256,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00067",
+                        "start_time": 1.5795814183888182,
+                        "finish_time": 1.60728327024067,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00083",
+                        "start_time": 1.5602225294999292,
+                        "finish_time": 1.5795814183888182,
+                        "kind": 2
+                    }
+                ],
+                "host19": [
+                    {
+                        "target_host": "host19",
+                        "name": "ID00011",
+                        "start_time": 1.3101230134912907,
+                        "finish_time": 1.3882995519528292,
+                        "kind": 2
+                    }
+                ],
+                "host11": [
+                    {
+                        "target_host": "host11",
+                        "name": "ID00015",
+                        "start_time": 1.5602225294999292,
+                        "finish_time": 1.609911393136293,
+                        "kind": 2
+                    }
+                ],
+                "host1": [
+                    {
+                        "target_host": "host1",
+                        "name": "ID00018",
+                        "start_time": 1.5602225294999292,
+                        "finish_time": 1.6030338931362929,
+                        "kind": 2
+                    }
+                ],
+                "host5": [
+                    {
+                        "target_host": "host5",
+                        "name": "ID00020",
+                        "start_time": 1.7757653748323683,
+                        "finish_time": 8.311116884899482,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00029",
+                        "start_time": 15.70129285080967,
+                        "finish_time": 15.721366172957321,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00031",
+                        "start_time": 1.5824121365773347,
+                        "finish_time": 1.5826527909397508,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00033",
+                        "start_time": 1.564732596614023,
+                        "finish_time": 1.5693117241308017,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00040",
+                        "start_time": 1.5602225294999292,
+                        "finish_time": 1.564732596614023,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00044",
+                        "start_time": 1.5740599791643588,
+                        "finish_time": 1.579716942251607,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00049",
+                        "start_time": 1.5693117241308017,
+                        "finish_time": 1.5740599791643588,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00088",
+                        "start_time": 1.5826527909397508,
+                        "finish_time": 1.7757653748323683,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00090",
+                        "start_time": 12.678680817236021,
+                        "finish_time": 14.521900615893738,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00092",
+                        "start_time": 14.522252388383698,
+                        "finish_time": 14.537022505833363,
+                        "kind": 2
+                    }
+                ],
+                "host18": [
+                    {
+                        "target_host": "host18",
+                        "name": "ID00021",
+                        "start_time": 1.5039841144885506,
+                        "finish_time": 1.6027581750946112,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00053",
+                        "start_time": 1.3461384175188535,
+                        "finish_time": 1.5039841144885506,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00054",
+                        "start_time": 5.963118902166794,
+                        "finish_time": 13.093355265803158,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00055",
+                        "start_time": 13.105142895722837,
+                        "finish_time": 14.007673804813747,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00058",
+                        "start_time": 14.008041960837843,
+                        "finish_time": 17.36238862750451,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00061",
+                        "start_time": 17.36294586184186,
+                        "finish_time": 17.366661716387316,
+                        "kind": 2
+                    }
+                ],
+                "host13": [
+                    {
+                        "target_host": "host13",
+                        "name": "ID00022",
+                        "start_time": 1.6191019765497752,
+                        "finish_time": 1.7463400977618964,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00026",
+                        "start_time": 15.70129285080967,
+                        "finish_time": 15.716469614446034,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00027",
+                        "start_time": 15.716469614446034,
+                        "finish_time": 18.904210826567244,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00030",
+                        "start_time": 18.90474778580419,
+                        "finish_time": 18.907927567622373,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00052",
+                        "start_time": 1.532793249277048,
+                        "finish_time": 1.6191019765497752,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00060",
+                        "start_time": 14.011826490000097,
+                        "finish_time": 14.018741217272824,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00089",
+                        "start_time": 7.082999633254895,
+                        "finish_time": 12.632803269618531,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00091",
+                        "start_time": 14.528511957799305,
+                        "finish_time": 14.532885557799304,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00094",
+                        "start_time": 14.534352037116573,
+                        "finish_time": 14.618352037116573,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "end",
+                        "start_time": 18.912486107089332,
+                        "finish_time": 18.912486107089332,
+                        "kind": 2
+                    }
+                ],
+                "host17": [
+                    {
+                        "target_host": "host17",
+                        "name": "ID00023",
+                        "start_time": 6.657848790985745,
+                        "finish_time": 11.636933639470595,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00024",
+                        "start_time": 14.538432866890213,
+                        "finish_time": 15.695235897193243,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00025",
+                        "start_time": 15.695599057233403,
+                        "finish_time": 15.699416729960676,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00028",
+                        "start_time": 15.70144263899682,
+                        "finish_time": 15.78544263899682,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00032",
+                        "start_time": 1.5668137294999294,
+                        "finish_time": 1.570941693136293,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00039",
+                        "start_time": 1.5634921658635657,
+                        "finish_time": 1.5668137294999294,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00041",
+                        "start_time": 1.5602225294999292,
+                        "finish_time": 1.5634921658635657,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00045",
+                        "start_time": 1.5746104567726567,
+                        "finish_time": 1.5783846022272021,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00048",
+                        "start_time": 1.570941693136293,
+                        "finish_time": 1.5746104567726567,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00057",
+                        "start_time": 14.011666978960099,
+                        "finish_time": 14.0250929789601,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00086",
+                        "start_time": 1.5785471499182637,
+                        "finish_time": 5.19275381658493,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00095",
+                        "start_time": 14.528511957799305,
+                        "finish_time": 14.538432866890213,
+                        "kind": 2
+                    }
+                ],
+                "host9": [
+                    {
+                        "target_host": "host9",
+                        "name": "ID00036",
+                        "start_time": 1.5602225294999292,
+                        "finish_time": 1.567483400116616,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00047",
+                        "start_time": 1.567483400116616,
+                        "finish_time": 1.5743191921359632,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00087",
+                        "start_time": 1.5743191921359632,
+                        "finish_time": 1.6953950083391072,
+                        "kind": 2
+                    }
+                ],
+                "host6": [
+                    {
+                        "target_host": "host6",
+                        "name": "ID00051",
+                        "start_time": 1.3797202584479646,
+                        "finish_time": 5.082319046326752,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00056",
+                        "start_time": 14.011507467920099,
+                        "finish_time": 14.01474655882919,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00059",
+                        "start_time": 14.016350381519953,
+                        "finish_time": 14.100350381519952,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00093",
+                        "start_time": 14.527895707556,
+                        "finish_time": 17.922912071192364,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00096",
+                        "start_time": 17.923471421995576,
+                        "finish_time": 17.92742527654103,
+                        "kind": 2
+                    }
+                ],
+                "host2": [
+                    {
+                        "target_host": "host2",
+                        "name": "ID00066",
+                        "start_time": 1.5827649856402801,
+                        "finish_time": 1.6193393716051925,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00084",
+                        "start_time": 1.5602225294999292,
+                        "finish_time": 1.5827649856402801,
+                        "kind": 2
+                    }
+                ],
+                "host10": [
+                    {
+                        "target_host": "host10",
+                        "name": "ID00069",
+                        "start_time": 1.4973255251330382,
+                        "finish_time": 1.5535148433148565,
+                        "kind": 2
+                    }
+                ]
+            },
+            "valid": true,
+            "fitness": 0.41950501540603513
+        },
+        {
+            "X": [
+                "r3.large",
+                "c5.4xlarge",
+                "m5d.2xlarge",
+                "m5d.2xlarge",
+                "c5.4xlarge",
+                "m5d.2xlarge",
+                "c5.4xlarge",
+                "m5d.2xlarge",
+                "c5n.2xlarge",
+                "c5d.2xlarge",
+                "c5d.2xlarge",
+                "c5.9xlarge",
+                "c5.9xlarge",
+                "c5.24xlarge",
+                "c5.24xlarge",
+                "c5.24xlarge",
+                "c5.12xlarge",
+                "c5.9xlarge"
+            ],
+            "F": [
+                0.05862923888920061,
+                0.0060046332332241515
+            ],
+            "region": "us-east-2",
+            "x_aws_tasks": {
+                "host10": [
+                    {
+                        "target_host": "host10",
+                        "name": "root",
+                        "start_time": 0.0,
+                        "finish_time": 0.0,
+                        "kind": 2
+                    }
+                ],
+                "host20": [
+                    {
+                        "target_host": "host20",
+                        "name": "ID00000",
+                        "start_time": 1.6435821813237272,
+                        "finish_time": 1.6443580691741946,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00001",
+                        "start_time": 1.6237344950508459,
+                        "finish_time": 1.6404429062657992,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00012",
+                        "start_time": 1.6000077660788832,
+                        "finish_time": 1.6237344950508459,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00019",
+                        "start_time": 1.581814308134958,
+                        "finish_time": 1.6000077660788832,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00075",
+                        "start_time": 1.5620324389760796,
+                        "finish_time": 1.581814308134958,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00085",
+                        "start_time": 1.5460567380415002,
+                        "finish_time": 1.5620324389760796,
+                        "kind": 2
+                    }
+                ],
+                "host5": [
+                    {
+                        "target_host": "host5",
+                        "name": "ID00002",
+                        "start_time": 1.6044497010044634,
+                        "finish_time": 1.6383530343377968,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00011",
+                        "start_time": 1.5793559973007596,
+                        "finish_time": 1.6044497010044634,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00073",
+                        "start_time": 1.5460567380415002,
+                        "finish_time": 1.5793559973007596,
+                        "kind": 2
+                    }
+                ],
+                "host18": [
+                    {
+                        "target_host": "host18",
+                        "name": "ID00003",
+                        "start_time": 1.601574515819278,
+                        "finish_time": 1.631140441745204,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00014",
+                        "start_time": 1.5712178491526114,
+                        "finish_time": 1.601574515819278,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host18",
+                        "name": "ID00078",
+                        "start_time": 1.5460567380415002,
+                        "finish_time": 1.5712178491526114,
+                        "kind": 2
+                    }
+                ],
+                "host8": [
+                    {
+                        "target_host": "host8",
+                        "name": "ID00004",
+                        "start_time": 1.6200290744900985,
+                        "finish_time": 1.6400752427143976,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00013",
+                        "start_time": 1.5992070184153322,
+                        "finish_time": 1.6200290744900985,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00017",
+                        "start_time": 1.5830494483218742,
+                        "finish_time": 1.5992070184153322,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00063",
+                        "start_time": 1.5460567380415002,
+                        "finish_time": 1.564348326826547,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host8",
+                        "name": "ID00074",
+                        "start_time": 1.564348326826547,
+                        "finish_time": 1.5830494483218742,
+                        "kind": 2
+                    }
+                ],
+                "host2": [
+                    {
+                        "target_host": "host2",
+                        "name": "ID00005",
+                        "start_time": 1.5974445158192778,
+                        "finish_time": 1.6219419232266852,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00065",
+                        "start_time": 1.5660041454489075,
+                        "finish_time": 1.5974445158192778,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00077",
+                        "start_time": 1.5460567380415002,
+                        "finish_time": 1.5660041454489075,
+                        "kind": 2
+                    }
+                ],
+                "host17": [
+                    {
+                        "target_host": "host17",
+                        "name": "ID00006",
+                        "start_time": 1.6150047754246777,
+                        "finish_time": 1.6334128128078553,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00016",
+                        "start_time": 1.5913029062657993,
+                        "finish_time": 1.6150047754246777,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00064",
+                        "start_time": 1.5460567380415002,
+                        "finish_time": 1.5588739343031826,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00069",
+                        "start_time": 1.5758989810321544,
+                        "finish_time": 1.5913029062657993,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00080",
+                        "start_time": 1.5588739343031826,
+                        "finish_time": 1.5758989810321544,
+                        "kind": 2
+                    }
+                ],
+                "host16": [
+                    {
+                        "target_host": "host16",
+                        "name": "ID00007",
+                        "start_time": 1.5965189602637226,
+                        "finish_time": 1.628239330634093,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host16",
+                        "name": "ID00015",
+                        "start_time": 1.569527478782241,
+                        "finish_time": 1.5965189602637226,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host16",
+                        "name": "ID00079",
+                        "start_time": 1.5460567380415002,
+                        "finish_time": 1.569527478782241,
+                        "kind": 2
+                    }
+                ],
+                "host12": [
+                    {
+                        "target_host": "host12",
+                        "name": "ID00008",
+                        "start_time": 1.422186981523338,
+                        "finish_time": 1.4461589113478992,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00050",
+                        "start_time": 1.3510939990671975,
+                        "finish_time": 1.3854578587163204,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00070",
+                        "start_time": 1.3854578587163204,
+                        "finish_time": 1.422186981523338,
+                        "kind": 2
+                    }
+                ],
+                "host19": [
+                    {
+                        "target_host": "host19",
+                        "name": "ID00009",
+                        "start_time": 1.5910876152344826,
+                        "finish_time": 1.6126549836555353,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host19",
+                        "name": "ID00018",
+                        "start_time": 1.5690560362871142,
+                        "finish_time": 1.5910876152344826,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host19",
+                        "name": "ID00081",
+                        "start_time": 1.5460567380415002,
+                        "finish_time": 1.5690560362871142,
+                        "kind": 2
+                    }
+                ],
+                "host0": [
+                    {
+                        "target_host": "host0",
+                        "name": "ID00010",
+                        "start_time": 0.7949124923290374,
+                        "finish_time": 0.828920211627283,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host0",
+                        "name": "ID00034",
+                        "start_time": 0.7252563519781602,
+                        "finish_time": 0.7503286326799146,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host0",
+                        "name": "ID00067",
+                        "start_time": 0.7686686326799146,
+                        "finish_time": 0.7949124923290374,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host0",
+                        "name": "ID00083",
+                        "start_time": 0.7503286326799146,
+                        "finish_time": 0.7686686326799146,
+                        "kind": 2
+                    }
+                ],
+                "host15": [
+                    {
+                        "target_host": "host15",
+                        "name": "ID00020",
+                        "start_time": 1.426260251113024,
+                        "finish_time": 14.17607858171859,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00032",
+                        "start_time": 1.3705686635516492,
+                        "finish_time": 1.3817161921932204,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00037",
+                        "start_time": 1.359923622635119,
+                        "finish_time": 1.3705686635516492,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00041",
+                        "start_time": 1.3510939990671975,
+                        "finish_time": 1.359923622635119,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00046",
+                        "start_time": 1.3817161921932204,
+                        "finish_time": 1.3905196946482121,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00068",
+                        "start_time": 1.4157513149428111,
+                        "finish_time": 1.426260251113024,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00072",
+                        "start_time": 1.4071423460393742,
+                        "finish_time": 1.4157513149428111,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00082",
+                        "start_time": 1.3968286308184248,
+                        "finish_time": 1.4071423460393742,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00084",
+                        "start_time": 1.3905196946482121,
+                        "finish_time": 1.3968286308184248,
+                        "kind": 2
+                    }
+                ],
+                "host7": [
+                    {
+                        "target_host": "host7",
+                        "name": "ID00021",
+                        "start_time": 1.6016869297449872,
+                        "finish_time": 1.8684253912834488,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00031",
+                        "start_time": 1.5591148628320537,
+                        "finish_time": 1.5595843554670783,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00035",
+                        "start_time": 1.368638450785692,
+                        "finish_time": 1.3768136717349555,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00038",
+                        "start_time": 1.3598926897382286,
+                        "finish_time": 1.368638450785692,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00040",
+                        "start_time": 1.3510939990671975,
+                        "finish_time": 1.3598926897382286,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00044",
+                        "start_time": 1.3860660448937117,
+                        "finish_time": 1.3971022151064776,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00047",
+                        "start_time": 1.3768136717349555,
+                        "finish_time": 1.3860660448937117,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00062",
+                        "start_time": 1.600956913378375,
+                        "finish_time": 1.6016869297449872,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00066",
+                        "start_time": 1.580563733535818,
+                        "finish_time": 1.590799772815687,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00071",
+                        "start_time": 1.569791524043183,
+                        "finish_time": 1.580563733535818,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00076",
+                        "start_time": 1.5595843554670783,
+                        "finish_time": 1.569791524043183,
+                        "kind": 2
+                    }
+                ],
+                "host14": [
+                    {
+                        "target_host": "host14",
+                        "name": "ID00022",
+                        "start_time": 1.6835793864843969,
+                        "finish_time": 1.810817507696518,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00024",
+                        "start_time": 17.154574116702893,
+                        "finish_time": 18.311377147005924,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00025",
+                        "start_time": 18.311740307046083,
+                        "finish_time": 18.315557979773356,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00028",
+                        "start_time": 18.3175838888095,
+                        "finish_time": 18.4015838888095,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00053",
+                        "start_time": 1.5257336895147,
+                        "finish_time": 1.6835793864843969,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00054",
+                        "start_time": 5.751031302482373,
+                        "finish_time": 12.881267666118736,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00055",
+                        "start_time": 12.893055296038415,
+                        "finish_time": 13.795586205129325,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00058",
+                        "start_time": 13.795954361153422,
+                        "finish_time": 17.15030102782009,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00061",
+                        "start_time": 17.15085826215744,
+                        "finish_time": 17.154574116702893,
+                        "kind": 2
+                    }
+                ],
+                "host6": [
+                    {
+                        "target_host": "host6",
+                        "name": "ID00023",
+                        "start_time": 5.814236983479842,
+                        "finish_time": 10.79332183196469,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00026",
+                        "start_time": 18.316858275019612,
+                        "finish_time": 18.332035038655977,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00043",
+                        "start_time": 1.5460567380415002,
+                        "finish_time": 1.5492273562233183,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00051",
+                        "start_time": 1.5604845921380943,
+                        "finish_time": 5.263083380016882,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00056",
+                        "start_time": 14.920581056498323,
+                        "finish_time": 14.923820147407413,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00059",
+                        "start_time": 14.925423970098176,
+                        "finish_time": 15.009423970098176,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00092",
+                        "start_time": 14.909910765589231,
+                        "finish_time": 14.920581056498323,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00095",
+                        "start_time": 14.899989856498323,
+                        "finish_time": 14.909910765589231,
+                        "kind": 2
+                    }
+                ],
+                "host9": [
+                    {
+                        "target_host": "host9",
+                        "name": "ID00027",
+                        "start_time": 18.420663146963648,
+                        "finish_time": 21.608404359084858,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00029",
+                        "start_time": 18.406161692418195,
+                        "finish_time": 18.420663146963648,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00030",
+                        "start_time": 21.608941318321804,
+                        "finish_time": 21.612121100139987,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00052",
+                        "start_time": 1.5240648073340803,
+                        "finish_time": 1.6103735346068075,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00057",
+                        "start_time": 14.993206123433163,
+                        "finish_time": 15.006632123433164,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00060",
+                        "start_time": 14.986291396160436,
+                        "finish_time": 14.993206123433163,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00088",
+                        "start_time": 1.6103735346068075,
+                        "finish_time": 1.7498827467280196,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00089",
+                        "start_time": 8.003991914616078,
+                        "finish_time": 13.553795550979714,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00090",
+                        "start_time": 13.564512877686541,
+                        "finish_time": 14.896099544353207,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00091",
+                        "start_time": 14.896451316843168,
+                        "finish_time": 14.900824916843167,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00093",
+                        "start_time": 15.006632123433164,
+                        "finish_time": 18.40164848706953,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00094",
+                        "start_time": 14.902291396160436,
+                        "finish_time": 14.986291396160436,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00096",
+                        "start_time": 18.40220783787274,
+                        "finish_time": 18.406161692418195,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "end",
+                        "start_time": 21.616679639606946,
+                        "finish_time": 21.616679639606946,
+                        "kind": 2
+                    }
+                ],
+                "host13": [
+                    {
+                        "target_host": "host13",
+                        "name": "ID00033",
+                        "start_time": 1.3717643980998455,
+                        "finish_time": 1.3783645432026266,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00036",
+                        "start_time": 1.3645035274831587,
+                        "finish_time": 1.3717643980998455,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00039",
+                        "start_time": 1.3578764658144769,
+                        "finish_time": 1.3645035274831587,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00042",
+                        "start_time": 1.3510939990671975,
+                        "finish_time": 1.3578764658144769,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00045",
+                        "start_time": 1.3852084609777173,
+                        "finish_time": 1.3927384972534127,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00049",
+                        "start_time": 1.3783645432026266,
+                        "finish_time": 1.3852084609777173,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00086",
+                        "start_time": 1.405016662402824,
+                        "finish_time": 8.615948947771628,
+                        "kind": 2
+                    }
+                ],
+                "host1": [
+                    {
+                        "target_host": "host1",
+                        "name": "ID00048",
+                        "start_time": 1.5460567380415002,
+                        "finish_time": 1.555964201216623,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host1",
+                        "name": "ID00087",
+                        "start_time": 1.555964201216623,
+                        "finish_time": 1.7198425972886362,
+                        "kind": 2
+                    }
+                ]
+            },
+            "valid": true,
+            "fitness": 0.396878035979275
+        },
+        {
+            "X": [
+                "r5d.large",
+                "i3.metal",
+                "r5d.8xlarge",
+                "m5d.12xlarge",
+                "r5d.12xlarge",
+                "r5.16xlarge",
+                "m5d.12xlarge",
+                "i3.metal",
+                "m5d.12xlarge",
+                "r5d.12xlarge",
+                "m5d.12xlarge",
+                "r5.16xlarge",
+                "c5.9xlarge",
+                "c5.9xlarge",
+                "m5.12xlarge",
+                "c5d.metal",
+                "m5.24xlarge",
+                "r5.metal",
+                "c5.24xlarge",
+                "c5.24xlarge",
+                "r5.metal",
+                "m5.24xlarge",
+                "c5d.metal",
+                "c5.24xlarge",
+                "r4.2xlarge"
+            ],
+            "F": [
+                0.16642320710876116,
+                0.003652835976926276
+            ],
+            "region": "ca-central-1",
+            "x_aws_tasks": {
+                "host0": [
+                    {
+                        "target_host": "host0",
+                        "name": "root",
+                        "start_time": 0.0,
+                        "finish_time": 0.0,
+                        "kind": 2
+                    }
+                ],
+                "host7": [
+                    {
+                        "target_host": "host7",
+                        "name": "ID00000",
+                        "start_time": 0.16932523071581315,
+                        "finish_time": 0.16959742743712464,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00008",
+                        "start_time": 0.16453866103709827,
+                        "finish_time": 0.16901866103709828,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00040",
+                        "start_time": 0.1334398413649671,
+                        "finish_time": 0.13931525120103266,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00050",
+                        "start_time": 0.13931525120103266,
+                        "finish_time": 0.1457373495616884,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00064",
+                        "start_time": 0.1457373495616884,
+                        "finish_time": 0.15023387415185235,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00067",
+                        "start_time": 0.15963407087316384,
+                        "finish_time": 0.16453866103709827,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00080",
+                        "start_time": 0.15366134956168842,
+                        "finish_time": 0.15963407087316384,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host7",
+                        "name": "ID00083",
+                        "start_time": 0.15023387415185235,
+                        "finish_time": 0.15366134956168842,
+                        "kind": 2
+                    }
+                ],
+                "host2": [
+                    {
+                        "target_host": "host2",
+                        "name": "ID00001",
+                        "start_time": 0.12434121752167013,
+                        "finish_time": 0.1338676828857909,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00015",
+                        "start_time": 0.11657457453765592,
+                        "finish_time": 0.12434121752167013,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00034",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.10029677702433443,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00043",
+                        "start_time": 0.10029677702433443,
+                        "finish_time": 0.10958899727300228,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host2",
+                        "name": "ID00081",
+                        "start_time": 0.10958899727300228,
+                        "finish_time": 0.11657457453765592,
+                        "kind": 2
+                    }
+                ],
+                "host17": [
+                    {
+                        "target_host": "host17",
+                        "name": "ID00002",
+                        "start_time": 0.10058427912140286,
+                        "finish_time": 0.10801640361396037,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host17",
+                        "name": "ID00019",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.10058427912140286,
+                        "kind": 2
+                    }
+                ],
+                "host34": [
+                    {
+                        "target_host": "host34",
+                        "name": "ID00003",
+                        "start_time": 0.0996990153844078,
+                        "finish_time": 0.10618031443718182,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host34",
+                        "name": "ID00017",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.0996990153844078,
+                        "kind": 2
+                    }
+                ],
+                "host27": [
+                    {
+                        "target_host": "host27",
+                        "name": "ID00004",
+                        "start_time": 0.14782745416882848,
+                        "finish_time": 0.15354221438197235,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host27",
+                        "name": "ID00011",
+                        "start_time": 0.144217169976999,
+                        "finish_time": 0.14782745416882848,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host27",
+                        "name": "ID00071",
+                        "start_time": 0.1383718591421855,
+                        "finish_time": 0.144217169976999,
+                        "kind": 2
+                    }
+                ],
+                "host12": [
+                    {
+                        "target_host": "host12",
+                        "name": "ID00005",
+                        "start_time": 0.09957377844481287,
+                        "finish_time": 0.10494398142180882,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host12",
+                        "name": "ID00065",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.09957377844481287,
+                        "kind": 2
+                    }
+                ],
+                "host19": [
+                    {
+                        "target_host": "host19",
+                        "name": "ID00006",
+                        "start_time": 0.0996990153844078,
+                        "finish_time": 0.10615691702375206,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host19",
+                        "name": "ID00068",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.0996990153844078,
+                        "kind": 2
+                    }
+                ],
+                "host23": [
+                    {
+                        "target_host": "host23",
+                        "name": "ID00007",
+                        "start_time": 0.09777954299149758,
+                        "finish_time": 0.10473312891842586,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host23",
+                        "name": "ID00018",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.09777954299149758,
+                        "kind": 2
+                    }
+                ],
+                "host10": [
+                    {
+                        "target_host": "host10",
+                        "name": "ID00009",
+                        "start_time": 0.12219864989271545,
+                        "finish_time": 0.12718920469650435,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host10",
+                        "name": "ID00038",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.09991250645563832,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host10",
+                        "name": "ID00047",
+                        "start_time": 0.09991250645563832,
+                        "finish_time": 0.10756230347864237,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host10",
+                        "name": "ID00063",
+                        "start_time": 0.10756230347864237,
+                        "finish_time": 0.11550763500773574,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host10",
+                        "name": "ID00069",
+                        "start_time": 0.11550763500773574,
+                        "finish_time": 0.12219864989271545,
+                        "kind": 2
+                    }
+                ],
+                "host30": [
+                    {
+                        "target_host": "host30",
+                        "name": "ID00010",
+                        "start_time": 0.12216227641504292,
+                        "finish_time": 0.13003145097525942,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host30",
+                        "name": "ID00035",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.09944078791707268,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host30",
+                        "name": "ID00049",
+                        "start_time": 0.09944078791707268,
+                        "finish_time": 0.10709967830949488,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host30",
+                        "name": "ID00074",
+                        "start_time": 0.11403905584670733,
+                        "finish_time": 0.12216227641504292,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host30",
+                        "name": "ID00085",
+                        "start_time": 0.10709967830949488,
+                        "finish_time": 0.11403905584670733,
+                        "kind": 2
+                    }
+                ],
+                "host31": [
+                    {
+                        "target_host": "host31",
+                        "name": "ID00012",
+                        "start_time": 0.09825944132273584,
+                        "finish_time": 0.10502345553232731,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host31",
+                        "name": "ID00070",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.09825944132273584,
+                        "kind": 2
+                    }
+                ],
+                "host4": [
+                    {
+                        "target_host": "host4",
+                        "name": "ID00013",
+                        "start_time": 0.0469912863807285,
+                        "finish_time": 0.057930533516571375,
+                        "kind": 2
+                    }
+                ],
+                "host33": [
+                    {
+                        "target_host": "host33",
+                        "name": "ID00014",
+                        "start_time": 0.0469912863807285,
+                        "finish_time": 0.05504002615159593,
+                        "kind": 2
+                    }
+                ],
+                "host26": [
+                    {
+                        "target_host": "host26",
+                        "name": "ID00016",
+                        "start_time": 0.1184470666721471,
+                        "finish_time": 0.12874246586023913,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00036",
+                        "start_time": 0.09268157276145698,
+                        "finish_time": 0.1008070666721471,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00046",
+                        "start_time": 0.1008070666721471,
+                        "finish_time": 0.10808574055577362,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00079",
+                        "start_time": 0.11330192458824995,
+                        "finish_time": 0.1184470666721471,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host26",
+                        "name": "ID00084",
+                        "start_time": 0.10808574055577362,
+                        "finish_time": 0.11330192458824995,
+                        "kind": 2
+                    }
+                ],
+                "host9": [
+                    {
+                        "target_host": "host9",
+                        "name": "ID00020",
+                        "start_time": 0.2238643985817763,
+                        "finish_time": 4.94516076221814,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00029",
+                        "start_time": 7.640197307466603,
+                        "finish_time": 7.654698762012058,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00062",
+                        "start_time": 0.22359407130904904,
+                        "finish_time": 0.2238643985817763,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00066",
+                        "start_time": 0.210753144444508,
+                        "finish_time": 0.21454358080814434,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00076",
+                        "start_time": 0.20697339898996253,
+                        "finish_time": 0.210753144444508,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00093",
+                        "start_time": 9.106137017766727,
+                        "finish_time": 12.50115338140309,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host9",
+                        "name": "ID00096",
+                        "start_time": 12.501712732206304,
+                        "finish_time": 12.505666586751758,
+                        "kind": 2
+                    }
+                ],
+                "host5": [
+                    {
+                        "target_host": "host5",
+                        "name": "ID00021",
+                        "start_time": 0.09570008927482815,
+                        "finish_time": 0.20567120938279038,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host5",
+                        "name": "ID00075",
+                        "start_time": 0.09141535243272289,
+                        "finish_time": 0.09570008927482815,
+                        "kind": 2
+                    }
+                ],
+                "host6": [
+                    {
+                        "target_host": "host6",
+                        "name": "ID00022",
+                        "start_time": 0.21874936136181844,
+                        "finish_time": 0.35632662217440036,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00023",
+                        "start_time": 1.0515587912635411,
+                        "finish_time": 6.435235069114131,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00031",
+                        "start_time": 0.20822569163704777,
+                        "finish_time": 0.20841367328842392,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00033",
+                        "start_time": 0.1958920089742866,
+                        "finish_time": 0.19946888970823157,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00039",
+                        "start_time": 0.19230054108437836,
+                        "finish_time": 0.1958920089742866,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00042",
+                        "start_time": 0.18862485301098386,
+                        "finish_time": 0.19230054108437836,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00044",
+                        "start_time": 0.20343577044217653,
+                        "finish_time": 0.20785457778162608,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00048",
+                        "start_time": 0.19946888970823157,
+                        "finish_time": 0.20343577044217653,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00073",
+                        "start_time": 0.2152143154902588,
+                        "finish_time": 0.21874936136181844,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00078",
+                        "start_time": 0.2125432145728276,
+                        "finish_time": 0.2152143154902588,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host6",
+                        "name": "ID00082",
+                        "start_time": 0.20841367328842392,
+                        "finish_time": 0.2125432145728276,
+                        "kind": 2
+                    }
+                ],
+                "host13": [
+                    {
+                        "target_host": "host13",
+                        "name": "ID00024",
+                        "start_time": 6.477027514031826,
+                        "finish_time": 7.633830544334856,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00025",
+                        "start_time": 7.634193704375016,
+                        "finish_time": 7.638011377102289,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00028",
+                        "start_time": 7.6400372861384325,
+                        "finish_time": 7.724037286138432,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00060",
+                        "start_time": 9.791919534041334,
+                        "finish_time": 9.798834261314061,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00072",
+                        "start_time": 0.21420800875066065,
+                        "finish_time": 0.21739593602338791,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00086",
+                        "start_time": 0.22331829805887435,
+                        "finish_time": 3.837524964725541,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host13",
+                        "name": "ID00095",
+                        "start_time": 9.106137017766727,
+                        "finish_time": 9.116057926857636,
+                        "kind": 2
+                    }
+                ],
+                "host24": [
+                    {
+                        "target_host": "host24",
+                        "name": "ID00026",
+                        "start_time": 7.640197307466603,
+                        "finish_time": 7.655374071102966,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host24",
+                        "name": "ID00057",
+                        "start_time": 9.791919534041334,
+                        "finish_time": 9.805345534041335,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host24",
+                        "name": "ID00088",
+                        "start_time": 0.08225238151203293,
+                        "finish_time": 0.22176159363324505,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host24",
+                        "name": "ID00092",
+                        "start_time": 9.106137017766727,
+                        "finish_time": 9.116807308675819,
+                        "kind": 2
+                    }
+                ],
+                "host20": [
+                    {
+                        "target_host": "host20",
+                        "name": "ID00027",
+                        "start_time": 7.750671556752616,
+                        "finish_time": 11.197442854262446,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00030",
+                        "start_time": 11.197979813499394,
+                        "finish_time": 11.201417978637009,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00052",
+                        "start_time": 0.055178452417747256,
+                        "finish_time": 0.14850047076637113,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host20",
+                        "name": "ID00089",
+                        "start_time": 1.7499009145507813,
+                        "finish_time": 7.750671556752616,
+                        "kind": 2
+                    }
+                ],
+                "host14": [
+                    {
+                        "target_host": "host14",
+                        "name": "ID00032",
+                        "start_time": 0.10020411297004432,
+                        "finish_time": 0.10480002390121841,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00037",
+                        "start_time": 0.09581536803077306,
+                        "finish_time": 0.10020411297004432,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00041",
+                        "start_time": 0.09217508462996335,
+                        "finish_time": 0.09581536803077306,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00045",
+                        "start_time": 0.10480002390121841,
+                        "finish_time": 0.10900200770688642,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host14",
+                        "name": "ID00087",
+                        "start_time": 0.10900200770688642,
+                        "finish_time": 0.17656590784183918,
+                        "kind": 2
+                    }
+                ],
+                "host25": [
+                    {
+                        "target_host": "host25",
+                        "name": "ID00051",
+                        "start_time": 0.08504676655122423,
+                        "finish_time": 3.7876455544300125,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host25",
+                        "name": "ID00056",
+                        "start_time": 9.791760023001336,
+                        "finish_time": 9.794999113910427,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host25",
+                        "name": "ID00059",
+                        "start_time": 9.79660293660119,
+                        "finish_time": 9.88060293660119,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host25",
+                        "name": "ID00090",
+                        "start_time": 7.770585586089762,
+                        "finish_time": 9.102172252756429,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host25",
+                        "name": "ID00091",
+                        "start_time": 9.102524025246389,
+                        "finish_time": 9.106897625246388,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host25",
+                        "name": "ID00094",
+                        "start_time": 9.108364104563657,
+                        "finish_time": 9.192364104563657,
+                        "kind": 2
+                    }
+                ],
+                "host15": [
+                    {
+                        "target_host": "host15",
+                        "name": "ID00053",
+                        "start_time": 0.07782498728832755,
+                        "finish_time": 0.2356706842580245,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00054",
+                        "start_time": 1.7435922681029015,
+                        "finish_time": 8.873828631739265,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00055",
+                        "start_time": 8.885616261658944,
+                        "finish_time": 9.788147170749854,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00058",
+                        "start_time": 9.78851532677395,
+                        "finish_time": 13.142861993440617,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "ID00061",
+                        "start_time": 13.143419227777965,
+                        "finish_time": 13.14713508232342,
+                        "kind": 2
+                    },
+                    {
+                        "target_host": "host15",
+                        "name": "end",
+                        "start_time": 13.150209516934593,
+                        "finish_time": 13.150209516934593,
+                        "kind": 2
+                    }
+                ],
+                "host8": [
+                    {
+                        "target_host": "host8",
+                        "name": "ID00077",
+                        "start_time": 0.019577114552291396,
+                        "finish_time": 0.04333799690523257,
+                        "kind": 2
+                    }
+                ]
+            },
+            "valid": true,
+            "fitness": 1.0
+        }
+    ],
+    "selected": {
+        "X": [
+            "r3.large",
+            "c5.12xlarge",
+            "c5d.2xlarge",
+            "c5.9xlarge",
+            "c5.4xlarge",
+            "c5.12xlarge",
+            "c5.xlarge",
+            "c5.4xlarge",
+            "c5.xlarge",
+            "m5d.2xlarge",
+            "c5.4xlarge",
+            "c5.xlarge",
+            "c5.4xlarge",
+            "z1d.metal",
+            "c5.24xlarge",
+            "c5.24xlarge",
+            "c5.24xlarge",
+            "c5.24xlarge",
+            "h1.16xlarge",
+            "m5d.2xlarge",
+            "m5d.2xlarge",
+            "c5n.2xlarge",
+            "c5.xlarge"
+        ],
+        "F": [
+            0.07261908342738008,
+            0.004002815755009375
+        ],
+        "region": "us-east-2",
+        "x_aws_tasks": {
+            "host0": [
+                {
+                    "target_host": "host0",
+                    "name": "root",
+                    "start_time": 0.0,
+                    "finish_time": 0.0,
+                    "kind": 2
+                }
+            ],
+            "host14": [
+                {
+                    "target_host": "host14",
+                    "name": "ID00000",
+                    "start_time": 0.4287478523573787,
+                    "finish_time": 0.4290490131796278,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host14",
+                    "name": "ID00006",
+                    "start_time": 0.4146885035944061,
+                    "finish_time": 0.4218335821917459,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host14",
+                    "name": "ID00016",
+                    "start_time": 0.4054886245133904,
+                    "finish_time": 0.4146885035944061,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host14",
+                    "name": "ID00049",
+                    "start_time": 0.34239523411261186,
+                    "finish_time": 0.34923915188770255,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host14",
+                    "name": "ID00062",
+                    "start_time": 0.40494927747590553,
+                    "finish_time": 0.4054886245133904,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host14",
+                    "name": "ID00064",
+                    "start_time": 0.34923915188770255,
+                    "finish_time": 0.3542141458417533,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host14",
+                    "name": "ID00071",
+                    "start_time": 0.36937528248020557,
+                    "finish_time": 0.37733395237137846,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host14",
+                    "name": "ID00076",
+                    "start_time": 0.36183407329036277,
+                    "finish_time": 0.36937528248020557,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host14",
+                    "name": "ID00082",
+                    "start_time": 0.3542141458417533,
+                    "finish_time": 0.36183407329036277,
+                    "kind": 2
+                }
+            ],
+            "host28": [
+                {
+                    "target_host": "host28",
+                    "name": "ID00001",
+                    "start_time": 0.12159771311233418,
+                    "finish_time": 0.15296262539303593,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host28",
+                    "name": "ID00069",
+                    "start_time": 0.09268157276145698,
+                    "finish_time": 0.12159771311233418,
+                    "kind": 2
+                }
+            ],
+            "host8": [
+                {
+                    "target_host": "host8",
+                    "name": "ID00002",
+                    "start_time": 0.23973352687896957,
+                    "finish_time": 0.24872262671530346,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host8",
+                    "name": "ID00013",
+                    "start_time": 0.2287942797431267,
+                    "finish_time": 0.23973352687896957,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host8",
+                    "name": "ID00035",
+                    "start_time": 0.1833614155860072,
+                    "finish_time": 0.1915366365352707,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host8",
+                    "name": "ID00038",
+                    "start_time": 0.17461565453854402,
+                    "finish_time": 0.1833614155860072,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host8",
+                    "name": "ID00041",
+                    "start_time": 0.16578603097062258,
+                    "finish_time": 0.17461565453854402,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host8",
+                    "name": "ID00045",
+                    "start_time": 0.1915366365352707,
+                    "finish_time": 0.20172868236178462,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host8",
+                    "name": "ID00066",
+                    "start_time": 0.2185582404632576,
+                    "finish_time": 0.2287942797431267,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host8",
+                    "name": "ID00075",
+                    "start_time": 0.2081654745058108,
+                    "finish_time": 0.2185582404632576,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host8",
+                    "name": "ID00081",
+                    "start_time": 0.20172868236178462,
+                    "finish_time": 0.2081654745058108,
+                    "kind": 2
+                }
+            ],
+            "host29": [
+                {
+                    "target_host": "host29",
+                    "name": "ID00003",
+                    "start_time": 0.22425915486870843,
+                    "finish_time": 0.23918027636403552,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host29",
+                    "name": "ID00015",
+                    "start_time": 0.21063728570982992,
+                    "finish_time": 0.22425915486870843,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host29",
+                    "name": "ID00073",
+                    "start_time": 0.19383205206497012,
+                    "finish_time": 0.21063728570982992,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host29",
+                    "name": "ID00083",
+                    "start_time": 0.18406214552291403,
+                    "finish_time": 0.19383205206497012,
+                    "kind": 2
+                }
+            ],
+            "host26": [
+                {
+                    "target_host": "host26",
+                    "name": "ID00004",
+                    "start_time": 0.4172867735125753,
+                    "finish_time": 0.42506769249685583,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host26",
+                    "name": "ID00012",
+                    "start_time": 0.408077245096614,
+                    "finish_time": 0.4172867735125753,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host26",
+                    "name": "ID00017",
+                    "start_time": 0.4018056852417168,
+                    "finish_time": 0.408077245096614,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host26",
+                    "name": "ID00048",
+                    "start_time": 0.36682329104582806,
+                    "finish_time": 0.37414307339165637,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host26",
+                    "name": "ID00070",
+                    "start_time": 0.3942111507798063,
+                    "finish_time": 0.4018056852417168,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host26",
+                    "name": "ID00074",
+                    "start_time": 0.3869523116020554,
+                    "finish_time": 0.3942111507798063,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host26",
+                    "name": "ID00080",
+                    "start_time": 0.3803440407435306,
+                    "finish_time": 0.3869523116020554,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host26",
+                    "name": "ID00085",
+                    "start_time": 0.37414307339165637,
+                    "finish_time": 0.3803440407435306,
+                    "kind": 2
+                }
+            ],
+            "host17": [
+                {
+                    "target_host": "host17",
+                    "name": "ID00005",
+                    "start_time": 0.0469912863807285,
+                    "finish_time": 0.0920887863807285,
+                    "kind": 2
+                }
+            ],
+            "host18": [
+                {
+                    "target_host": "host18",
+                    "name": "ID00007",
+                    "start_time": 0.17485690587115746,
+                    "finish_time": 0.19086531708611074,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host18",
+                    "name": "ID00019",
+                    "start_time": 0.15666344792723222,
+                    "finish_time": 0.17485690587115746,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host18",
+                    "name": "ID00063",
+                    "start_time": 0.1383718591421855,
+                    "finish_time": 0.15666344792723222,
+                    "kind": 2
+                }
+            ],
+            "host16": [
+                {
+                    "target_host": "host16",
+                    "name": "ID00008",
+                    "start_time": 0.0469912863807285,
+                    "finish_time": 0.09357310456254668,
+                    "kind": 2
+                }
+            ],
+            "host27": [
+                {
+                    "target_host": "host27",
+                    "name": "ID00009",
+                    "start_time": 0.1009222180419549,
+                    "finish_time": 0.12368777359751046,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host27",
+                    "name": "ID00079",
+                    "start_time": 0.07745147730121417,
+                    "finish_time": 0.1009222180419549,
+                    "kind": 2
+                }
+            ],
+            "host12": [
+                {
+                    "target_host": "host12",
+                    "name": "ID00010",
+                    "start_time": 0.14831521762127006,
+                    "finish_time": 0.16643147930351304,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host12",
+                    "name": "ID00018",
+                    "start_time": 0.13657876902313923,
+                    "finish_time": 0.14831521762127006,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host12",
+                    "name": "ID00039",
+                    "start_time": 0.09268157276145698,
+                    "finish_time": 0.10975503070538221,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host12",
+                    "name": "ID00046",
+                    "start_time": 0.10975503070538221,
+                    "finish_time": 0.12651185313528876,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host12",
+                    "name": "ID00077",
+                    "start_time": 0.12651185313528876,
+                    "finish_time": 0.13657876902313923,
+                    "kind": 2
+                }
+            ],
+            "host15": [
+                {
+                    "target_host": "host15",
+                    "name": "ID00011",
+                    "start_time": 0.03937623865060709,
+                    "finish_time": 0.08557146592333437,
+                    "kind": 2
+                }
+            ],
+            "host22": [
+                {
+                    "target_host": "host22",
+                    "name": "ID00014",
+                    "start_time": 0.16676699932910138,
+                    "finish_time": 0.18208718624498924,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host22",
+                    "name": "ID00072",
+                    "start_time": 0.15038045727302662,
+                    "finish_time": 0.16676699932910138,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host22",
+                    "name": "ID00084",
+                    "start_time": 0.1383718591421855,
+                    "finish_time": 0.15038045727302662,
+                    "kind": 2
+                }
+            ],
+            "host6": [
+                {
+                    "target_host": "host6",
+                    "name": "ID00020",
+                    "start_time": 0.45386520763896643,
+                    "finish_time": 6.98921671770608,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host6",
+                    "name": "ID00029",
+                    "start_time": 11.198943461754086,
+                    "finish_time": 11.219016783901736,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host6",
+                    "name": "ID00032",
+                    "start_time": 0.25064972106178524,
+                    "finish_time": 0.2563637646859463,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host6",
+                    "name": "ID00043",
+                    "start_time": 0.2563637646859463,
+                    "finish_time": 0.260752623746349,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host6",
+                    "name": "ID00088",
+                    "start_time": 0.260752623746349,
+                    "finish_time": 0.45386520763896643,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host6",
+                    "name": "ID00090",
+                    "start_time": 8.176475833650656,
+                    "finish_time": 10.019695632308373,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host6",
+                    "name": "ID00092",
+                    "start_time": 10.020047404798333,
+                    "finish_time": 10.034817522247998,
+                    "kind": 2
+                }
+            ],
+            "host24": [
+                {
+                    "target_host": "host24",
+                    "name": "ID00021",
+                    "start_time": 0.2534403106788223,
+                    "finish_time": 0.35221437128488287,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host24",
+                    "name": "ID00053",
+                    "start_time": 0.09559461370912532,
+                    "finish_time": 0.2534403106788223,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host24",
+                    "name": "ID00054",
+                    "start_time": 1.7647781168502337,
+                    "finish_time": 8.895014480486598,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host24",
+                    "name": "ID00055",
+                    "start_time": 8.906802110406277,
+                    "finish_time": 9.809333019497187,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host24",
+                    "name": "ID00058",
+                    "start_time": 9.809701175521283,
+                    "finish_time": 13.16404784218795,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host24",
+                    "name": "ID00061",
+                    "start_time": 13.164605076525298,
+                    "finish_time": 13.168320931070753,
+                    "kind": 2
+                }
+            ],
+            "host19": [
+                {
+                    "target_host": "host19",
+                    "name": "ID00022",
+                    "start_time": 0.3402943126080557,
+                    "finish_time": 0.46753243382017695,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host19",
+                    "name": "ID00024",
+                    "start_time": 10.036083477834627,
+                    "finish_time": 11.192886508137658,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host19",
+                    "name": "ID00025",
+                    "start_time": 11.193249668177819,
+                    "finish_time": 11.197067340905091,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host19",
+                    "name": "ID00028",
+                    "start_time": 11.199093249941235,
+                    "finish_time": 11.283093249941235,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host19",
+                    "name": "ID00052",
+                    "start_time": 0.25398558533532845,
+                    "finish_time": 0.3402943126080557,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host19",
+                    "name": "ID00060",
+                    "start_time": 9.813358095851537,
+                    "finish_time": 9.820272823124265,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host19",
+                    "name": "ID00089",
+                    "start_time": 2.580790123944155,
+                    "finish_time": 8.130593760307791,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host19",
+                    "name": "ID00095",
+                    "start_time": 10.026162568743718,
+                    "finish_time": 10.036083477834627,
+                    "kind": 2
+                }
+            ],
+            "host23": [
+                {
+                    "target_host": "host23",
+                    "name": "ID00023",
+                    "start_time": 4.699870180400752,
+                    "finish_time": 9.6789550288856,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host23",
+                    "name": "ID00031",
+                    "start_time": 0.3794883814688098,
+                    "finish_time": 0.37966223601426435,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host23",
+                    "name": "ID00033",
+                    "start_time": 0.2996670515067504,
+                    "finish_time": 0.3029751242340231,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host23",
+                    "name": "ID00044",
+                    "start_time": 0.30653646968856857,
+                    "finish_time": 0.31062319696129587,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host23",
+                    "name": "ID00050",
+                    "start_time": 0.3029751242340231,
+                    "finish_time": 0.30653646968856857,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host23",
+                    "name": "ID00057",
+                    "start_time": 9.813358095851537,
+                    "finish_time": 9.826784095851538,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host23",
+                    "name": "ID00086",
+                    "start_time": 0.37966223601426435,
+                    "finish_time": 3.993868902680931,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host23",
+                    "name": "ID00093",
+                    "start_time": 10.026162568743718,
+                    "finish_time": 13.421178932380082,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host23",
+                    "name": "ID00096",
+                    "start_time": 13.421738283183295,
+                    "finish_time": 13.425692137728749,
+                    "kind": 2
+                }
+            ],
+            "host11": [
+                {
+                    "target_host": "host11",
+                    "name": "ID00026",
+                    "start_time": 11.198943461754086,
+                    "finish_time": 11.214120225390449,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host11",
+                    "name": "ID00027",
+                    "start_time": 11.214120225390449,
+                    "finish_time": 14.401861437511661,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host11",
+                    "name": "ID00030",
+                    "start_time": 14.402398396748609,
+                    "finish_time": 14.40557817856679,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host11",
+                    "name": "ID00034",
+                    "start_time": 0.26198412772770524,
+                    "finish_time": 0.26458252772770524,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host11",
+                    "name": "ID00051",
+                    "start_time": 0.26906792369679167,
+                    "finish_time": 3.9716667115755797,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host11",
+                    "name": "ID00056",
+                    "start_time": 9.813358095851537,
+                    "finish_time": 9.816597186760628,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host11",
+                    "name": "ID00059",
+                    "start_time": 9.818201009451391,
+                    "finish_time": 9.90220100945139,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host11",
+                    "name": "ID00091",
+                    "start_time": 10.026162568743718,
+                    "finish_time": 10.030536168743717,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host11",
+                    "name": "ID00094",
+                    "start_time": 10.032002648060987,
+                    "finish_time": 10.116002648060986,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host11",
+                    "name": "end",
+                    "start_time": 14.41013671803375,
+                    "finish_time": 14.41013671803375,
+                    "kind": 2
+                }
+            ],
+            "host7": [
+                {
+                    "target_host": "host7",
+                    "name": "ID00036",
+                    "start_time": 0.13023538470261672,
+                    "finish_time": 0.13702807701030903,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host7",
+                    "name": "ID00037",
+                    "start_time": 0.12287778289266198,
+                    "finish_time": 0.13023538470261672,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host7",
+                    "name": "ID00040",
+                    "start_time": 0.11679633492886107,
+                    "finish_time": 0.12287778289266198,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host7",
+                    "name": "ID00042",
+                    "start_time": 0.11045119918225474,
+                    "finish_time": 0.11679633492886107,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host7",
+                    "name": "ID00047",
+                    "start_time": 0.13702807701030903,
+                    "finish_time": 0.14342309963474342,
+                    "kind": 2
+                },
+                {
+                    "target_host": "host7",
+                    "name": "ID00087",
+                    "start_time": 0.14342309963474342,
+                    "finish_time": 0.2566919910374583,
+                    "kind": 2
+                }
+            ],
+            "host2": [
+                {
+                    "target_host": "host2",
+                    "name": "ID00065",
+                    "start_time": 0.0469912863807285,
+                    "finish_time": 0.07843165675109887,
+                    "kind": 2
+                }
+            ],
+            "host13": [
+                {
+                    "target_host": "host13",
+                    "name": "ID00067",
+                    "start_time": 0.0469912863807285,
+                    "finish_time": 0.07469313823258035,
+                    "kind": 2
+                }
+            ],
+            "host4": [
+                {
+                    "target_host": "host4",
+                    "name": "ID00068",
+                    "start_time": 0.0469912863807285,
+                    "finish_time": 0.08454076006493902,
+                    "kind": 2
+                }
+            ],
+            "host5": [
+                {
+                    "target_host": "host5",
+                    "name": "ID00078",
+                    "start_time": 0.019577114552291396,
+                    "finish_time": 0.06589643273410958,
+                    "kind": 2
+                }
+            ]
+        },
+        "valid": true,
+        "fitness": 0.3701916953907672
+    },
+    "selections": {
+        "HCPT": 227
+    }
+}
