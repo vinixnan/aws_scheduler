@@ -22,28 +22,33 @@ class Algorithm:
         self.region = region
 
     def create_algorithm(self):
+        sampling = IntegerRandomSampling()
+        crossover = TwoPointCrossover(prob=0.9)
+        # mutation_probability = 1.0 / self.problem.n_var
+        mutation_probability = 0.1
+        mutation = BitflipMutation(prob=mutation_probability)
         if "NSGA" in self.algorithm_name:
             self.algorithm = NSGA2(
                 pop_size=self.pop_size,
-                sampling=IntegerRandomSampling(),
-                crossover=TwoPointCrossover(),
-                mutation=BitflipMutation(),
+                sampling=sampling,
+                crossover=crossover,
+                mutation=mutation,
                 eliminate_duplicates=self.eliminate_duplicates,
             )
         elif self.algorithm_name == "AGEMOEA":
             self.algorithm = AGEMOEA(
                 pop_size=self.pop_size,
-                sampling=IntegerRandomSampling(),
-                crossover=TwoPointCrossover(),
-                mutation=BitflipMutation(),
+                sampling=sampling,
+                crossover=crossover,
+                mutation=mutation,
                 eliminate_duplicates=self.eliminate_duplicates,
             )
         elif self.algorithm_name == "SMSEMOA":
             self.algorithm = SMSEMOA(
                 pop_size=self.pop_size,
-                sampling=IntegerRandomSampling(),
-                crossover=TwoPointCrossover(),
-                mutation=BitflipMutation(),
+                sampling=sampling,
+                crossover=crossover,
+                mutation=mutation,
                 eliminate_duplicates=self.eliminate_duplicates,
             )
 

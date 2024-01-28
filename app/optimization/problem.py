@@ -1,6 +1,7 @@
 import numpy as np
 from pymoo.core.problem import ElementwiseProblem
 from yattag import Doc, indent
+import math
 
 
 class AWSProblem(ElementwiseProblem):
@@ -22,9 +23,9 @@ class AWSProblem(ElementwiseProblem):
         out["G"] = [violations, violations]
 
     def calculate_fitness(self, X):
-        sub_dict = {self.ids[ins]: self.base[self.ids[ins]] for ins in X if ins > 0}
-        total = sum([v["pricePerUnit"] for v in sub_dict.values()])
-        power = sum([v["ecu"] for v in sub_dict.values()]) * -1
+        sub_dict = [self.base[self.ids[ins]] for ins in X if ins > 0]
+        total = sum([v["pricePerUnit"] for v in sub_dict])
+        power = sum([v["ecu"] for v in sub_dict]) * -1
         violations = 0
         if len(sub_dict) == 0:
             violations = 1
@@ -79,8 +80,7 @@ class AWSProblem(ElementwiseProblem):
         self.aws_to_x(sol)
         total, _, _ = self.calculate_fitness(sol.X)
         # seconds to hours
-        makespan = makespan / (60 * 60)
-        sol.F[0] = total * makespan
+        sol.F[0] = total * math.ceil(makespan / 3600)
         sol.F[1] = makespan
 
 

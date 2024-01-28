@@ -17,7 +17,7 @@ def test_generate_solutions():
     config = Config(
         None, "NSGA2", "HEFT", 100, 100, problem_name, problem, False, False, 1
     )
-    arr = generate_solutions(config, ['US East (N. Virginia)'])
+    arr = generate_solutions(config, ["US East (N. Virginia)"])
     assert len(arr) > 50
     resp = get_pysim_data(arr[0], ["HEFT"], {})
     assert resp != None

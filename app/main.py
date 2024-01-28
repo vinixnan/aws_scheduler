@@ -33,7 +33,7 @@ def run_exp(config):
     print("Generating solutions for " + str(full_name_regions))
     non_dominated_population = generate_solutions(config, full_name_regions)
     # non_dominated_population has as objective price per hour and power
-    print(len(non_dominated_population))
+    print(len(non_dominated_population), "non-dominated solutions")
     print("Running scheduler")
     selections = {}
     for sol in non_dominated_population:
@@ -46,7 +46,7 @@ def run_exp(config):
     s, filtered = select_one_solution(non_dominated_population)
 
     # print(format_solution(s))
-    print(len(non_dominated_population))
+    print(len(non_dominated_population), "non-dominated solutions")
 
     to_save = dict(config._asdict())
     to_save["population"] = [format_solution(ss) for ss in filtered]
@@ -63,25 +63,26 @@ def run_exp(config):
         + "_"
         + config.heuristic_name
     )
-    save_yaml(to_save, file_output + ".yml")
+    # save_yaml(to_save, file_output + ".yml")
     save_json(to_save, file_output + ".json")
 
 
 @click.command()
-@click.option("--idexec", help="Id execution", required=True)
+@click.option("--idexec", help="Id execution", required=True, default=0)
 @click.option(
     "--problem",
     "-p",
     help="Path for the problem definition (.dot file)",
     required=True,
+    default="CyberShake_100.dot",
 )
 @click.option(
     "--alg",
     "-a",
-    help="Algorithm in " + str(algs),
-    default=["NSGA2", "AGEMOEA", "SMSEMOA"],
+    help="Algorithm in (NSGA2, AGEMOEA, SMSEMOA)",
+    default="NSGA2",
 )
-@click.option("--heu", "-h", help="Heuristic in " + str(algs))
+@click.option("--heu", "-h", help="Heuristic in " + str(algs), default="HEFT")
 @click.option("--pop", help="Pop size ", default=100)
 @click.option("--gen", help="Generation", default=500)
 def run(
