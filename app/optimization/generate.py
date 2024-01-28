@@ -82,7 +82,9 @@ def get_pysim_data(solution, algs, selections):
     tasks = selected["tasks"]
     ids = [int(el.replace("host", "")) for el in tasks.keys()]
     solution.x_aws = [machines[id][0] for id in ids]
-    solution.x_aws_tasks = {machines[int(k.replace("host", ""))][0]:v for k,v in tasks.items()}
+    solution.x_aws_tasks = {
+        machines[int(k.replace("host", ""))][0]: v for k, v in tasks.items()
+    }
     solution.alg = selected["alg"]
     problem.update_decision_variables(solution, makespan)
     return makespan
