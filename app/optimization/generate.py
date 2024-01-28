@@ -44,7 +44,6 @@ def select_one_solution(population):
         s.fitness = float(s.fitness)
 
     filtered = list(filter(lambda s: s.valid, population))
-    print(len(filtered))
     return min(filtered, key=lambda s: s.fitness), filtered
 
 
@@ -83,7 +82,7 @@ def get_pysim_data(solution, algs, selections):
     tasks = selected["tasks"]
     ids = [int(el.replace("host", "")) for el in tasks.keys()]
     solution.x_aws = [machines[id][0] for id in ids]
-    solution.x_aws_tasks = tasks
+    solution.x_aws_tasks = {machines[int(k.replace("host", ""))][0]:v for k,v in tasks.items()}
     solution.alg = selected["alg"]
     problem.update_decision_variables(solution, makespan)
     return makespan
