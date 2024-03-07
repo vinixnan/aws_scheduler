@@ -116,7 +116,7 @@ def calc_makespan(solution):
     xml_data = problem.generate_simgrid_xml(solution.machines)
     save_xml(xml_data, tf_xml.name)
     p = subprocess.Popen(
-        "python3 /home/pysimgrid/runobjz --hostconf "
+        "runsimulation --hostconf "
         + tf_xml.name
         + " -p "
         + problem.problem_file_path
