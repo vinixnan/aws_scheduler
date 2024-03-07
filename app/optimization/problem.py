@@ -4,6 +4,15 @@ from yattag import Doc, indent
 import math
 
 
+class Instance:
+    def __init__(self, id, instance_type, data):
+        self.name = "host" + str(id)
+        self.link = "link" + str(id)
+        self.instance_type = instance_type
+        self.active = True
+        self.data = data
+
+
 class AWSProblem(ElementwiseProblem):
     def __init__(self, n_var, dccv, region, problem_file_path):
         self.region = region
@@ -38,43 +47,36 @@ class AWSProblem(ElementwiseProblem):
         x = [self.ids_rev[name] for name in s.x_aws]
         s.X = np.array(x)
 
-    def generate_simgrid_xml(self, sol):
+    def generate_simgrid_xml(self, machines):
         doc, tag, _ = Doc().tagtext()
         doc.asis("<?xml version='1.0'?>")
         doc.asis(
             '<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">'
         )
 
-        # add the smallest machine if necessary
-        if len(sol.x_aws) < 2:
-            sol.x_aws.insert(0, self.smaller_machine["name"])
-
-        ndv = [(name, self.base[name]) for name in sol.x_aws]
-        machines = dict(list(enumerate(ndv)))
         with tag("platform", version="4"):
             with tag("AS", id="AS0", routing="Floyd"):
-                for id, machine in machines.items():
+                for machine in machines.values():
                     doc.stag(
                         "host",
-                        id="host" + str(id),
-                        core=machine[1]["vcpu"],
-                        speed=machine[1]["flop"],
+                        id=machine.name,
+                        core=machine.data["vcpu"],
+                        speed=machine.data["flop"],
                     )
                     doc.stag(
                         "link",
-                        id="link" + str(id),
-                        bandwidth=str(machine[1]["networkPerformance"]) + "Bps",
+                        id=machine.link,
+                        bandwidth=str(machine.data["networkPerformance"]) + "Bps",
                         latency="0.0001s",
                     )
-                idlink = 0
-                idi = 0
-                for idj in range(idi + 1, len(machines)):
-                    with tag("route", src="host" + str(idi), dst="host" + str(idj)):
-                        doc.stag("link_ctn", id="link" + str(idlink))
-                    idlink = idlink + 1
+                keys = list(machines.keys())
+                origin = machines[keys[0]]
+                for j in range(1, len(keys)):
+                    destiny = machines[keys[j]]
+                    with tag("route", src=origin.name, dst=destiny.name):
+                        doc.stag("link_ctn", id=origin.link)
 
-        result = indent(doc.getvalue(), indentation=" " * 4, newline="\r\n")
-        return result, machines
+        return indent(doc.getvalue(), indentation=" " * 4, newline="\r\n")
 
     def update_decision_variables(self, sol, makespan):
         self.aws_to_x(sol)

@@ -6,15 +6,12 @@ problems="CyberShake_100.dot Epigenomics_100.dot Inspiral_100.dot Montage_100.do
 problems="CyberShake_100.dot Epigenomics_100.dot Inspiral_100.dot Montage_100.dot Sipht_100.dot Epigenomics_24.dot CyberShake_30.dot Epigenomics_46.dot Inspiral_30.dot Montage_25.dot Sipht_30.dot CyberShake_50.dot Inspiral_50.dot Montage_50.dot Sipht_60.dot" 
 algs="AGEMOEA NSGA2 SMSEMOA"
 heur="DLS HCPT HEFT PEFT Lookahead"
-heur="HCPT HEFT PEFT Lookahead"
+heur="DLS HCPT HEFT PEFT"
 pop=100
-gen=500
+gen=1000
 idexec=1
 qtdExp=20
  
-
-#problems="CyberShake_100.dot Epigenomics_100.dot"
-
 for h in $heur
 do
     #for a in $algs

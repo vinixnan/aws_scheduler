@@ -3,6 +3,7 @@ from optimization.generate import (
     generate_solutions,
     get_pysim_data,
     select_one_solution,
+    calc_makespan,
 )
 from optimization.problem import remove_dominated
 from dotenv import load_dotenv
@@ -31,6 +32,7 @@ Config = namedtuple(
 def run_exp(config):
     full_name_regions = get_aws_regions_full()
     print("Generating solutions for " + str(full_name_regions))
+    full_name_regions = "US East (N. Virginia)"
     non_dominated_population = generate_solutions(config, full_name_regions)
     # non_dominated_population has as objective price per hour and power
     print(len(non_dominated_population), "non-dominated solutions")
@@ -44,7 +46,7 @@ def run_exp(config):
     non_dominated_population = remove_dominated(non_dominated_population)
 
     s, filtered = select_one_solution(non_dominated_population)
-
+    calc_makespan(s)
     # print(format_solution(s))
     print(len(non_dominated_population), "non-dominated solutions")
 
