@@ -5,8 +5,20 @@ from pymoo.optimize import minimize
 from pymoo.operators.crossover.pntx import TwoPointCrossover
 from pymoo.operators.mutation.bitflip import BitflipMutation
 from pymoo.operators.sampling.rnd import IntegerRandomSampling
+from pymoo.core.mutation import Mutation
+import random
+import numpy as np
 
-
+class ChoiceRandomMutation(Mutation):
+    def _do(self, problem, X, **kwargs):
+        prob_var = self.get_prob_var(problem, size=(len(X), 1))
+        Xp = np.copy(X)
+        flip = np.random.random(X.shape) < prob_var
+        l = list(problem.ids.keys())
+        #l.append(0)
+        Xp[flip] = random.choice(l) * random.getrandbits(1)
+        return Xp
+    
 class Algorithm:
     def __init__(
         self, algorithm_name, n_gen, pop_size, problem, region, seed=None, verbose=False
@@ -27,6 +39,7 @@ class Algorithm:
         # mutation_probability = 1.0 / self.problem.n_var
         mutation_probability = 0.1
         mutation = BitflipMutation(prob=mutation_probability)
+        mutation = ChoiceRandomMutation(prob=mutation_probability)
         if "NSGA" in self.algorithm_name:
             self.algorithm = NSGA2(
                 pop_size=self.pop_size,
@@ -63,8 +76,8 @@ class Algorithm:
         )
         for s in res.pop:
             s.region = self.region
-            self.problem.x_to_aws(s)
-            s.problem = self.problem
+            #self.problem.x_to_aws(s)
+            #s.problem = self.problem
         return res
 
 

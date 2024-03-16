@@ -52,11 +52,11 @@ def is_float(element: any) -> bool:
 def prepare_bandwitch(value):
     v = value.replace("Gigabit", "").replace("Up to", "").replace(" ", "")
     if is_float(v):
-        return int(float(v) / 8 * 1024 * 1024 * 100)
+        return int(float(v) * 1000000000)
     elif v == "High":
-        return 327680000
+        return 1000000000
     elif v == "Moderate":
-        return 35196800
+        return 351968000
     elif v == "Low":
         return 28398933
 
@@ -121,6 +121,7 @@ def get_instances(session, region_name, dc_region):
                 for price_dimensions in on_demand["priceDimensions"].values():
                     dcc["pricePerUnit"] = float(price_dimensions["pricePerUnit"]["USD"])
 
+            dcc["price_per_ecu"] = dcc["pricePerUnit"] / ecu
             dc_region_list = dc_region.get(dcc["regionCode"], {})
             dcc["name"] = price["product"]["attributes"]["instanceType"]
             dc_region_list[price["product"]["attributes"]["instanceType"]] = dcc
@@ -154,10 +155,10 @@ def generate_aws_dict(regions, eager):
                 item["id"] = new_id
             dccv[region] = dict(sorted_data)
 
-        save_yaml(dccv, "aws_data.yml")
+        save_yaml(dccv, "aws_data2.yml")
 
     else:
-        dccv = read_yaml("aws_data.yml")
+        dccv = read_yaml("aws_data2.yml")
 
     regions = list(dccv.keys())
 
