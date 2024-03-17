@@ -9,16 +9,18 @@ from pymoo.core.mutation import Mutation
 import random
 import numpy as np
 
+
 class ChoiceRandomMutation(Mutation):
     def _do(self, problem, X, **kwargs):
         prob_var = self.get_prob_var(problem, size=(len(X), 1))
         Xp = np.copy(X)
         flip = np.random.random(X.shape) < prob_var
         l = list(problem.ids.keys())
-        #l.append(0)
+        # l.append(0)
         Xp[flip] = random.choice(l) * random.getrandbits(1)
         return Xp
-    
+
+
 class Algorithm:
     def __init__(
         self, algorithm_name, n_gen, pop_size, problem, region, seed=None, verbose=False
@@ -76,8 +78,8 @@ class Algorithm:
         )
         for s in res.pop:
             s.region = self.region
-            #self.problem.x_to_aws(s)
-            #s.problem = self.problem
+            # self.problem.x_to_aws(s)
+            # s.problem = self.problem
         return res
 
 

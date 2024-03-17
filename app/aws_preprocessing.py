@@ -1,4 +1,8 @@
-from collections import defaultdict
+from collections import defaultdict, namedtuple
+import math
+from pysim_helper import get_pysim_data
+
+Machine = namedtuple("Machine", "name data link")
 
 
 def dominates(s1, s2):
@@ -78,3 +82,40 @@ def remove_non_dominated_per_region(dccv):
         to_send[region_name] = dccv[region_name]
         dataset = dict(dataset, **remove_non_dominated_from_dataset(to_send))
     return dataset
+
+
+def remove_bad_performing_machines(
+    final_region_machines, number_of_tasks, problem_file_path
+):
+    pop = []
+    qtd_machines = []
+    for region_name, machines_data in final_region_machines.items():
+        for machine_name, machine_data in machines_data.items():
+            selected_region_machines = [machine_data] * number_of_tasks
+            machines = {}
+            for i, machine_data in enumerate(selected_region_machines):
+                mach = Machine("host" + str(i), machine_data, "link" + str(i))
+                machines[mach.name] = mach
+
+            resp = get_pysim_data(machines, problem_file_path, "HEFT")
+            machines = {k: v for k, v in machines.items() if k in resp["tasks"].keys()}
+            qtd_machines.append(len(machines))
+            price = math.ceil(float(resp["makespan"]) / 3600) * sum(
+                [machine.data["pricePerUnit"] for machine in machines.values()]
+            )
+            element = (
+                (resp["makespan"], price),
+                (machine_data["name"], region_name, resp["tasks"]),
+            )
+            # print(element)
+            pop.append(element)
+
+    n_var = int(sum(qtd_machines) / len(qtd_machines) + 1)
+    ndom_base = remove_dominated(pop)
+    final_region_machines2 = defaultdict(dict)
+    for element in ndom_base:
+        machine_name, region_name, _ = element[1]
+        final_region_machines2[region_name][machine_name] = final_region_machines[
+            region_name
+        ][machine_name]
+    return final_region_machines2, n_var, ndom_base

@@ -82,8 +82,8 @@ class AWSProblem(ElementwiseProblem):
         self.aws_to_x(sol)
         total, _, _ = self.calculate_fitness(sol.X)
         # seconds to hours
-        sol.F[0] = total * math.ceil(makespan / 3600)
-        sol.F[1] = makespan
+        sol.F[0] = makespan
+        sol.F[1] = total * math.ceil(makespan / 3600)
 
 
 def dominates(s1s, s2s):
