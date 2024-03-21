@@ -85,7 +85,7 @@ def remove_non_dominated_per_region(dccv):
 
 
 def remove_bad_performing_machines(
-    final_region_machines, number_of_tasks, problem_file_path
+    final_region_machines, number_of_tasks, data_trasfer_cost, problem_file_path
 ):
     pop = []
     qtd_machines = []
@@ -102,7 +102,7 @@ def remove_bad_performing_machines(
             qtd_machines.append(len(machines))
             price = math.ceil(float(resp["makespan"]) / 3600) * sum(
                 [machine.data["pricePerUnit"] for machine in machines.values()]
-            )
+            ) + data_trasfer_cost.get(region_name, 0)
             element = (
                 (resp["makespan"], price),
                 (machine_data["name"], region_name, resp["tasks"]),

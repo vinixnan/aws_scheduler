@@ -2,6 +2,8 @@ import json
 import yaml
 import pydotplus
 import urllib.request
+from collections import Counter
+import xml.etree.ElementTree as ET
 
 
 def save_json(dc, filename):
@@ -40,6 +42,16 @@ def format_solution(s):
     return dc
 
 
+def format_solution_b(s):
+    dc = {}
+    dc["X"] = Counter(s.X)
+    dc["F"] = [float(f) for f in s.F]
+    dc["region"] = s.region_name
+    dc["x_aws_tasks"] = s.tasks
+    dc["valid"] = True
+    return dc
+
+
 def get_dot(dot_path):
     number_of_tasks = -1
     if "https" in dot_path:
@@ -49,3 +61,21 @@ def get_dot(dot_path):
     nodes = graph.get_nodes()
     number_of_tasks = len(nodes)
     return number_of_tasks
+
+def get_total_input(filename):
+    # Parse the XML file
+    tree = ET.parse(filename)
+    root = tree.getroot()
+
+    # Define variables to store the sum
+    total_size = 0
+
+    # Iterate over job elements
+    for job in root.findall('.//{http://pegasus.isi.edu/schema/DAX}job'):
+        # Iterate over uses elements within each job
+        for uses in job.findall('{http://pegasus.isi.edu/schema/DAX}uses'):
+            # Check if type is "data" and link is "input"
+            if uses.attrib.get('type') == 'data' and uses.attrib.get('link') == 'input':
+                # Add the size to the total
+                total_size += int(uses.attrib.get('size'))
+    return total_size

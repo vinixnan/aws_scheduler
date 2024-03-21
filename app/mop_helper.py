@@ -16,8 +16,10 @@ class AWSProblemDirect(ElementwiseProblem):
         region_name,
         problem_file_path,
         elementwise_runner=None,
+        heu="HEFT",
     ):
         self.region_name = region_name
+        self.heu = heu
         self.machines_data = machines_data
         self.problem_file_path = problem_file_path
         self.ids = {k: v for k, v in enumerate(self.machines_data.keys(), 1)}
@@ -36,13 +38,13 @@ class AWSProblemDirect(ElementwiseProblem):
             elementwise_runner=elementwise_runner,
         )
 
-    def pysim(self, selected_region_machines):
+    def pysim(self, selected_region_machines, heu):
         machines = {}
         for i, machine_data in enumerate(selected_region_machines):
             mach = Machine("host" + str(i), machine_data, "link" + str(i))
             machines[mach.name] = mach
 
-        resp = get_pysim_data(machines, self.problem_file_path, "HEFT")
+        resp = get_pysim_data(machines, self.problem_file_path, heu)
         machines = {k: v for k, v in machines.items() if k in resp["tasks"].keys()}
         price = math.ceil(float(resp["makespan"]) / 3600) * sum(
             [machine.data["pricePerUnit"] for machine in machines.values()]
@@ -64,7 +66,7 @@ class AWSProblemDirect(ElementwiseProblem):
             violations = len(used_machines)
             return float("inf"), float("inf"), None, violations
 
-        makespan, price, tasks = self.pysim(used_machines)
+        makespan, price, tasks = self.pysim(used_machines, self.heu)
         data = {}
         data["makespan"] = makespan
         data["price"] = price

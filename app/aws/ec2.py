@@ -2,6 +2,7 @@ import boto3
 import json
 import os
 from utils.files import save_yaml, read_yaml
+from collections import defaultdict
 
 
 def get_aws_regions(session):
@@ -155,11 +156,74 @@ def generate_aws_dict(regions, eager):
                 item["id"] = new_id
             dccv[region] = dict(sorted_data)
 
-        save_yaml(dccv, "aws_data2.yml")
+        save_yaml(dccv, "aws_data.yml")
 
     else:
-        dccv = read_yaml("aws_data2.yml")
+        dccv = read_yaml("aws_data.yml")
 
     regions = list(dccv.keys())
 
     return dccv, regions
+
+def get_data_transfer_prices(session):
+    client = session.client("pricing")
+
+    paginator = client.get_paginator('get_products')
+    response_iterator = paginator.paginate(
+        ServiceCode='AmazonEC2',
+        Filters=[
+            {
+                'Type': 'TERM_MATCH',
+                'Field': 'productFamily',
+                'Value': 'Data Transfer',
+            }
+        ],
+        PaginationConfig={
+            'MaxItems': 10000  # Adjust this if you expect more results
+        }
+    )
+
+    prices = []
+    for page in response_iterator:
+        for product in page['PriceList']:
+            b = eval(product)
+            # Corrected the attribute name to extract the region
+            prices.append({
+                'from': b['product']['attributes']['fromRegionCode'],
+                'to': b['product']['attributes']['toRegionCode'],
+                'price': list(list(b['terms']['OnDemand'].values())[0]['priceDimensions'].values())[0]['pricePerUnit']['USD']
+            })
+
+    return prices
+
+
+def generate_data_transfer_dict(eager):
+    if eager or not os.path.isfile("aws_trasfer.yml"):
+        session = boto3.Session(
+            aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
+            aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"],
+            region_name=os.environ["AWS_DEFAULT_REGION"],
+        )
+
+        if session:
+            print(
+                "acess data",
+                os.environ["AWS_ACCESS_KEY_ID"],
+                os.environ["AWS_SECRET_ACCESS_KEY"],
+                os.environ["AWS_DEFAULT_REGION"],
+            )
+
+        data_transfer_prices = get_data_transfer_prices(session)
+        data = defaultdict(dict)
+        for item in data_transfer_prices:
+            if item['from'] and item['to']:
+                data[item['from']][item['from']] = 0
+                data[item['from']][item['to']]=float(item['price'])
+            #print(f"Region: {item['from']}, Price per GB: ${item['price']}")
+
+        save_yaml(dict(data), "aws_trasfer.yml")
+
+    else:
+        data = read_yaml("aws_trasfer.yml")
+
+    return data
