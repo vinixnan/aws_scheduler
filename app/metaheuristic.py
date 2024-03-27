@@ -16,8 +16,11 @@ from mop_helper import AWSProblemDirect, remove_dominated_sol
 from pysim_helper import get_pysim_data
 import numpy as np
 from utils.files import format_solution_b, save_json
+import sys
 
 from dotenv import load_dotenv
+
+very_start_time = time.time()
 
 load_dotenv()
 
@@ -26,29 +29,45 @@ Config = namedtuple(
     "seed algorithm_name heuristic_name n_gen pop_size problem_name problem_file_path verbose eager_aws execution_id starting_region",
 )
 
+args = sys.argv[1:]
+print(args)
+
 problem = "Cybershake_100.dot"
-problem_file_path = "datasets/" + problem
-n_threads = 3
-pop_size = 50
-gen = 2
 alg = "NSGAII"
 heu = "HEFT"
 idexec = 666
+pop_size = 50
+gen = 2
+
+if args:
+    problem = args[0]
+    alg = args[1]
+    heu = args[2]
+    idexec = int(args[3])
+    pop_size = int(args[4])
+    gen = int(args[5])
+
+print(problem, alg, heu, idexec, pop_size, gen)
+
+problem_file_path = "datasets/" + problem
+n_threads = 5
+
+
 
 problem_name = problem_file_path.split("/")[1].replace(".dot", "")
 config = Config(
-    None, alg, heu, gen, pop_size, problem_name, problem, False, True, idexec, 'us-east-1'
+    None, alg, heu, gen, pop_size, problem_name, problem, False, False, idexec, 'us-east-1'
 )
 # Get data
 size_of_dataset_in_gb=get_total_input(problem_file_path.replace(".dot", ".xml")) / 1024 / 1024 / 1024
 full_name_regions = get_aws_regions_full()
 number_of_tasks = int(get_dot(problem_file_path)) - 2
-print(size_of_dataset_in_gb/number_of_tasks * 1024, number_of_tasks)
+print("dataset size",size_of_dataset_in_gb/number_of_tasks * 1024, number_of_tasks)
 region_machines_dataset, regions = generate_aws_dict(full_name_regions, config.eager_aws)
 data_trasfer_cost=generate_data_transfer_dict(config.eager_aws)
 from_origin_data_trasfer_cost = data_trasfer_cost[config.starting_region]
 from_origin_data_trasfer_cost={k:v*size_of_dataset_in_gb for k,v in from_origin_data_trasfer_cost.items()}
-print(from_origin_data_trasfer_cost)
+#print(from_origin_data_trasfer_cost)
 
 
 # remove dominated per region
@@ -182,3 +201,4 @@ file_output = (
     + config.heuristic_name
 )
 save_json(to_save, file_output + ".json")
+print("Finished --- %s seconds ---" % (time.time() - very_start_time))
