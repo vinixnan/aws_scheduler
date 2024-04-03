@@ -66,11 +66,16 @@ problems=["Montage_25", "Montage_50", "Montage_100", "Epigenomics_24",
             "Epigenomics_46", "Epigenomics_100", "CyberShake_30", "CyberShake_50",
             "CyberShake_100", "Sipht_30", "Sipht_60", "Inspiral_30", "Inspiral_50", "Sipht_100", "Inspiral_100"]
 iteration = 0
+max_iter = 20
+
+#max_iter = 2
+#problems=["Montage_25"]
+
 problem_all_data ={}
 for problem in problems:
     print(problem)
     all_data = []
-    for iteration in range(20):
+    for iteration in range(max_iter):
         filename =f"/results/VARVmSchedule_2obj_sci_{problem}_2_sci_{problem}_{iteration}_nsgaii_ZHU.default"
 
         file = open(filename, 'r')
@@ -108,6 +113,6 @@ for problem in problems:
 
 
 
-save_json(problem_all_data, 'resp/all_problem_data.json')
+save_json(problem_all_data, 'resp/all_problem_data_1000.json')
 
 

@@ -46,7 +46,7 @@ def remove_dominated(pop):
             returning.append(pop[i])
     return returning
 
-file = open('all_problem_data.json', 'r')
+file = open('resp/all_problem_data_1000.json', 'r')
 data = json.load(file)
 
 
@@ -63,7 +63,7 @@ for problem_name, problem_populations in data.items():
     print(len(simpler))
     print([(el[0], el[1], el[2]) for el in simpler])
     json_object = json.dumps(simpler, indent=4)
-    with open(problem_name+"_pysim.json", "w") as outfile:
+    with open("resp2/"+problem_name+"_pysim.json", "w") as outfile:
         outfile.write(json_object)
 
     
