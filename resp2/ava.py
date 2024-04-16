@@ -31,14 +31,15 @@ def dominates(s1, s2):
         return -1
     return 0
 
+
 def remove_dominated(pop):
     returning = []
     for i in range(len(pop)):
         dominated = False
         for j in range(len(pop)):
             if i != j:
-                s1=(pop[i][1], pop[i][2])
-                s2=(pop[j][1], pop[j][2])
+                s1 = (pop[i][1], pop[i][2])
+                s2 = (pop[j][1], pop[j][2])
                 if dominates(s1, s2) == -1:
                     dominated = True
                     break
@@ -46,25 +47,28 @@ def remove_dominated(pop):
             returning.append(pop[i])
     return returning
 
-file = open('resp/all_problem_data_1000.json', 'r')
+
+file = open("resp/all_problem_data_1000.json", "r")
 data = json.load(file)
-
-
 
 
 for problem_name, problem_populations in data.items():
     simpler = []
     for population in problem_populations:
         for solution in population:
-            el = (solution['variables']['region'], solution['pysim_makespan'], solution['pysim_price'], solution['objectives']['makespan'], solution['objectives']['cost'], solution['ret'])
+            el = (
+                solution["variables"]["region"],
+                solution["pysim_makespan"],
+                solution["pysim_price"],
+                solution["objectives"]["makespan"],
+                solution["objectives"]["cost"],
+                solution["ret"],
+            )
             simpler.append(el)
     print(len(simpler))
-    simpler =remove_dominated(simpler)
+    simpler = remove_dominated(simpler)
     print(len(simpler))
     print([(el[0], el[1], el[2]) for el in simpler])
     json_object = json.dumps(simpler, indent=4)
-    with open("resp2/"+problem_name+"_pysim.json", "w") as outfile:
+    with open("resp2/" + problem_name + "_pysim.json", "w") as outfile:
         outfile.write(json_object)
-
-    
-

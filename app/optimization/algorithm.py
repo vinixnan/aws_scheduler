@@ -1,5 +1,8 @@
+import warnings
+
+warnings.filterwarnings("ignore", message=".*The 'nopython' keyword.*")
 from pymoo.algorithms.moo.nsga2 import NSGA2
-from pymoo.algorithms.moo.age import AGEMOEA
+from pymoo.algorithms.moo.age2 import AGEMOEA2
 from pymoo.algorithms.moo.sms import SMSEMOA
 from pymoo.optimize import minimize
 from pymoo.operators.crossover.pntx import TwoPointCrossover
@@ -50,8 +53,9 @@ class Algorithm:
                 mutation=mutation,
                 eliminate_duplicates=self.eliminate_duplicates,
             )
+
         elif self.algorithm_name == "AGEMOEA":
-            self.algorithm = AGEMOEA(
+            self.algorithm = AGEMOEA2(
                 pop_size=self.pop_size,
                 sampling=sampling,
                 crossover=crossover,

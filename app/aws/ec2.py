@@ -165,34 +165,39 @@ def generate_aws_dict(regions, eager):
 
     return dccv, regions
 
+
 def get_data_transfer_prices(session):
     client = session.client("pricing")
 
-    paginator = client.get_paginator('get_products')
+    paginator = client.get_paginator("get_products")
     response_iterator = paginator.paginate(
-        ServiceCode='AmazonEC2',
+        ServiceCode="AmazonEC2",
         Filters=[
             {
-                'Type': 'TERM_MATCH',
-                'Field': 'productFamily',
-                'Value': 'Data Transfer',
+                "Type": "TERM_MATCH",
+                "Field": "productFamily",
+                "Value": "Data Transfer",
             }
         ],
-        PaginationConfig={
-            'MaxItems': 10000  # Adjust this if you expect more results
-        }
+        PaginationConfig={"MaxItems": 10000},  # Adjust this if you expect more results
     )
 
     prices = []
     for page in response_iterator:
-        for product in page['PriceList']:
+        for product in page["PriceList"]:
             b = eval(product)
             # Corrected the attribute name to extract the region
-            prices.append({
-                'from': b['product']['attributes']['fromRegionCode'],
-                'to': b['product']['attributes']['toRegionCode'],
-                'price': list(list(b['terms']['OnDemand'].values())[0]['priceDimensions'].values())[0]['pricePerUnit']['USD']
-            })
+            prices.append(
+                {
+                    "from": b["product"]["attributes"]["fromRegionCode"],
+                    "to": b["product"]["attributes"]["toRegionCode"],
+                    "price": list(
+                        list(b["terms"]["OnDemand"].values())[0][
+                            "priceDimensions"
+                        ].values()
+                    )[0]["pricePerUnit"]["USD"],
+                }
+            )
 
     return prices
 
@@ -216,10 +221,10 @@ def generate_data_transfer_dict(eager):
         data_transfer_prices = get_data_transfer_prices(session)
         data = defaultdict(dict)
         for item in data_transfer_prices:
-            if item['from'] and item['to']:
-                data[item['from']][item['from']] = 0
-                data[item['from']][item['to']]=float(item['price'])
-            #print(f"Region: {item['from']}, Price per GB: ${item['price']}")
+            if item["from"] and item["to"]:
+                data[item["from"]][item["from"]] = 0
+                data[item["from"]][item["to"]] = float(item["price"])
+            # print(f"Region: {item['from']}, Price per GB: ${item['price']}")
 
         save_yaml(dict(data), "aws_trasfer.yml")
 

@@ -6,13 +6,15 @@ problems="CyberShake_100.dot Epigenomics_100.dot Inspiral_100.dot Montage_100.do
 
 
 problems="CyberShake_100.dot Epigenomics_100.dot"
-problems="Epigenomics_24.dot CyberShake_30.dot Epigenomics_46.dot Inspiral_30.dot Montage_25.dot Sipht_30.dot CyberShake_50.dot Inspiral_50.dot Montage_50.dot Inspiral_100.dot Montage_100.dot Sipht_60.dot Sipht_100.dot" 
-
+problems_missing="Inspiral_50.dot Montage_50.dot Inspiral_100.dot Montage_100.dot"
+problems="Epigenomics_24.dot CyberShake_30.dot Epigenomics_46.dot Inspiral_30.dot Montage_25.dot Sipht_30.dot CyberShake_50.dot Sipht_60.dot Sipht_100.dot" 
+#Epigenomics_24.dot CyberShake_30.dot Epigenomics_46.dot Inspiral_30.dot Montage_25.dot
 
 
 alg="NSGA2"
+alg="AGEMOEA"
 heur="HEFT DLS HCPT PEFT"
-heur="HEFT DLS PEFT"
+heur="HEFT PEFT"
 pop=100
 gen=100
 idexec=1
