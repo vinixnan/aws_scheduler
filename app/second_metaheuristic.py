@@ -20,11 +20,16 @@ import sys
 import os
 from utils.files import save_yaml, read_yaml, load_xml_data, get_dot_full
 
-from optimization.heuristic.heft import generate_rank_d, generate_assignment
+from optimization.heuristic.heft import (
+    generate_rank_d,
+    generate_assignment,
+    el_test,
+    el_test2,
+)
 from collections import defaultdict, OrderedDict
 import tempfile
 from utils.files import save_xml, save_json
-from optimization.heuristic.base import generate_W
+from optimization.heuristic.base import generate_W, generate_B
 
 from dotenv import load_dotenv
 
@@ -38,13 +43,12 @@ Config = namedtuple(
 )
 
 
-
 args = sys.argv[1:]
 print(args)
 
 problem = "Cybershake_100.dot"
-#problem = "Cybershake_30.dot"
-#problem = "Epigenomics_24.dot"
+# problem = "Cybershake_30.dot"
+# problem = "Epigenomics_24.dot"
 alg = "NSGAII"
 alg = "AGEMOEA"
 heu = "HEFT"
@@ -70,7 +74,13 @@ problem_name = problem_file_path.split("/")[1].replace(".dot", "")
 
 problem_xml_name = problem_file_path.replace(".dot", ".xml")
 
+el_test()
+print("\n")
+el_test2()
 
+import pdb
+
+pdb.set_trace()
 
 print(problem_xml_name)
 config = Config(
@@ -96,53 +106,68 @@ region_machines_dataset, regions = generate_aws_dict(
 )
 
 
-region_machines_dataset = {'us-east-1':region_machines_dataset['us-east-1']}
-region_machines_dataset['us-east-1']={'m1.small':region_machines_dataset['us-east-1']['m1.small']}
-region_machines_dataset['us-east-1']['m1.small']["networkPerformance"] = 1000000000
-regions = ['us-east-1']
+region_machines_dataset = {"us-east-1": region_machines_dataset["us-east-1"]}
+region_machines_dataset["us-east-1"] = {
+    "m1.small": region_machines_dataset["us-east-1"]["m1.small"]
+}
+region_machines_dataset["us-east-1"]["m1.small"]["networkPerformance"] = 1000000000
+regions = ["us-east-1"]
 
 eager = config.eager_aws
 
 
-
-
-
 data, graph, pred, succ = load_xml_data(problem_xml_name, problem_file_path)
 task_names = list(graph.keys())
-datax=data
+datax = data
 
 
 for region in regions:
     dataset_machines = region_machines_dataset[region]
-    
-
-    
 
     # create test array with machine name
-
-
 
     qtd_machine = 2
     machine_types = []
     machines_names = list(dataset_machines.keys())
     machine_types = [machines_names[0]] * qtd_machine
 
-    w, w_i_j = generate_W(task_names, config, problem, problem_file_path, region, regions, region_machines_dataset, machine_types)
+    w, w_line = generate_W(
+        task_names,
+        config,
+        problem,
+        problem_file_path,
+        region,
+        regions,
+        region_machines_dataset,
+        machine_types,
+    )
 
     machines = {}
     for i, machine_data in enumerate(machine_types):
         mach = Machine("host" + str(i), dataset_machines[machine_data], "link" + str(i))
         machines[mach.name] = mach
     # create test array with machine name
+    B_m_n, B_m_n_line = generate_B(dataset_machines, machine_types, machines)
 
-    rank_d, c_proc_i_j = generate_rank_d(w_i_j, machines, task_names, machine_types, dataset_machines, w, graph, succ, data)
-    assignment, makespan, last_host = generate_assignment(machines, w, pred, c_proc_i_j, rank_d)
-    
-    
+    rank_d, c_proc_i_j = generate_rank_d(
+        B_m_n,
+        B_m_n_line,
+        w_line,
+        machines,
+        task_names,
+        machine_types,
+        dataset_machines,
+        w,
+        succ,
+        data,
+    )
+    assignment, makespan, last_host = generate_assignment(
+        machines, w, pred, c_proc_i_j, rank_d
+    )
 
     print(assignment, last_host)
-    resp2=calc_makespan(machines, assignment, problem_file_path)
-    print(makespan, resp2['makespan'])
+    resp2 = calc_makespan(machines, assignment, problem_file_path)
+    print(makespan, resp2["makespan"])
     import pdb
 
     pdb.set_trace()

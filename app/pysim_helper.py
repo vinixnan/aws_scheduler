@@ -10,8 +10,6 @@ from collections import defaultdict
 from utils.definitions import Machine
 
 
-
-
 def generate_simgrid_xml(machines, machines_as_one=False):
     factor = 1
     latency = 0.00000001
@@ -37,8 +35,8 @@ def generate_simgrid_xml(machines, machines_as_one=False):
                 doc.stag(
                     "link",
                     id=machine.link,
-                    bandwidth=str(machine.data["networkPerformance"]*factor) + "Bps",
-                    latency=str(latency)+"s",
+                    bandwidth=str(machine.data["networkPerformance"] * factor) + "Bps",
+                    latency=str(latency) + "s",
                 )
             keys = list(machines.keys())
             routes = defaultdict(dict)

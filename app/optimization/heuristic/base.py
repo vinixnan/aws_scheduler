@@ -4,6 +4,7 @@ from pysim_helper import get_pysim_data
 import os
 from utils.files import save_yaml, read_yaml
 
+
 def recursive_transverse(task, succ, c_i_j_line, w_line, memo):
     if memo.get(task):
         return memo[task]
@@ -61,17 +62,21 @@ def generate_B(dataset_machines, machine_types, machines):
     }
     return B_m_n, B_m_n_line
 
+
 def generate_L(qtd_machine):
     L_m = 0.00000001 * 1000
     L_line = [0.00000001 * 1000] * qtd_machine
+    L_m = 0
+    L_line = [0] * qtd_machine
     return L_m, L_line
 
-def generate_C(graph, machines, succ, L_line, data, B_m_n, B_m_n_line):
+
+def generate_C(task_names, machines, succ, L_line, data, B_m_n, B_m_n_line):
     c_proc_i_j = {}
 
-    for task_i in graph.keys():
+    for task_i in task_names:
         for machine_type_i in machines.keys():
-            for task_j in graph.keys():
+            for task_j in task_names:
                 if task_i != task_j:
                     for machine_type_j in machines.keys():
                         task_i_dependent = succ.get(task_i, [])
@@ -94,8 +99,8 @@ def generate_C(graph, machines, succ, L_line, data, B_m_n, B_m_n_line):
                             ] = value
 
     c_i_j_line = defaultdict(dict)
-    for task_i in graph.keys():
-        for task_j in graph.keys():
+    for task_i in task_names:
+        for task_j in task_names:
             if task_i != task_j:
                 task_i_dependent = succ.get(task_i, [])
                 if task_j in task_i_dependent:
@@ -106,24 +111,38 @@ def generate_C(graph, machines, succ, L_line, data, B_m_n, B_m_n_line):
     return c_proc_i_j, c_i_j_line
 
 
-def generate_W(task_names, config, problem, problem_file_path, region, regions, region_machines_dataset, machine_types):
-    all_processors_weights = load_processors_weights(config, problem, problem_file_path, regions, region_machines_dataset)
-    w = all_processors_weights[region]
-    
+def generate_W_line(w, task_names, machine_types):
     w_line = defaultdict(dict)
     for task in task_names:
-        all_task_size = [
-            w[machine_type][task]
-            for machine_type in machine_types
-        ]
+        all_task_size = [w[machine_type][task] for machine_type in machine_types]
         w_line[task] = sum(all_task_size) / len(all_task_size)
-        
-    return w, w_line
+    return w_line
 
-def load_processors_weights(config, problem, problem_file_path, regions, region_machines_dataset):
+
+def generate_W(
+    task_names,
+    config,
+    problem,
+    problem_file_path,
+    region,
+    regions,
+    region_machines_dataset,
+    machine_types,
+):
+    all_processors_weights = load_processors_weights(
+        config, problem, problem_file_path, regions, region_machines_dataset
+    )
+    w = all_processors_weights[region]
+
+    return w, generate_W_line(w, task_names, machine_types)
+
+
+def load_processors_weights(
+    config, problem, problem_file_path, regions, region_machines_dataset
+):
     eager = config.eager_aws
     eager = True
-    if eager or not os.path.isfile(problem+"_machine_execution_time.yml"):
+    if eager or not os.path.isfile(problem + "_machine_execution_time.yml"):
         dc_region_machines_task_time = {}
         for region in regions:
             dataset_machines = region_machines_dataset[region]
@@ -146,9 +165,11 @@ def load_processors_weights(config, problem, problem_file_path, regions, region_
 
             dc_region_machines_task_time[region] = dc_machines_task_time
 
-        save_yaml(dc_region_machines_task_time, problem+"_machine_execution_time.yml")
+        save_yaml(dc_region_machines_task_time, problem + "_machine_execution_time.yml")
 
     else:
-        dc_region_machines_task_time = read_yaml(problem+"_machine_execution_time.yml")
+        dc_region_machines_task_time = read_yaml(
+            problem + "_machine_execution_time.yml"
+        )
 
     return dc_region_machines_task_time
