@@ -1,14 +1,13 @@
 from collections import defaultdict, OrderedDict
 from optimization.heuristic.base import recursive_transverse, calc_EST, generate_L, generate_C, generate_W, generate_B
 
-def generate_rank_d(machines, task_names, machine_types, dataset_machines, dc_machines_task_time, graph, succ, data):
+def generate_rank_d(w_line, machines, task_names, machine_types, dataset_machines, w, graph, succ, data):
     L_m, L_line = generate_L(len(machines))
 
     B_m_n, B_m_n_line = generate_B(dataset_machines, machine_types, machines)
 
     c_proc_i_j, c_i_j_line = generate_C(graph, machines, succ, L_line, data, B_m_n, B_m_n_line)
     
-    w_line = generate_W(task_names, dc_machines_task_time, machine_types)
 
     succ = OrderedDict(sorted(succ.items(), key=lambda x: len(x[1])))
     rank_d = {}
@@ -38,7 +37,7 @@ def generate_assignment(machines, dc_machines_task_time, pred, c_proc_i_j, rank_
         data["machine_type"] = selected_machine_type
         data["EST"] = machines_est[selected]
         data["AFT"] = (
-            data["EST"] + dc_machines_task_time[selected_machine_type['name']]["tasks"][task_id]
+            data["EST"] + dc_machines_task_time[selected_machine_type['name']][task_id]
         )
         data['name'] = task_id
         assigned_task[task_id] = data

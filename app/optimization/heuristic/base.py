@@ -106,18 +106,24 @@ def generate_C(graph, machines, succ, L_line, data, B_m_n, B_m_n_line):
     return c_proc_i_j, c_i_j_line
 
 
-def generate_W(task_names, dc_machines_task_time, machine_types):
+def generate_W(task_names, config, problem, problem_file_path, region, regions, region_machines_dataset, machine_types):
+    all_processors_weights = load_processors_weights(config, problem, problem_file_path, regions, region_machines_dataset)
+    w = all_processors_weights[region]
+    
     w_line = defaultdict(dict)
     for task in task_names:
         all_task_size = [
-            dc_machines_task_time[machine_type]["tasks"][task]
+            w[machine_type][task]
             for machine_type in machine_types
         ]
         w_line[task] = sum(all_task_size) / len(all_task_size)
-    return w_line
+        
+    return w, w_line
 
 def load_processors_weights(config, problem, problem_file_path, regions, region_machines_dataset):
-    if config.eager_aws or not os.path.isfile(problem+"_machine_execution_time.yml"):
+    eager = config.eager_aws
+    eager = True
+    if eager or not os.path.isfile(problem+"_machine_execution_time.yml"):
         dc_region_machines_task_time = {}
         for region in regions:
             dataset_machines = region_machines_dataset[region]
@@ -136,8 +142,7 @@ def load_processors_weights(config, problem, problem_file_path, regions, region_
                         tasks[task["name"]] = task["finish_time"] - task["start_time"]
 
                 dc_machines_task_time[machine_name] = {}
-                dc_machines_task_time[machine_name]["tasks"] = tasks
-                dc_machines_task_time[machine_name]["makespan"] = resp["makespan"]
+                dc_machines_task_time[machine_name] = tasks
 
             dc_region_machines_task_time[region] = dc_machines_task_time
 

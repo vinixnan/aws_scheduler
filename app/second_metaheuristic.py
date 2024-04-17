@@ -24,7 +24,7 @@ from optimization.heuristic.heft import generate_rank_d, generate_assignment
 from collections import defaultdict, OrderedDict
 import tempfile
 from utils.files import save_xml, save_json
-from optimization.heuristic.base import load_processors_weights
+from optimization.heuristic.base import generate_W
 
 from dotenv import load_dotenv
 
@@ -103,20 +103,20 @@ regions = ['us-east-1']
 
 eager = config.eager_aws
 
-dc_region_machines_task_time = load_processors_weights(config, problem, problem_file_path, regions, region_machines_dataset)
-
 
 
 
 
 data, graph, pred, succ = load_xml_data(problem_xml_name, problem_file_path)
+task_names = list(graph.keys())
 datax=data
 
 
 for region in regions:
     dataset_machines = region_machines_dataset[region]
-    dc_machines_task_time = dc_region_machines_task_time[region]
-    task_names = list(graph.keys())
+    
+
+    
 
     # create test array with machine name
 
@@ -124,8 +124,10 @@ for region in regions:
 
     qtd_machine = 2
     machine_types = []
-    machines_names = list(dc_machines_task_time.keys())
+    machines_names = list(dataset_machines.keys())
     machine_types = [machines_names[0]] * qtd_machine
+
+    w, w_i_j = generate_W(task_names, config, problem, problem_file_path, region, regions, region_machines_dataset, machine_types)
 
     machines = {}
     for i, machine_data in enumerate(machine_types):
@@ -133,8 +135,8 @@ for region in regions:
         machines[mach.name] = mach
     # create test array with machine name
 
-    rank_d, c_proc_i_j = generate_rank_d(machines, task_names, machine_types, dataset_machines, dc_machines_task_time, graph, succ, data)
-    assignment, makespan, last_host = generate_assignment(machines, dc_machines_task_time, pred, c_proc_i_j, rank_d)
+    rank_d, c_proc_i_j = generate_rank_d(w_i_j, machines, task_names, machine_types, dataset_machines, w, graph, succ, data)
+    assignment, makespan, last_host = generate_assignment(machines, w, pred, c_proc_i_j, rank_d)
     
     
 
