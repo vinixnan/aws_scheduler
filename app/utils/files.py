@@ -4,6 +4,8 @@ import pydotplus
 import urllib.request
 from collections import Counter, defaultdict
 import xml.etree.ElementTree as ET
+import os
+
 
 
 def save_json(dc, filename):
@@ -61,6 +63,22 @@ def get_dot(dot_path):
     nodes = graph.get_nodes()
     number_of_tasks = len(nodes)
     return number_of_tasks
+
+def get_dot_full(dot_path):
+    graph_output = {}
+    number_of_tasks = -1
+    if "https" in dot_path:
+        urllib.request.urlretrieve(dot_path, "tmp")
+
+    graph = pydotplus.graphviz.graph_from_dot_file(dot_path)
+    nodes = graph.get_nodes()
+    for node in nodes:
+        if node.get('size'):
+            st = node.get('size').replace("'", "").replace('"', "")
+            size = float(st)
+            graph_output[node.get_name()] = size / 4
+
+    return graph_output
 
 
 def get_total_input(filename):
@@ -147,17 +165,26 @@ def generate_dict_of_size(dax_dict):
     for job in dax_dict["jobs"]:
         job_id = job["id"]
         uses = job["uses"]
+        runtime = job["runtime"]
         sizes = []
         for use in uses:
             if use["type"] == "data" and use["link"] == "input":
                 sizes.append(use["size"])
-        graph[job_id] = sum(sizes)
+        flop_factor = (4200000000 * runtime)
+        sm = sum(sizes)
+        graph[job_id] = flop_factor
+
+    
+        
     return graph
 
 
-def load_xml_data(filename):
-    dax_dict = read_xml_data(filename)
+def load_xml_data(xml_path, dot_path):
+    dax_dict = read_xml_data(xml_path)
     graph = generate_dict_of_size(dax_dict)
+    #graph = get_dot_full(dot_path)
+    #del graph['end']
+    #del graph['root']
     preds = dax_dict["dependencies"]
 
     missing = [el for el in graph.keys() if el not in preds.keys()]
@@ -182,3 +209,6 @@ def load_xml_data(filename):
                     data[task_i][task_j] = graph[task_i]
 
     return data, graph, preds, succ
+
+
+

@@ -13,13 +13,18 @@ import time
 from multiprocessing.pool import ThreadPool
 from pymoo.core.problem import StarmapParallelization
 from mop_helper import AWSProblemDirect, remove_dominated_sol
-from pysim_helper import get_pysim_data
+from pysim_helper import get_pysim_data, calc_makespan
 import numpy as np
 from utils.files import format_solution_b, save_json
 import sys
 import os
-from utils.files import save_yaml, read_yaml, load_xml_data
+from utils.files import save_yaml, read_yaml, load_xml_data, get_dot_full
+
+from optimization.heuristic.heft import generate_rank_d, generate_assignment
 from collections import defaultdict, OrderedDict
+import tempfile
+from utils.files import save_xml, save_json
+from optimization.heuristic.base import load_processors_weights
 
 from dotenv import load_dotenv
 
@@ -32,10 +37,14 @@ Config = namedtuple(
     "seed algorithm_name heuristic_name n_gen pop_size problem_name problem_file_path verbose eager_aws execution_id starting_region",
 )
 
+
+
 args = sys.argv[1:]
 print(args)
 
 problem = "Cybershake_100.dot"
+#problem = "Cybershake_30.dot"
+#problem = "Epigenomics_24.dot"
 alg = "NSGAII"
 alg = "AGEMOEA"
 heu = "HEFT"
@@ -61,6 +70,8 @@ problem_name = problem_file_path.split("/")[1].replace(".dot", "")
 
 problem_xml_name = problem_file_path.replace(".dot", ".xml")
 
+
+
 print(problem_xml_name)
 config = Config(
     None,
@@ -84,95 +95,33 @@ region_machines_dataset, regions = generate_aws_dict(
     full_name_regions, config.eager_aws
 )
 
+
+region_machines_dataset = {'us-east-1':region_machines_dataset['us-east-1']}
+region_machines_dataset['us-east-1']={'m1.small':region_machines_dataset['us-east-1']['m1.small']}
+region_machines_dataset['us-east-1']['m1.small']["networkPerformance"] = 1000000000
+regions = ['us-east-1']
+
 eager = config.eager_aws
-# eager = True
-if eager or not os.path.isfile("machine_execution_time.yml"):
-    dc_region_machines_task_time = {}
-    dc_region_machines_task_time2 = {}
-    for region in regions:
-        dataset_machines = region_machines_dataset[region]
-        dc_machines_task_time = {}
-        dc_machines_task_time2 = {}
-        for machine_name, machine_data in dataset_machines.items():
-            selected_region_machines = [machine_data] * 2
-            machines = {}
-            for i, machine_data in enumerate(selected_region_machines):
-                mach = Machine("host" + str(i), machine_data, "link" + str(i))
-                machines[mach.name] = mach
 
-            resp = get_pysim_data(machines, problem_file_path, "HEFT")
-            tasks = {}
-            for host_tasks in resp["tasks"].values():
-                for task in host_tasks:
-                    tasks[task["name"]] = task["finish_time"] - task["start_time"]
-
-            dc_machines_task_time[machine_name] = {}
-            dc_machines_task_time2[machine_name] = {}
-            dc_machines_task_time2[machine_name] = resp
-            dc_machines_task_time[machine_name]["tasks"] = tasks
-            dc_machines_task_time[machine_name]["makespan"] = resp["makespan"]
-
-        dc_region_machines_task_time[region] = dc_machines_task_time
-        dc_region_machines_task_time2[region] = dc_machines_task_time2
-
-    save_yaml(dc_region_machines_task_time, "machine_execution_time.yml")
-
-else:
-    dc_region_machines_task_time = read_yaml("machine_execution_time.yml")
+dc_region_machines_task_time = load_processors_weights(config, problem, problem_file_path, regions, region_machines_dataset)
 
 
-def recursive_transverse(task, succ, c_i_j_line, w_line, memo):
-    if memo.get(task):
-        return memo[task]
-
-    if not succ[task]:
-        memo[task] = w_line[task]
-        return memo[task]
-
-    to_see = []
-    for suc in succ[task]:
-        val = (
-            recursive_transverse(suc, succ, c_i_j_line, w_line, memo)
-            + c_i_j_line[task][suc]
-        )
-        to_see.append(val)
-
-    memo[task] = max(to_see) + w_line[task]
-    return memo[task]
 
 
-def calc_EST(task, task_machine, assignment, pred, c_proc_i_j, memo):
-    if memo.get(task):
-        return memo[task]
 
-    values = []
-    for t in pred.get(task, []):
-        data = calc_EST(t, task_machine, assignment, pred, c_proc_i_j, memo)
-        cj = c_proc_i_j[t][task][data["machine"]][task_machine]
-        val = data["AFT"] + cj
-        values.append(val)
-
-    to_return = 0
-    if values:
-        to_return = max(values)
-
-    data = {}
-    data["AFT"] = to_return
-    machine_assignment = assignment[task_machine]
-    if machine_assignment:
-        if machine_assignment[-1]["AFT"] > to_return:
-            data = machine_assignment[-1]
-
-    return data
+data, graph, pred, succ = load_xml_data(problem_xml_name, problem_file_path)
+datax=data
 
 
-data, graph, pred, succ = load_xml_data(problem_xml_name)
 for region in regions:
     dataset_machines = region_machines_dataset[region]
     dc_machines_task_time = dc_region_machines_task_time[region]
     task_names = list(graph.keys())
 
     # create test array with machine name
+
+
+
     qtd_machine = 2
     machine_types = []
     machines_names = list(dc_machines_task_time.keys())
@@ -180,99 +129,18 @@ for region in regions:
 
     machines = {}
     for i, machine_data in enumerate(machine_types):
-        mach = Machine("host" + str(i), machine_data, "link" + str(i))
+        mach = Machine("host" + str(i), dataset_machines[machine_data], "link" + str(i))
         machines[mach.name] = mach
     # create test array with machine name
 
-    L_m = 0.00000001
-    L_line = [0.00000001] * qtd_machine
+    rank_d, c_proc_i_j = generate_rank_d(machines, task_names, machine_types, dataset_machines, dc_machines_task_time, graph, succ, data)
+    assignment, makespan, last_host = generate_assignment(machines, dc_machines_task_time, pred, c_proc_i_j, rank_d)
+    
+    
 
-    all_networks = [
-        (dataset_machines[machine_type]["networkPerformance"] / 8)
-        for machine_type in machine_types
-    ]
-    B_m_n_line = sum(all_networks) / len(all_networks)
-    B_m_n = {
-        machine_name: (dataset_machines[machine_data.data]["networkPerformance"] / 8)
-        for machine_name, machine_data in machines.items()
-    }
-
-    c_proc_i_j = {}
-
-    for task_i in graph.keys():
-        for machine_type_i in machines.keys():
-            for task_j in graph.keys():
-                if task_i != task_j:
-                    for machine_type_j in machines.keys():
-                        task_i_dependent = succ.get(task_i, [])
-                        if task_j in task_i_dependent:
-                            value = 0
-                            if machine_type_j != machine_type_i:
-                                value = (sum(L_line) / len(L_line)) + (
-                                    data[task_i][task_j] / B_m_n[machine_type_j]
-                                )
-
-                            if not c_proc_i_j.get(task_i):
-                                c_proc_i_j[task_i] = {}
-                            if not c_proc_i_j[task_i].get(task_j):
-                                c_proc_i_j[task_i][task_j] = {}
-                            if not c_proc_i_j[task_i][task_j].get(machine_type_i):
-                                c_proc_i_j[task_i][task_j][machine_type_i] = {}
-
-                            c_proc_i_j[task_i][task_j][machine_type_i][
-                                machine_type_j
-                            ] = value
-
-    c_i_j_line = defaultdict(dict)
-    for task_i in graph.keys():
-        for task_j in graph.keys():
-            if task_i != task_j:
-                task_i_dependent = succ.get(task_i, [])
-                if task_j in task_i_dependent:
-                    c_i_j_line[task_i][task_j] = (sum(L_line) / len(L_line)) + (
-                        data[task_i][task_j] / B_m_n_line
-                    )
-
-    w_line = defaultdict(dict)
-    for task in task_names:
-        all_task_size = [
-            dc_machines_task_time[machine_type]["tasks"][task]
-            for machine_type in machine_types
-        ]
-        w_line[task] = sum(all_task_size) / len(all_task_size)
-
-    succ = OrderedDict(sorted(succ.items(), key=lambda x: len(x[1])))
-
-    rank_d = {}
-    for task in succ.keys():
-        recursive_transverse(task, succ, c_i_j_line, w_line, rank_d)
-
-    rank_d = OrderedDict(sorted(rank_d.items(), key=lambda x: x[1], reverse=True))
-    assignment = defaultdict(list)
-    assigned_task = {}
-    for task_id in rank_d.keys():
-        machines_est = {}
-        for machine_name, machine_data in machines.items():
-            dt = calc_EST(
-                task_id, machine_name, assignment, pred, c_proc_i_j, assigned_task
-            )
-            machines_est[machine_name] = dt["AFT"]
-
-        machines_est = OrderedDict(sorted(machines_est.items(), key=lambda x: x[1]))
-        selected = list(machines_est.keys())[0]
-        selected_machine_type = machines[selected].data
-        data = {}
-        data["machine"] = selected
-        data["machine_type"] = selected_machine_type
-        data["EST"] = machines_est[selected]
-        data["AFT"] = (
-            data["EST"] + dc_machines_task_time[selected_machine_type]["tasks"][task_id]
-        )
-        assigned_task[task_id] = data
-        # c_i_j aqui eh o sem media
-        assignment[selected].append(data)
-
-    print(assignment)
+    print(assignment, last_host)
+    resp2=calc_makespan(machines, assignment, problem_file_path)
+    print(makespan, resp2['makespan'])
     import pdb
 
     pdb.set_trace()

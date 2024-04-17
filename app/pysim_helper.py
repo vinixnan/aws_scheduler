@@ -6,12 +6,19 @@ from utils.files import save_xml, save_json
 from yattag import Doc, indent
 import json
 from optimization.generate import get_simple_decision
-from collections import defaultdict, namedtuple
+from collections import defaultdict
+from utils.definitions import Machine
 
-Machine = namedtuple("Machine", "name data link")
 
 
-def generate_simgrid_xml(machines):
+
+def generate_simgrid_xml(machines, machines_as_one=False):
+    factor = 1
+    latency = 0.00000001
+    if machines_as_one:
+        factor = 10000000000000
+        latency = 0
+
     doc, tag, _ = Doc().tagtext()
     doc.asis("<?xml version='1.0'?>")
     doc.asis(
@@ -30,8 +37,8 @@ def generate_simgrid_xml(machines):
                 doc.stag(
                     "link",
                     id=machine.link,
-                    bandwidth=str(machine.data["networkPerformance"]) + "Bps",
-                    latency="0.00000001s",
+                    bandwidth=str(machine.data["networkPerformance"]*factor) + "Bps",
+                    latency=str(latency)+"s",
                 )
             keys = list(machines.keys())
             routes = defaultdict(dict)
@@ -77,11 +84,11 @@ def calc_makespan(machines, x_aws_tasks, problem_file_path):
         print(p.stdout.readlines())
 
 
-def get_pysim_data(combination, problem_file_path, alg):
+def get_pysim_data(combination, problem_file_path, alg, machines_as_one=False):
     tf = tempfile.NamedTemporaryFile(suffix=str(uuid.uuid4()))
     tf2 = tempfile.NamedTemporaryFile(suffix=str(uuid.uuid4()))
     f = open(tf2.name, "w")
-    xml_data = generate_simgrid_xml(combination)
+    xml_data = generate_simgrid_xml(combination, machines_as_one)
     save_xml(xml_data, tf.name)
     # start_time = time.time()
     p = FastProcess(
