@@ -97,9 +97,7 @@ def run(
 ):
     problem = "datasets/" + problem
     problem_name = problem.split("/")[1].replace(".dot", "")
-    config = Config(
-        None, alg, heu, gen, pop, problem_name, problem, False, False, idexec
-    )
+    config = Config(None, alg, heu, gen, pop, problem_name, problem, False, False, idexec)
     run_exp(config)
 
 

@@ -42,10 +42,7 @@ def recursive_transverse(task, succ, c_i_j_line, w_line, memo):
 
     to_see = []
     for suc in succ[task]:
-        val = (
-            recursive_transverse(suc, succ, c_i_j_line, w_line, memo)
-            + c_i_j_line[task][suc]
-        )
+        val = recursive_transverse(suc, succ, c_i_j_line, w_line, memo) + c_i_j_line[task][suc]
         to_see.append(val)
 
     memo[task] = round(max(to_see) + w_line[task], 3)
@@ -78,15 +75,9 @@ def calc_EST(task, task_machine, assignment, pred, c_proc_i_j, memo):
 
 
 def generate_B(dataset_machines, machine_types, machines):
-    all_networks = [
-        (dataset_machines[machine_type]["networkPerformance"])
-        for machine_type in machine_types
-    ]
+    all_networks = [(dataset_machines[machine_type]["networkPerformance"]) for machine_type in machine_types]
     B_m_n_line = sum(all_networks) / len(all_networks)
-    B_m_n = {
-        machine_name: (machine_data.data["networkPerformance"])
-        for machine_name, machine_data in machines.items()
-    }
+    B_m_n = {machine_name: (machine_data.data["networkPerformance"]) for machine_name, machine_data in machines.items()}
     return B_m_n, B_m_n_line
 
 
@@ -110,9 +101,7 @@ def generate_C(task_names, machines, succ, L_line, data, B_m_n, B_m_n_line):
                         if task_j in task_i_dependent:
                             value = 0
                             if machine_type_j != machine_type_i:
-                                value = (sum(L_line) / len(L_line)) + (
-                                    data[task_i][task_j] / B_m_n[machine_type_j]
-                                )
+                                value = (sum(L_line) / len(L_line)) + (data[task_i][task_j] / B_m_n[machine_type_j])
 
                             if not c_proc_i_j.get(task_i):
                                 c_proc_i_j[task_i] = {}
@@ -121,9 +110,7 @@ def generate_C(task_names, machines, succ, L_line, data, B_m_n, B_m_n_line):
                             if not c_proc_i_j[task_i][task_j].get(machine_type_i):
                                 c_proc_i_j[task_i][task_j][machine_type_i] = {}
 
-                            c_proc_i_j[task_i][task_j][machine_type_i][
-                                machine_type_j
-                            ] = value
+                            c_proc_i_j[task_i][task_j][machine_type_i][machine_type_j] = value
 
     c_i_j_line = defaultdict(dict)
     for task_i in task_names:
@@ -131,9 +118,7 @@ def generate_C(task_names, machines, succ, L_line, data, B_m_n, B_m_n_line):
             if task_i != task_j:
                 task_i_dependent = succ.get(task_i, [])
                 if task_j in task_i_dependent:
-                    c_i_j_line[task_i][task_j] = (sum(L_line) / len(L_line)) + (
-                        data[task_i][task_j] / B_m_n_line
-                    )
+                    c_i_j_line[task_i][task_j] = (sum(L_line) / len(L_line)) + (data[task_i][task_j] / B_m_n_line)
 
     return c_proc_i_j, c_i_j_line
 
@@ -164,9 +149,7 @@ def generate_W(
     return w, generate_W_line(w, task_names, machine_types)
 
 
-def load_processors_weights(
-    config, problem, problem_file_path, regions, region_machines_dataset
-):
+def load_processors_weights(config, problem, problem_file_path, regions, region_machines_dataset):
     eager = config.eager_aws
     eager = True
     if eager or not os.path.isfile(problem + "_machine_execution_time.yml"):
@@ -195,8 +178,6 @@ def load_processors_weights(
         save_yaml(dc_region_machines_task_time, problem + "_machine_execution_time.yml")
 
     else:
-        dc_region_machines_task_time = read_yaml(
-            problem + "_machine_execution_time.yml"
-        )
+        dc_region_machines_task_time = read_yaml(problem + "_machine_execution_time.yml")
 
     return dc_region_machines_task_time

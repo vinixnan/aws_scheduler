@@ -24,10 +24,7 @@ def get_simple_decision(task2ins, ins2type, taskInOrder, task_names, machines_da
             "link" + str(instance),
         )
 
-    ret = [
-        (dc_types[k], [el[0] for el in sorted(v, key=lambda x: x[1])])
-        for k, v in prepared.items()
-    ]
+    ret = [(dc_types[k], [el[0] for el in sorted(v, key=lambda x: x[1])]) for k, v in prepared.items()]
     for k, values in ret:
         for v in values:
             task_in_host[v] = k.name
@@ -43,12 +40,7 @@ def calc_makespan(machines, task_in_host, problem_file_path):
     xml_data = generate_simgrid_xml(machines)
     save_xml(xml_data, tf_xml.name)
     p = subprocess.Popen(
-        "runsimulation --hostconf "
-        + tf_xml.name
-        + " -p "
-        + problem_file_path
-        + " -a "
-        + tf_json.name,
+        "runsimulation --hostconf " + tf_xml.name + " -p " + problem_file_path + " -a " + tf_json.name,
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -107,9 +99,7 @@ for problem in problems:
             ins2type = data["variables"]["ins2type"]
             taskInOrder = data["variables"]["taskInOrder"]
             machines_dataset = region_machines_dataset[data["variables"]["region"]]
-            problem_file_path = (
-                "datasets/" + data["problem"].replace("sci_", "") + ".dot"
-            )
+            problem_file_path = "datasets/" + data["problem"].replace("sci_", "") + ".dot"
             task_name = {}
             for i in range(len(taskInOrder) - 2):
                 istr = str(i)
@@ -120,14 +110,10 @@ for problem in problems:
 
             task_name[len(taskInOrder) - 2] = "root"
             task_name[len(taskInOrder) - 1] = "end"
-            ret, task_in_host = get_simple_decision(
-                task2ins, ins2type, taskInOrder, task_name, machines_dataset
-            )
+            ret, task_in_host = get_simple_decision(task2ins, ins2type, taskInOrder, task_name, machines_dataset)
             machines = {el[0].name: el[0] for el in ret}
             resp = calc_makespan(machines, task_in_host, problem_file_path)
-            data["ret"] = [
-                ((machine.name, machine.data["name"]), tasks) for machine, tasks in ret
-            ]
+            data["ret"] = [((machine.name, machine.data["name"]), tasks) for machine, tasks in ret]
             # data['decision']=task_in_host
             data["pysim_makespan"] = resp["makespan"]
             data["pysim_price"] = math.ceil(float(resp["makespan"]) / 3600) * sum(

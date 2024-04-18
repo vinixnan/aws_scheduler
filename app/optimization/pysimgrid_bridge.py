@@ -13,12 +13,7 @@ def get_pysim_data(solution, algs, selections):
     data_arr = []
     for alg in algs:
         p = subprocess.Popen(
-            "pysim --conf "
-            + tf.name
-            + " -p "
-            + problem.problem_file_path
-            + " -a "
-            + alg,
+            "pysim --conf " + tf.name + " -p " + problem.problem_file_path + " -a " + alg,
             shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,

@@ -100,22 +100,14 @@ def get_instances(session, region_name, dc_region):
             ecu = float(price["product"]["attributes"]["ecu"])
             dcc = {}
             dcc["clockSpeed"] = float(
-                price["product"]["attributes"]
-                .get("clockSpeed", "0")
-                .replace(" GHz", "")
-                .replace("Up to ", "")
+                price["product"]["attributes"].get("clockSpeed", "0").replace(" GHz", "").replace("Up to ", "")
             )
             dcc["vcpu"] = int(price["product"]["attributes"]["vcpu"])
-            dcc["memory"] = int(
-                float(price["product"]["attributes"]["memory"].replace(" GiB", ""))
-                * 1024
-            )
+            dcc["memory"] = int(float(price["product"]["attributes"]["memory"].replace(" GiB", "")) * 1024)
             dcc["regionCode"] = price["product"]["attributes"]["regionCode"]
             dcc["ecu"] = ecu
             dcc["flop"] = str(int(ecu * 4.4)) + "e9flops"
-            dcc["networkPerformance"] = prepare_bandwitch(
-                price["product"]["attributes"]["networkPerformance"]
-            )
+            dcc["networkPerformance"] = prepare_bandwitch(price["product"]["attributes"]["networkPerformance"])
             onde = price["terms"]["OnDemand"]
 
             for on_demand in onde.values():
@@ -191,11 +183,9 @@ def get_data_transfer_prices(session):
                 {
                     "from": b["product"]["attributes"]["fromRegionCode"],
                     "to": b["product"]["attributes"]["toRegionCode"],
-                    "price": list(
-                        list(b["terms"]["OnDemand"].values())[0][
-                            "priceDimensions"
-                        ].values()
-                    )[0]["pricePerUnit"]["USD"],
+                    "price": list(list(b["terms"]["OnDemand"].values())[0]["priceDimensions"].values())[0][
+                        "pricePerUnit"
+                    ]["USD"],
                 }
             )
 

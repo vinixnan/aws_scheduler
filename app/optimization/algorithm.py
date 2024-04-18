@@ -25,9 +25,7 @@ class ChoiceRandomMutation(Mutation):
 
 
 class Algorithm:
-    def __init__(
-        self, algorithm_name, n_gen, pop_size, problem, region, seed=None, verbose=False
-    ):
+    def __init__(self, algorithm_name, n_gen, pop_size, problem, region, seed=None, verbose=False):
         self.problem = problem
         self.pop_size = pop_size
         self.eliminate_duplicates = True

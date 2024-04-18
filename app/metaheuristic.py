@@ -69,20 +69,14 @@ config = Config(
     "us-east-1",
 )
 # Get data
-size_of_dataset_in_gb = (
-    get_total_input(problem_file_path.replace(".dot", ".xml")) / 1024 / 1024 / 1024
-)
+size_of_dataset_in_gb = get_total_input(problem_file_path.replace(".dot", ".xml")) / 1024 / 1024 / 1024
 full_name_regions = get_aws_regions_full()
 number_of_tasks = int(get_dot(problem_file_path)) - 2
 print("dataset size", size_of_dataset_in_gb / number_of_tasks * 1024, number_of_tasks)
-region_machines_dataset, regions = generate_aws_dict(
-    full_name_regions, config.eager_aws
-)
+region_machines_dataset, regions = generate_aws_dict(full_name_regions, config.eager_aws)
 data_trasfer_cost = generate_data_transfer_dict(config.eager_aws)
 from_origin_data_trasfer_cost = data_trasfer_cost[config.starting_region]
-from_origin_data_trasfer_cost = {
-    k: v * size_of_dataset_in_gb for k, v in from_origin_data_trasfer_cost.items()
-}
+from_origin_data_trasfer_cost = {k: v * size_of_dataset_in_gb for k, v in from_origin_data_trasfer_cost.items()}
 # print(from_origin_data_trasfer_cost)
 
 
@@ -101,9 +95,7 @@ print(
     len(region_machines_dataset),
     region_machines_dataset.keys(),
 )
-print(
-    "Number of tasks", number_of_tasks, "Average of number of executed machines", n_var
-)
+print("Number of tasks", number_of_tasks, "Average of number of executed machines", n_var)
 pool = ThreadPool(n_threads)
 runners = StarmapParallelization(pool.starmap)
 
@@ -126,9 +118,7 @@ for region_name, machines_data in region_machines_dataset.items():
     if len(machines_data) > 1:
         problem = problems[region_name]
         print(problem.region_name)
-        alg = Algorithm(
-            config.algorithm_name, gen, pop_size, problem, problem.region_name
-        )
+        alg = Algorithm(config.algorithm_name, gen, pop_size, problem, problem.region_name)
 
         start_time = time.time()
         res = alg.run()
@@ -157,9 +147,7 @@ for sol in npop:
     region_machines = region_machines_dataset[sol.region_name]
     if len(region_machines) > 1:
         problem = problems[sol.region_name]
-        selected_region_machines = [
-            region_machines[machine_name] for machine_name in problem.show_solution(sol)
-        ]
+        selected_region_machines = [region_machines[machine_name] for machine_name in problem.show_solution(sol)]
 
         machines = {}
         for i, machine_data in enumerate(selected_region_machines):
@@ -170,9 +158,7 @@ for sol in npop:
         machines = {k: v for k, v in machines.items() if k in resp["tasks"].keys()}
         sol.makespan = resp["makespan"]
         sol.tasks = resp["tasks"]
-        sol.X = [
-            v.data["name"] for k, v in machines.items() if k in resp["tasks"].keys()
-        ]
+        sol.X = [v.data["name"] for k, v in machines.items() if k in resp["tasks"].keys()]
         sol.price = math.ceil(float(resp["makespan"]) / 3600) * sum(
             [machine.data["pricePerUnit"] for machine in machines.values()]
         ) + from_origin_data_trasfer_cost.get(region_name, 0)

@@ -27,9 +27,7 @@ def generate_oct(
     data,
 ):
     L_m, L_line = generate_L(len(machines))
-    c_proc_i_j, c_i_j_line = generate_C(
-        task_names, machines, succ, L_line, data, B_m_n, B_m_n_line
-    )
+    c_proc_i_j, c_i_j_line = generate_C(task_names, machines, succ, L_line, data, B_m_n, B_m_n_line)
 
     oct_table = defaultdict(dict)
     rank_oct = {}
@@ -49,10 +47,7 @@ def generate_oct(
         to_add = pred[current]
         q.extend(to_add)
 
-    rank_oct = {
-        task_name: (sum([v for v in values.values()]) / P)
-        for task_name, values in oct_table.items()
-    }
+    rank_oct = {task_name: (sum([v for v in values.values()]) / P) for task_name, values in oct_table.items()}
 
     return oct_table, rank_oct, c_proc_i_j
 
@@ -70,9 +65,7 @@ def generate_rank_d(
     data,
 ):
     L_m, L_line = generate_L(len(machines))
-    c_proc_i_j, c_i_j_line = generate_C(
-        task_names, machines, succ, L_line, data, B_m_n, B_m_n_line
-    )
+    c_proc_i_j, c_i_j_line = generate_C(task_names, machines, succ, L_line, data, B_m_n, B_m_n_line)
 
     succ = OrderedDict(sorted(succ.items(), key=lambda x: len(x[1])))
     rank_d = {}
@@ -89,9 +82,7 @@ def generate_assignment(machines, w, pred, c_proc_i_j, rank_d):
     for task_id in rank_d.keys():
         machines_est = {}
         for machine_name, machine_data in machines.items():
-            dt = calc_EST(
-                task_id, machine_name, assignment, pred, c_proc_i_j, assigned_task
-            )
+            dt = calc_EST(task_id, machine_name, assignment, pred, c_proc_i_j, assigned_task)
             data = {}
             data["EST"] = dt["AFT"]
             data["AFT"] = data["EST"] + w[machine_data.data["name"]][task_id]
@@ -99,9 +90,7 @@ def generate_assignment(machines, w, pred, c_proc_i_j, rank_d):
             data["name"] = task_id
             machines_est[machine_name] = data
 
-        machines_est = OrderedDict(
-            sorted(machines_est.items(), key=lambda x: x[1]["AFT"])
-        )
+        machines_est = OrderedDict(sorted(machines_est.items(), key=lambda x: x[1]["AFT"]))
         selected = list(machines_est.keys())[0]
         selected_data = machines_est[selected]
 
@@ -492,14 +481,10 @@ def test_allocation_from_heft_paper():
         for el in succ_el:
             preds[el].append(pred)
 
-    allocation, makespan, _, _ = generate_assignment(
-        machines, w, preds, c_proc_i_j, rank_d
-    )
+    allocation, makespan, _, _ = generate_assignment(machines, w, preds, c_proc_i_j, rank_d)
 
     for processor_name in expected_allocation.keys():
-        assert expected_allocation[processor_name] == [
-            el["name"] for el in allocation[processor_name]
-        ]
+        assert expected_allocation[processor_name] == [el["name"] for el in allocation[processor_name]]
 
 
 def el_test():

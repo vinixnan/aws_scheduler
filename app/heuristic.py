@@ -21,9 +21,7 @@ def normalize(value, min_value, max_value):
 def generate_simgrid_xml(machines):
     doc, tag, _ = Doc().tagtext()
     doc.asis("<?xml version='1.0'?>")
-    doc.asis(
-        '<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">'
-    )
+    doc.asis('<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">')
 
     with tag("platform", version="4"):
         with tag("AS", id="AS0", routing="Floyd"):
@@ -104,15 +102,11 @@ for region_data in dccv.values():
         data["n_pricePerUnit"] = normalize(data["pricePerUnit"], min_price, max_price)
         data["n_vcpu"] = normalize(data["vcpu"], min_vcpu, max_vcpu)
         data["n_memory"] = normalize(data["memory"], min_memory, max_memory)
-        data["n_price_per_ecu"] = normalize(
-            data["price_per_ecu"], min_price_per_ecu, max_price_per_ecu
-        )
+        data["n_price_per_ecu"] = normalize(data["price_per_ecu"], min_price_per_ecu, max_price_per_ecu)
 
 
 n_partitions = 10
-weights_set = get_reference_directions(
-    "das-dennis", 2, n_partitions=n_partitions, scaling=1
-)
+weights_set = get_reference_directions("das-dennis", 2, n_partitions=n_partitions, scaling=1)
 print(len(weights_set))
 
 selected_data = {}
@@ -128,9 +122,7 @@ for region_name, dccv_nd in dccv.items():
                 best_machine = machine_name
         chosen.append(best_machine)
     chosen = set(chosen)
-    selected_data[region_name] = {
-        k: v for k, v in dccv[region_name].items() if k in chosen
-    }
+    selected_data[region_name] = {k: v for k, v in dccv[region_name].items() if k in chosen}
 
 print(selected_data["us-east-1"])
 
@@ -152,11 +144,7 @@ for machine_name, data in dccv["us-east-1"].items():
     machine = machines[name].data
 
     machine["makespan"] = resp["makespan"]
-    machine["price"] = (
-        machine["pricePerUnit"]
-        * len(machines)
-        * (math.ceil(float(resp["makespan"]) / 3600))
-    )
+    machine["price"] = machine["pricePerUnit"] * len(machines) * (math.ceil(float(resp["makespan"]) / 3600))
     print(len(machines), machine["name"], machine["makespan"], machine["price"])
     final_mach[machine["name"]] = machine
 
@@ -186,8 +174,7 @@ def generate_permutations_lp(data, max_size, weights, max_repeated_machine, max_
 
     model.obj = Objective(
         expr=sum(
-            data[e]["n_makespan"] * model.x[e, r] * weights[0]
-            + data[e]["n_price"] * model.x[e, r] * weights[1]
+            data[e]["n_makespan"] * model.x[e, r] * weights[0] + data[e]["n_price"] * model.x[e, r] * weights[1]
             for e in model.E
             for r in model.R
         ),
@@ -201,10 +188,7 @@ def generate_permutations_lp(data, max_size, weights, max_repeated_machine, max_
     # model.other = Constraint(model.E, rule=lambda model, e: sum(model.x[e, r] for r in model.R) <= max_repeated_machine)
 
     model.money_contraint = Constraint(
-        rule=sum(
-            model.x[e, r] * data[e]["n_pricePerUnit"] for e in model.E for r in model.R
-        )
-        <= max_money
+        rule=sum(model.x[e, r] * data[e]["n_pricePerUnit"] for e in model.E for r in model.R) <= max_money
     )
 
     # Solve the LP

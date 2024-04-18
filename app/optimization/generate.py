@@ -26,10 +26,7 @@ def generate_dict_of_performers(problem, dccv):
         get_pysim_data(sol, ["HEFT"], {})
         dcx = sol.x_aws_tasks
         for machine_name in list(dcx.keys()):
-            to_add = {
-                dc["name"]: (dc["finish_time"] - dc["start_time"])
-                for dc in dcx[machine_name]
-            }
+            to_add = {dc["name"]: (dc["finish_time"] - dc["start_time"]) for dc in dcx[machine_name]}
             performance[machine_name].update(to_add)
 
     return performance
@@ -61,9 +58,7 @@ def select_one_solution(population):
     for s in population:
         s.fitness = 0
         for i in range(qtd_obj):
-            s.fitness = s.fitness + (
-                (s.F[i] - min_data[i]) / (max_data[i] - min_data[i])
-            )
+            s.fitness = s.fitness + ((s.F[i] - min_data[i]) / (max_data[i] - min_data[i]))
             s.valid = True
             if s.F[i] > mean_data[i]:
                 s.valid = False
@@ -116,12 +111,7 @@ def calc_makespan(solution):
     xml_data = problem.generate_simgrid_xml(solution.machines)
     save_xml(xml_data, tf_xml.name)
     p = subprocess.Popen(
-        "runsimulation --hostconf "
-        + tf_xml.name
-        + " -p "
-        + problem.problem_file_path
-        + " -a "
-        + tf_json.name,
+        "runsimulation --hostconf " + tf_xml.name + " -p " + problem.problem_file_path + " -a " + tf_json.name,
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -145,12 +135,7 @@ def get_pysim_data(solution, algs, selections):
     data_arr = []
     for alg in algs:
         p = subprocess.Popen(
-            "pysim --conf "
-            + tf.name
-            + " -p "
-            + problem.problem_file_path
-            + " -a "
-            + alg,
+            "pysim --conf " + tf.name + " -p " + problem.problem_file_path + " -a " + alg,
             shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,

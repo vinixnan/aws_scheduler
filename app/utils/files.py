@@ -149,10 +149,7 @@ def read_xml_data(filename):
     dependencies = {}
     for child in root.findall("dax:child", namespace):
         child_id = child.attrib.get("ref")
-        parents = [
-            parent.attrib.get("ref")
-            for parent in child.findall("dax:parent", namespace)
-        ]
+        parents = [parent.attrib.get("ref") for parent in child.findall("dax:parent", namespace)]
         dependencies[child_id] = parents
 
     dax_dict["dependencies"] = dependencies

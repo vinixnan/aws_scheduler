@@ -19,9 +19,7 @@ def generate_simgrid_xml(machines, machines_as_one=False):
 
     doc, tag, _ = Doc().tagtext()
     doc.asis("<?xml version='1.0'?>")
-    doc.asis(
-        '<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">'
-    )
+    doc.asis('<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">')
 
     with tag("platform", version="4"):
         with tag("AS", id="AS0", routing="Floyd"):
@@ -62,12 +60,7 @@ def calc_makespan(machines, x_aws_tasks, problem_file_path):
     xml_data = generate_simgrid_xml(machines)
     save_xml(xml_data, tf_xml.name)
     p = subprocess.Popen(
-        "runsimulation --hostconf "
-        + tf_xml.name
-        + " -p "
-        + problem_file_path
-        + " -a "
-        + tf_json.name,
+        "runsimulation --hostconf " + tf_xml.name + " -p " + problem_file_path + " -a " + tf_json.name,
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -89,9 +82,7 @@ def get_pysim_data(combination, problem_file_path, alg, machines_as_one=False):
     xml_data = generate_simgrid_xml(combination, machines_as_one)
     save_xml(xml_data, tf.name)
     # start_time = time.time()
-    p = FastProcess(
-        ["pysim", "--conf", tf.name, "-p", problem_file_path, "-a", alg], stdout=f
-    )
+    p = FastProcess(["pysim", "--conf", tf.name, "-p", problem_file_path, "-a", alg], stdout=f)
 
     # p = subprocess.Popen(
     #    "pysim --conf " + tf.name + " -p " + problem_file_path + " -a " + alg,

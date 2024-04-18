@@ -50,9 +50,7 @@ class AWSProblem(ElementwiseProblem):
     def generate_simgrid_xml(self, machines):
         doc, tag, _ = Doc().tagtext()
         doc.asis("<?xml version='1.0'?>")
-        doc.asis(
-            '<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">'
-        )
+        doc.asis('<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">')
 
         with tag("platform", version="4"):
             with tag("AS", id="AS0", routing="Floyd"):

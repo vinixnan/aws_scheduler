@@ -63,9 +63,7 @@ def remove_non_dominated_from_dataset(dataset):
     ndom = remove_dominated(pop)
     for element in ndom:
         machine_name, region_name = element[1]
-        final_region_machines[region_name][machine_name] = dataset[region_name][
-            machine_name
-        ]
+        final_region_machines[region_name][machine_name] = dataset[region_name][machine_name]
     return final_region_machines
 
 
@@ -84,9 +82,7 @@ def remove_non_dominated_per_region(dccv):
     return dataset
 
 
-def remove_bad_performing_machines(
-    final_region_machines, number_of_tasks, data_trasfer_cost, problem_file_path
-):
+def remove_bad_performing_machines(final_region_machines, number_of_tasks, data_trasfer_cost, problem_file_path):
     pop = []
     qtd_machines = []
     for region_name, machines_data in final_region_machines.items():
@@ -115,7 +111,5 @@ def remove_bad_performing_machines(
     final_region_machines2 = defaultdict(dict)
     for element in ndom_base:
         machine_name, region_name, _ = element[1]
-        final_region_machines2[region_name][machine_name] = final_region_machines[
-            region_name
-        ][machine_name]
+        final_region_machines2[region_name][machine_name] = final_region_machines[region_name][machine_name]
     return final_region_machines2, n_var, ndom_base
