@@ -9,6 +9,7 @@ from optimization.heuristic.base import (
     generate_W_line,
 )
 import math
+from pysim_helper import Machine
 
 
 def generate_rank_d(
@@ -37,7 +38,7 @@ def generate_rank_d(
     return rank_d, c_proc_i_j
 
 
-def generate_assignment(machines, dc_machines_task_time, pred, c_proc_i_j, rank_d):
+def generate_assignment(machines, w, pred, c_proc_i_j, rank_d):
     assignment = defaultdict(list)
     assigned_task = {}
     for task_id in rank_d.keys():
@@ -46,49 +47,46 @@ def generate_assignment(machines, dc_machines_task_time, pred, c_proc_i_j, rank_
             dt = calc_EST(
                 task_id, machine_name, assignment, pred, c_proc_i_j, assigned_task
             )
-            machines_est[machine_name] = dt["AFT"]
+            data = {}
+            data["EST"] = dt["AFT"]
+            data["AFT"] = data["EST"] + w[machine_data.data["name"]][task_id]
+            data["machine"] = machine_name
+            data["name"] = task_id
+            machines_est[machine_name] = data
 
-        machines_est = OrderedDict(sorted(machines_est.items(), key=lambda x: x[1]))
-        selected = list(machines_est.keys())[0]
-        selected_machine_type = machines[selected].data
-        data = {}
-        data["machine"] = selected
-        data["machine_type"] = selected_machine_type
-        data["EST"] = machines_est[selected]
-        data["AFT"] = (
-            data["EST"] + dc_machines_task_time[selected_machine_type["name"]][task_id]
+        machines_est = OrderedDict(
+            sorted(machines_est.items(), key=lambda x: x[1]["AFT"])
         )
-        data["name"] = task_id
-        assigned_task[task_id] = data
-        # c_i_j aqui eh o sem media
-        assignment[selected].append(data)
+        selected = list(machines_est.keys())[0]
+        selected_data = machines_est[selected]
+
+        selected_machine_type = machines[selected].data
+        selected_data["machine_type"] = selected_machine_type
+
+        assigned_task[task_id] = selected_data
+        assignment[selected].append(selected_data)
 
     last_host = None
+    first_host = None
     makespan = 0
     for host_name, l in assignment.items():
         data = l[-1]
-        print(data)
         if data["AFT"] > makespan:
             makespan = data["AFT"]
             last_host = host_name
+        data = l[0]
+        if data["EST"] == 0:
+            first_host = host_name
 
-    assignment[last_host].append(
-        {
-            "machine": last_host,
-            "name": "end",
-            "AFT": assignment[last_host][-1],
-            "EST": assignment[last_host][-1],
-        }
-    )
-    assignment[last_host].insert(
-        0, {"machine": last_host, "name": "root", "AFT": 0, "EST": 0}
-    )
-    return assignment, makespan, last_host
+    return assignment, makespan, first_host, last_host
 
 
-def el_test():
+def generate_data_heft_paper():
     task_names = ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"]
     machines = {"P1": {}, "P2": {}, "P3": {}}
+    for m in machines.keys():
+        machines[m] = Machine(m, {"name": m}, "link" + m)
+
     machine_types = list(machines.keys())
     w = defaultdict(dict)
     rank_u_test = {}
@@ -159,6 +157,30 @@ def el_test():
     data["T8"]["T10"] = 11
     data["T9"]["T10"] = 13
 
+    rank_u_test["T1"] = 108
+    rank_u_test["T2"] = 77
+    rank_u_test["T3"] = 80
+    rank_u_test["T4"] = 80
+    rank_u_test["T5"] = 69
+    rank_u_test["T6"] = 63.333
+    rank_u_test["T7"] = 42.667
+    rank_u_test["T8"] = 35.667
+    rank_u_test["T9"] = 44.333
+    rank_u_test["T10"] = 14.667
+
+    return task_names, machines, machine_types, w, data, rank_u_test, succ
+
+
+def el_test():
+    (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        succ,
+    ) = generate_data_heft_paper()
     w_line = generate_W_line(w, task_names, machine_types)
 
     B_m_n_line = 1
@@ -178,17 +200,6 @@ def el_test():
         succ,
         data,
     )
-
-    rank_u_test["T1"] = 108
-    rank_u_test["T2"] = 77
-    rank_u_test["T3"] = 80
-    rank_u_test["T4"] = 80
-    rank_u_test["T5"] = 69
-    rank_u_test["T6"] = 63.333
-    rank_u_test["T7"] = 42.667
-    rank_u_test["T8"] = 35.667
-    rank_u_test["T9"] = 44.333
-    rank_u_test["T10"] = 14.667
 
     for task in task_names:
         # print(task, rank_d[task], rank_u_test[task])
@@ -336,3 +347,55 @@ def el_test2():
     for task in task_names:
         # print(task, rank_d[task], rank_u_test[task])
         assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01)
+
+
+def test_allocation_from_heft_paper():
+    expected_allocation = defaultdict(list)
+    expected_allocation["P3"].extend(["T1", "T3", "T5", "T7"])
+    expected_allocation["P2"].extend(["T4", "T6", "T9", "T10"])
+    expected_allocation["P1"].extend(["T2", "T8"])
+    expected_makespan = 80
+
+    (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        succ,
+    ) = generate_data_heft_paper()
+
+    w_line = generate_W_line(w, task_names, machine_types)
+
+    B_m_n_line = 1
+    B_m_n = {machine_name: 1 for machine_name in machine_types}
+
+    dataset_machines = {}
+
+    rank_d, c_proc_i_j = generate_rank_d(
+        B_m_n,
+        B_m_n_line,
+        w_line,
+        machines,
+        task_names,
+        machine_types,
+        dataset_machines,
+        w,
+        succ,
+        data,
+    )
+
+    preds = defaultdict(list)
+    for pred, succ_el in succ.items():
+        for el in succ_el:
+            preds[el].append(pred)
+
+    allocation, makespan, _, _ = generate_assignment(
+        machines, w, preds, c_proc_i_j, rank_d
+    )
+
+    for processor_name in expected_allocation.keys():
+        assert expected_allocation[processor_name] == [
+            el["name"] for el in allocation[processor_name]
+        ]

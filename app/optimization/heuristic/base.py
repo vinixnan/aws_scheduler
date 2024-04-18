@@ -21,7 +21,7 @@ def recursive_transverse(task, succ, c_i_j_line, w_line, memo):
         )
         to_see.append(val)
 
-    memo[task] = max(to_see) + w_line[task]
+    memo[task] = round(max(to_see) + w_line[task], 3)
     return memo[task]
 
 

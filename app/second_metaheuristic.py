@@ -25,6 +25,7 @@ from optimization.heuristic.heft import (
     generate_assignment,
     el_test,
     el_test2,
+    test_allocation_from_heft_paper,
 )
 from collections import defaultdict, OrderedDict
 import tempfile
@@ -75,14 +76,9 @@ problem_name = problem_file_path.split("/")[1].replace(".dot", "")
 problem_xml_name = problem_file_path.replace(".dot", ".xml")
 
 el_test()
-print("\n")
 el_test2()
+test_allocation_from_heft_paper()
 
-import pdb
-
-pdb.set_trace()
-
-print(problem_xml_name)
 config = Config(
     None,
     alg,
@@ -161,11 +157,20 @@ for region in regions:
         succ,
         data,
     )
-    assignment, makespan, last_host = generate_assignment(
+    assignment, makespan, first_host, last_host = generate_assignment(
         machines, w, pred, c_proc_i_j, rank_d
     )
-
-    print(assignment, last_host)
+    assignment[last_host].append(
+        {
+            "machine": last_host,
+            "name": "end",
+            "AFT": assignment[last_host][-1],
+            "EST": assignment[last_host][-1],
+        }
+    )
+    assignment[first_host].insert(
+        0, {"machine": last_host, "name": "root", "AFT": 0, "EST": 0}
+    )
     resp2 = calc_makespan(machines, assignment, problem_file_path)
     print(makespan, resp2["makespan"])
     import pdb
