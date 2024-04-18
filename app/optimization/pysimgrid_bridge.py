@@ -1,8 +1,9 @@
-from utils.files import save_xml
+import json
 import subprocess
 import tempfile
-import json
+
 import numpy as np
+from utils.files import save_xml
 
 
 def get_pysim_data(solution, algs, selections):

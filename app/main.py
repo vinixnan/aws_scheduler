@@ -1,16 +1,12 @@
-from aws.ec2 import get_aws_regions_full
-from optimization.generate import (
-    generate_solutions,
-    get_pysim_data,
-    select_one_solution,
-    calc_makespan,
-)
-from optimization.problem import remove_dominated
-from dotenv import load_dotenv
-import numpy as np
 from collections import namedtuple
-from utils.files import save_yaml, format_solution, save_json
+
 import click
+import numpy as np
+from aws.ec2 import get_aws_regions_full
+from dotenv import load_dotenv
+from optimization.generate import calc_makespan, generate_solutions, get_pysim_data, select_one_solution
+from optimization.problem import remove_dominated
+from utils.files import format_solution, save_json, save_yaml
 
 load_dotenv()
 

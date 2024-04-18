@@ -1,5 +1,6 @@
-from collections import defaultdict, namedtuple
 import math
+from collections import defaultdict, namedtuple
+
 from pysim_helper import get_pysim_data
 
 Machine = namedtuple("Machine", "name data link")

@@ -1,14 +1,13 @@
-from aws.ec2 import generate_aws_dict
-from utils.files import get_dot
-from optimization.algorithm import run_all
-from optimization.problem import remove_dominated, get_problems
-from utils.files import save_xml, save_json
-from optimization.problem import Instance
+import json
 import subprocess
 import tempfile
-import json
+from collections import OrderedDict, defaultdict
+
 import numpy as np
-from collections import defaultdict, OrderedDict
+from aws.ec2 import generate_aws_dict
+from optimization.algorithm import run_all
+from optimization.problem import Instance, get_problems, remove_dominated
+from utils.files import get_dot, save_json, save_xml
 
 
 class Solution:

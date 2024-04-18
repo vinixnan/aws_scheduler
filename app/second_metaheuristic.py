@@ -1,36 +1,33 @@
-from aws.ec2 import get_aws_regions_full, generate_aws_dict, generate_data_transfer_dict
-from utils.files import get_dot, get_total_input
 import math
-from collections import namedtuple
-from pysim_helper import Machine
-from aws_preprocessing import (
-    remove_non_dominated_per_region,
-    remove_dominated,
-    remove_bad_performing_machines,
-)
-from optimization.algorithm import Algorithm
-import time
-from multiprocessing.pool import ThreadPool
-from pymoo.core.problem import StarmapParallelization
-from mop_helper import AWSProblemDirect, remove_dominated_sol
-from pysim_helper import get_pysim_data, calc_makespan
-import numpy as np
-from utils.files import format_solution_b, save_json
-import sys
 import os
-from utils.files import save_yaml, read_yaml, load_xml_data, get_dot_full
-
-from optimization.heuristic.heft import (
-    generate_rank_d,
-    generate_assignment,
-)
-from optimization.heuristic.test import el_test
-from collections import defaultdict, OrderedDict
+import sys
 import tempfile
-from utils.files import save_xml, save_json
-from optimization.heuristic.base import generate_W, generate_B
+import time
+from collections import OrderedDict, defaultdict, namedtuple
+from multiprocessing.pool import ThreadPool
 
+import numpy as np
+from aws.ec2 import generate_aws_dict, generate_data_transfer_dict, get_aws_regions_full
+from aws_preprocessing import remove_bad_performing_machines, remove_dominated, remove_non_dominated_per_region
 from dotenv import load_dotenv
+from mop_helper import AWSProblemDirect, remove_dominated_sol
+from optimization.algorithm import Algorithm
+from optimization.heuristic.base import generate_B, generate_W
+from optimization.heuristic.heft import generate_assignment, generate_rank_d
+from optimization.heuristic.test import el_test
+from pymoo.core.problem import StarmapParallelization
+from pysim_helper import Machine, calc_makespan, get_pysim_data
+from utils.files import (
+    format_solution_b,
+    get_dot,
+    get_dot_full,
+    get_total_input,
+    load_xml_data,
+    read_yaml,
+    save_json,
+    save_xml,
+    save_yaml,
+)
 
 very_start_time = time.time()
 

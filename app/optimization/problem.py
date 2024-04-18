@@ -1,7 +1,8 @@
+import math
+
 import numpy as np
 from pymoo.core.problem import ElementwiseProblem
 from yattag import Doc, indent
-import math
 
 
 class Instance:

@@ -1,24 +1,18 @@
-from aws.ec2 import get_aws_regions_full, generate_aws_dict, generate_data_transfer_dict
-from utils.files import get_dot, get_total_input
 import math
-from collections import namedtuple
-from pysim_helper import Machine
-from aws_preprocessing import (
-    remove_non_dominated_per_region,
-    remove_dominated,
-    remove_bad_performing_machines,
-)
-from optimization.algorithm import Algorithm
-import time
-from multiprocessing.pool import ThreadPool
-from pymoo.core.problem import StarmapParallelization
-from mop_helper import AWSProblemDirect, remove_dominated_sol
-from pysim_helper import get_pysim_data
-import numpy as np
-from utils.files import format_solution_b, save_json
 import sys
+import time
+from collections import namedtuple
+from multiprocessing.pool import ThreadPool
 
+import numpy as np
+from aws.ec2 import generate_aws_dict, generate_data_transfer_dict, get_aws_regions_full
+from aws_preprocessing import remove_bad_performing_machines, remove_dominated, remove_non_dominated_per_region
 from dotenv import load_dotenv
+from mop_helper import AWSProblemDirect, remove_dominated_sol
+from optimization.algorithm import Algorithm
+from pymoo.core.problem import StarmapParallelization
+from pysim_helper import Machine, get_pysim_data
+from utils.files import format_solution_b, get_dot, get_total_input, save_json
 
 very_start_time = time.time()
 

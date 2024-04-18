@@ -1,8 +1,9 @@
-import boto3
 import json
 import os
-from utils.files import save_yaml, read_yaml
 from collections import defaultdict
+
+import boto3
+from utils.files import read_yaml, save_yaml
 
 
 def get_aws_regions(session):

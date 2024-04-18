@@ -1,6 +1,7 @@
-from pymoo.core.problem import ElementwiseProblem
-import numpy as np
 import math
+
+import numpy as np
+from pymoo.core.problem import ElementwiseProblem
 from pysim_helper import Machine, get_pysim_data
 
 

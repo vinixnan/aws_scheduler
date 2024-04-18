@@ -1,10 +1,11 @@
 import json
-import yaml
-import pydotplus
-import urllib.request
-from collections import Counter, defaultdict
-import xml.etree.ElementTree as ET
 import os
+import urllib.request
+import xml.etree.ElementTree as ET
+from collections import Counter, defaultdict
+
+import pydotplus
+import yaml
 
 
 def save_json(dc, filename):

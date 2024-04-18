@@ -1,15 +1,15 @@
-from aws.ec2 import get_aws_regions_full, generate_aws_dict
-from utils.files import get_dot
-from pymoo.util.ref_dirs import get_reference_directions
-from utils.files import save_xml, save_json
-import tempfile
-import subprocess
-from yattag import Doc, indent
 import json
-from dotenv import load_dotenv
-from collections import namedtuple
 import math
+import subprocess
+import tempfile
+from collections import namedtuple
+
+from aws.ec2 import generate_aws_dict, get_aws_regions_full
+from dotenv import load_dotenv
+from pymoo.util.ref_dirs import get_reference_directions
 from pyomo.environ import *
+from utils.files import get_dot, save_json, save_xml
+from yattag import Doc, indent
 
 load_dotenv()
 

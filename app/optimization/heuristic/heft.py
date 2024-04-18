@@ -1,15 +1,16 @@
-from collections import defaultdict, OrderedDict, deque
-from optimization.heuristic.base import (
-    recursive_transverse,
-    calc_EST,
-    generate_L,
-    generate_C,
-    generate_W,
-    generate_B,
-    generate_W_line,
-    OCT,
-)
 import math
+from collections import OrderedDict, defaultdict, deque
+
+from optimization.heuristic.base import (
+    OCT,
+    calc_EST,
+    generate_B,
+    generate_C,
+    generate_L,
+    generate_W,
+    generate_W_line,
+    recursive_transverse,
+)
 from pysim_helper import Machine
 
 

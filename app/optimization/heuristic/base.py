@@ -1,8 +1,8 @@
-from collections import defaultdict, OrderedDict
-from pysim_helper import Machine
-from pysim_helper import get_pysim_data
 import os
-from utils.files import save_yaml, read_yaml
+from collections import OrderedDict, defaultdict
+
+from pysim_helper import Machine, get_pysim_data
+from utils.files import read_yaml, save_yaml
 
 
 def OCT(task, task_machine, machines, succ, c_i_j_line, w, memo):

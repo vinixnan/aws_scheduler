@@ -1,16 +1,17 @@
 import warnings
 
 warnings.filterwarnings("ignore", message=".*The 'nopython' keyword.*")
-from pymoo.algorithms.moo.nsga2 import NSGA2
+import random
+
+import numpy as np
 from pymoo.algorithms.moo.age2 import AGEMOEA2
+from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.algorithms.moo.sms import SMSEMOA
-from pymoo.optimize import minimize
+from pymoo.core.mutation import Mutation
 from pymoo.operators.crossover.pntx import TwoPointCrossover
 from pymoo.operators.mutation.bitflip import BitflipMutation
 from pymoo.operators.sampling.rnd import IntegerRandomSampling
-from pymoo.core.mutation import Mutation
-import random
-import numpy as np
+from pymoo.optimize import minimize
 
 
 class ChoiceRandomMutation(Mutation):

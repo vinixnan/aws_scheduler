@@ -1,13 +1,15 @@
-from fastprocess import FastProcess
-import uuid
-import tempfile
-import subprocess
-from utils.files import save_xml, save_json
-from yattag import Doc, indent
 import json
-from optimization.generate import get_simple_decision
+import subprocess
+import tempfile
+import uuid
 from collections import defaultdict
+
+from optimization.generate import get_simple_decision
 from utils.definitions import Machine
+from utils.files import save_json, save_xml
+from yattag import Doc, indent
+
+from fastprocess import FastProcess
 
 
 def generate_simgrid_xml(machines, machines_as_one=False):

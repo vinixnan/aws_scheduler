@@ -1,14 +1,10 @@
-from optimization.generate import (
-    generate_solutions,
-    get_problems,
-    get_pysim_data,
-    generate_dict_of_performers,
-)
-import pytest
-from dotenv import load_dotenv
 from collections import namedtuple
-from utils.files import get_dot
+
+import pytest
 from aws.ec2 import generate_aws_dict
+from dotenv import load_dotenv
+from optimization.generate import generate_dict_of_performers, generate_solutions, get_problems, get_pysim_data
+from utils.files import get_dot
 
 load_dotenv()
 
