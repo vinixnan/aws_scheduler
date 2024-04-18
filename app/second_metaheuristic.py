@@ -23,8 +23,8 @@ from utils.files import save_yaml, read_yaml, load_xml_data, get_dot_full
 from optimization.heuristic.heft import (
     generate_rank_d,
     generate_assignment,
-    el_test,
 )
+from optimization.heuristic.test import el_test
 from collections import defaultdict, OrderedDict
 import tempfile
 from utils.files import save_xml, save_json
