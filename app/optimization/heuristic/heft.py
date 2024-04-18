@@ -1,4 +1,4 @@
-from collections import defaultdict, OrderedDict
+from collections import defaultdict, OrderedDict, deque
 from optimization.heuristic.base import (
     recursive_transverse,
     calc_EST,
@@ -7,9 +7,54 @@ from optimization.heuristic.base import (
     generate_W,
     generate_B,
     generate_W_line,
+    OCT,
 )
 import math
 from pysim_helper import Machine
+
+
+def generate_oct(
+    B_m_n,
+    B_m_n_line,
+    w_line,
+    machines,
+    task_names,
+    machine_types,
+    dataset_machines,
+    wx,
+    succ,
+    pred,
+    data,
+):
+    L_m, L_line = generate_L(len(machines))
+    c_proc_i_j, c_i_j_line = generate_C(
+        task_names, machines, succ, L_line, data, B_m_n, B_m_n_line
+    )
+
+    oct_table = defaultdict(dict)
+    rank_oct = {}
+    P = len(machines)
+
+    succ = OrderedDict(sorted(succ.items(), key=lambda x: len(x[1])))
+    # cuidado
+    last = list(succ.keys())[0]
+    # cuidado
+    q = deque([last])
+
+    while q:
+        current = q.popleft()
+        for task_machine in machines:
+            OCT(current, task_machine, machines, succ, c_i_j_line, wx, oct_table)
+
+        to_add = pred[current]
+        q.extend(to_add)
+
+    rank_oct = {
+        task_name: (sum([v for v in values.values()]) / P)
+        for task_name, values in oct_table.items()
+    }
+
+    return oct_table, rank_oct, c_proc_i_j
 
 
 def generate_rank_d(
@@ -171,82 +216,17 @@ def generate_data_heft_paper():
     return task_names, machines, machine_types, w, data, rank_u_test, succ
 
 
-def el_test():
-    (
-        task_names,
-        machines,
-        machine_types,
-        w,
-        data,
-        rank_u_test,
-        succ,
-    ) = generate_data_heft_paper()
-    w_line = generate_W_line(w, task_names, machine_types)
-
-    B_m_n_line = 1
-    B_m_n = {machine_name: 1 for machine_name in machine_types}
-
-    dataset_machines = {}
-
-    rank_d, c_proc_i_j = generate_rank_d(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        task_names,
-        machine_types,
-        dataset_machines,
-        w,
-        succ,
-        data,
-    )
-
-    for task in task_names:
-        # print(task, rank_d[task], rank_u_test[task])
-        assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01)
-
-
-def el_test2():
+def generate_data_peft_paper():
     task_names = ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"]
     machines = {"P1": {}, "P2": {}, "P3": {}}
+    for m in machines.keys():
+        machines[m] = Machine(m, {"name": m}, "link" + m)
+
     machine_types = list(machines.keys())
     w = defaultdict(dict)
     rank_u_test = {}
+    rank_oct_test = {}
 
-    w["P1"]["T1"] = 64
-    w["P1"]["T2"] = 42
-    w["P1"]["T3"] = 27
-    w["P1"]["T4"] = 42
-    w["P1"]["T5"] = 28
-    w["P1"]["T6"] = 42
-    w["P1"]["T7"] = 13
-    w["P1"]["T8"] = 13
-    w["P1"]["T9"] = 13
-    w["P1"]["T10"] = 0
-
-    w["P2"]["T1"] = 68
-    w["P2"]["T2"] = 39
-    w["P2"]["T3"] = 41
-    w["P2"]["T4"] = 39
-    w["P2"]["T5"] = 37
-    w["P2"]["T6"] = 39
-    w["P2"]["T7"] = 16
-    w["P2"]["T8"] = 16
-    w["P2"]["T9"] = 16
-    w["P2"]["T10"] = 0
-
-    w["P3"]["T1"] = 86
-    w["P3"]["T2"] = 42
-    w["P3"]["T3"] = 43
-    w["P3"]["T4"] = 50
-    w["P3"]["T5"] = 28
-    w["P3"]["T6"] = 44
-    w["P3"]["T7"] = 22
-    w["P3"]["T8"] = 33
-    w["P3"]["T9"] = 20
-    w["P3"]["T10"] = 0
-
-    # from earlier page
     w["P1"]["T1"] = 22
     w["P1"]["T2"] = 22
     w["P1"]["T3"] = 32
@@ -313,6 +293,50 @@ def el_test2():
     data["T8"]["T10"] = 42
     data["T9"]["T10"] = 7
 
+    rank_u_test["T1"] = 169
+    rank_u_test["T2"] = 114.3
+    rank_u_test["T3"] = 102.7
+    rank_u_test["T4"] = 110
+    rank_u_test["T5"] = 129.7
+    rank_u_test["T6"] = 119.3
+    rank_u_test["T7"] = 52.7
+    rank_u_test["T8"] = 92
+    rank_u_test["T9"] = 42.3
+    rank_u_test["T10"] = 20.7
+
+    rank_oct_test["T1"] = 72.7
+    rank_oct_test["T2"] = 41
+    rank_oct_test["T3"] = 37
+    rank_oct_test["T4"] = 43.7
+    rank_oct_test["T5"] = 31
+    rank_oct_test["T6"] = 41.7
+    rank_oct_test["T7"] = 17
+    rank_oct_test["T8"] = 20.7
+    rank_oct_test["T9"] = 16.3
+    rank_oct_test["T10"] = 0
+
+    return (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        rank_oct_test,
+        succ,
+    )
+
+
+def test_rank_u_heft_paper():
+    (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        succ,
+    ) = generate_data_heft_paper()
     w_line = generate_W_line(w, task_names, machine_types)
 
     B_m_n_line = 1
@@ -333,20 +357,97 @@ def el_test2():
         data,
     )
 
-    rank_u_test["T1"] = 169
-    rank_u_test["T2"] = 114.3
-    rank_u_test["T3"] = 102.7
-    rank_u_test["T4"] = 110
-    rank_u_test["T5"] = 129.7
-    rank_u_test["T6"] = 119.3
-    rank_u_test["T7"] = 52.7
-    rank_u_test["T8"] = 92
-    rank_u_test["T9"] = 42.3
-    rank_u_test["T10"] = 20.7
+    for task in task_names:
+        # print(task, rank_d[task], rank_u_test[task])
+        assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01)
+
+
+def test_rank_u_peft_paper():
+    task_names = ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"]
+    machines = {"P1": {}, "P2": {}, "P3": {}}
+    machine_types = list(machines.keys())
+
+    (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        rank_oct_test,
+        succ,
+    ) = generate_data_peft_paper()
+
+    w_line = generate_W_line(w, task_names, machine_types)
+
+    B_m_n_line = 1
+    B_m_n = {machine_name: 1 for machine_name in machine_types}
+
+    dataset_machines = {}
+
+    rank_d, c_proc_i_j = generate_rank_d(
+        B_m_n,
+        B_m_n_line,
+        w_line,
+        machines,
+        task_names,
+        machine_types,
+        dataset_machines,
+        w,
+        succ,
+        data,
+    )
 
     for task in task_names:
         # print(task, rank_d[task], rank_u_test[task])
         assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01)
+
+
+def test_rank_oct_peft_paper():
+    task_names = ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"]
+    machines = {"P1": {}, "P2": {}, "P3": {}}
+    machine_types = list(machines.keys())
+
+    (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        rank_oct_test,
+        succ,
+    ) = generate_data_peft_paper()
+
+    w_line = generate_W_line(w, task_names, machine_types)
+
+    B_m_n_line = 1
+    B_m_n = {machine_name: 1 for machine_name in machine_types}
+
+    dataset_machines = {}
+
+    preds = defaultdict(list)
+    for pred, succ_el in succ.items():
+        for el in succ_el:
+            preds[el].append(pred)
+
+    table, rank, c_proc_i_j = generate_oct(
+        B_m_n,
+        B_m_n_line,
+        w_line,
+        machines,
+        task_names,
+        machine_types,
+        dataset_machines,
+        w,
+        succ,
+        preds,
+        data,
+    )
+
+    for task in task_names:
+        # print(task, rank_d[task], rank_u_test[task])
+        assert math.isclose(rank[task], rank_oct_test[task], rel_tol=0.01)
 
 
 def test_allocation_from_heft_paper():
@@ -399,3 +500,14 @@ def test_allocation_from_heft_paper():
         assert expected_allocation[processor_name] == [
             el["name"] for el in allocation[processor_name]
         ]
+
+
+def el_test():
+    print("test_rank_u_heft_paper")
+    test_rank_u_heft_paper()
+    print("test_allocation_from_heft_paper")
+    test_allocation_from_heft_paper()
+    print("test_rank_u_peft_paper")
+    test_rank_u_peft_paper()
+    print("test_rank_oct_peft_paper")
+    test_rank_oct_peft_paper()

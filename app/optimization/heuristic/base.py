@@ -5,6 +5,33 @@ import os
 from utils.files import save_yaml, read_yaml
 
 
+def OCT(task, task_machine, machines, succ, c_i_j_line, w, memo):
+    if memo.get(task) and memo.get(task).get(task_machine):
+        return memo[task][task_machine]
+
+    if not succ[task]:
+        memo[task][task_machine] = 0
+        return memo[task][task_machine]
+
+    to_see = []
+    for suc in succ[task]:
+        find_min = []
+        for machine in machines:
+            v = OCT(suc, machine, machines, succ, c_i_j_line, w, memo)
+
+            c_i_j = 0
+            if machine != task_machine:
+                c_i_j = c_i_j_line[task][suc]
+
+            val = v + c_i_j + w[machine][suc]
+            find_min.append(val)
+
+        to_see.append(min(find_min))
+
+    memo[task][task_machine] = max(to_see)
+    return memo[task][task_machine]
+
+
 def recursive_transverse(task, succ, c_i_j_line, w_line, memo):
     if memo.get(task):
         return memo[task]

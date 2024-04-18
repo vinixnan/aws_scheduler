@@ -24,8 +24,6 @@ from optimization.heuristic.heft import (
     generate_rank_d,
     generate_assignment,
     el_test,
-    el_test2,
-    test_allocation_from_heft_paper,
 )
 from collections import defaultdict, OrderedDict
 import tempfile
@@ -76,8 +74,6 @@ problem_name = problem_file_path.split("/")[1].replace(".dot", "")
 problem_xml_name = problem_file_path.replace(".dot", ".xml")
 
 el_test()
-el_test2()
-test_allocation_from_heft_paper()
 
 config = Config(
     None,
