@@ -3,7 +3,42 @@ from collections import OrderedDict, defaultdict, deque
 import copy
 
 
-from optimization.heuristic.base import OCT, calc_EST, generate_C, generate_L
+from optimization.heuristic.base import generate_C, generate_L
+
+
+def calc_EST(task, task_machine, assignment, pred, c_proc_i_j, memo):
+    if memo.get(task):
+        return memo[task]
+
+    values = []
+    for t in pred.get(task, []):
+        data = calc_EST(t, task_machine, assignment, pred, c_proc_i_j, memo)
+        if not isinstance(data, list):
+            cj = c_proc_i_j[t][task][data["machine"]][task_machine]
+            val = data["AFT"] + cj
+            values.append(val)
+        else:
+            find_min = []
+
+            for d in data:
+                cj = c_proc_i_j[t][task][d["machine"]][task_machine]
+                val = d["AFT"] + cj
+                find_min.append(val)
+            mi = min(find_min)
+            values.append(mi)
+
+    to_return = 0
+    if values:
+        to_return = max(values)
+
+    data = {}
+    data["AFT"] = to_return
+    machine_assignment = assignment[task_machine]
+    if machine_assignment:
+        if machine_assignment[-1]["AFT"] > to_return:
+            data = machine_assignment[-1]
+
+    return data
 
 
 def occw(task, succ, c_i_j_line, memo):
@@ -55,7 +90,6 @@ def recursive_transverse_hsip(task, succ, occw_table, multiplied, memo):
     for suc in succ[task]:
         v = recursive_transverse_hsip(suc, succ, occw_table, multiplied, memo)
         val = v + multiplied[task] + occw_table[task]
-        print(task, suc, v, multiplied[task], occw_table[task], val)
         to_see.append(val)
 
     memo[task] = max(to_see)
@@ -99,11 +133,61 @@ def generate_rank_d_hsip(
     return rank_d, c_proc_i_j
 
 
+def entry_node_rule(entry_task, selected, machines, succ, assigned_task, c_proc_i_j, w, assignment, machines_est):
+    selected_machine = selected["machine"]
+    selected_machine_type = selected["machine_type"]["name"]
+    other_machines = {
+        machine_name: machine_data.data["name"]
+        for machine_name, machine_data in machines.items()
+        if machine_name != selected_machine
+    }
+    for other_machine_name, other_machine_type in other_machines.items():
+        for suc in succ[entry_task]:
+            machines_names = [el["machine"] for el in assigned_task[entry_task]]
+            if other_machine_name in machines_names:
+                continue
+
+            c_i_j_to_suc = c_proc_i_j[entry_task][suc][other_machine_type][other_machine_type]
+
+            if w[selected_machine_type][entry_task] < w[other_machine_type][entry_task] + c_i_j_to_suc:
+                data = machines_est[other_machine_name]
+                assignment[other_machine_name].append(data)
+                assigned_task[entry_task].append(data)
+
+
 def hsip_generate_assignment(machines, w, pred, c_proc_i_j, rank_d, succ):
     no_pred = [task_name for task_name, task_pred in pred.items() if not task_pred]
     entry_task = no_pred[0]
     assignment = defaultdict(list)
     assigned_task = {}
+
+    # special processing for entry
+    task_id = entry_task
+    machines_est = {}
+    for machine_name, machine_data in machines.items():
+        dt = calc_EST(task_id, machine_name, assignment, pred, c_proc_i_j, assigned_task)
+        data = {}
+        data["EST"] = 0
+        data["AFT"] = data["EST"] + w[machine_data.data["name"]][task_id]
+        data["machine"] = machine_name
+        data["name"] = task_id
+        machines_est[machine_name] = data
+
+    machines_est = OrderedDict(sorted(machines_est.items(), key=lambda x: x[1]["AFT"]))
+    selected = list(machines_est.keys())[0]
+
+    selected_data = machines_est[selected]
+    selected_machine_type = machines[selected].data
+    selected_data["machine_type"] = selected_machine_type
+
+    l = assigned_task.get(task_id, [])
+    l.append(selected_data)
+    assigned_task[task_id] = l
+    assignment[selected].append(selected_data)
+    entry_node_rule(entry_task, selected_data, machines, succ, assigned_task, c_proc_i_j, w, assignment, machines_est)
+
+    del rank_d[entry_task]
+    # end - special processing for entry
     for task_id in rank_d.keys():
         machines_est = {}
         for machine_name, machine_data in machines.items():
@@ -111,37 +195,21 @@ def hsip_generate_assignment(machines, w, pred, c_proc_i_j, rank_d, succ):
             data = {}
             data["EST"] = dt["AFT"]
             data["AFT"] = data["EST"] + w[machine_data.data["name"]][task_id]
+            data["w"] = w[machine_name][task_id]
             data["machine"] = machine_name
             data["name"] = task_id
             machines_est[machine_name] = data
 
-        machines_est = OrderedDict(sorted(machines_est.items(), key=lambda x: x[1]["AFT"]))
+        machines_est = OrderedDict(sorted(machines_est.items(), key=lambda x: (x[1]["AFT"], x[1]["w"])))
         selected = list(machines_est.keys())[0]
 
         selected_data = machines_est[selected]
-
         selected_machine_type = machines[selected].data
         selected_data["machine_type"] = selected_machine_type
 
         assigned_task[task_id] = selected_data
         assignment[selected].append(selected_data)
-
-    selected = assigned_task[entry_task]["machine"]
-    selected_machine_type = assigned_task[entry_task]["machine_type"]["name"]
-    other_machines = {
-        machine_name: machine_data.data["name"]
-        for machine_name, machine_data in machines.items()
-        if machine_name != selected
-    }
-    for other_machine_name, other_machine_type in other_machines.items():
-        for suc in succ[entry_task]:
-            c_i_j_to_suc = c_proc_i_j[entry_task][suc][other_machine_type][assigned_task[suc]["machine"]]
-
-            if w[selected_machine_type][entry_task] < w[other_machine_type][entry_task] + c_i_j_to_suc:
-                data = copy.deepcopy(assigned_task[entry_task])
-                data["machine"] = other_machine_name
-                data["machine_type"] = machines[other_machine_name].data
-                assignment[other_machine_name].append(data)
+        assignment[selected] = sorted(assignment[selected], key=lambda x: x["AFT"])
 
     last_host = None
     first_host = None
