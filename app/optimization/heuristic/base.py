@@ -21,10 +21,13 @@ class Heuristic(ABC):
     def schedule(self, machine_types):
         machines = {}
         for i, machine_data in enumerate(machine_types):
-            mach = Machine("host" + str(i), dataset_machines[machine_data], "link" + str(i))
+            mach = Machine("host" + str(i), self.dataset_machines[machine_data], "link" + str(i))
             machines[mach.name] = mach
-        B_m_n, B_m_n_line = generate_B(dataset_machines, machine_types, machines)
-        return self.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
+        B_m_n, B_m_n_line = self.generate_B(machine_types, machines)
+        assignment, makespan, first_host, last_host = self.schedule_with_data(
+            machine_types, machines, B_m_n_line, B_m_n
+        )
+        return assignment, makespan, first_host, last_host, machines
 
     def schedule_with_data(self, machine_types, machines, B_m_n_line, B_m_n):
         w_line = self.generate_W_line(machine_types)
@@ -122,25 +125,7 @@ class Heuristic(ABC):
         return L_m, L_line
 
 
-def generate_W(
-    task_names,
-    config,
-    problem,
-    problem_file_path,
-    region,
-    regions,
-    region_machines_dataset,
-    machine_types,
-):
-    all_processors_weights = load_processors_weights(
-        config, problem, problem_file_path, regions, region_machines_dataset
-    )
-    w = all_processors_weights[region]
-
-    return w, generate_W_line(w, task_names, machine_types)
-
-
-def load_processors_weights(config, problem, problem_file_path, regions, region_machines_dataset):
+def generate_W(config, problem, problem_file_path, regions, region_machines_dataset):
     eager = config.eager_aws
     eager = True
     if eager or not os.path.isfile(problem + "_machine_execution_time.yml"):

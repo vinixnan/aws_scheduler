@@ -56,16 +56,16 @@ class PEFT(Heuristic):
 
         return rank_oct, c_proc_i_j, oct_table
 
-    def generate_assignment(machines, c_proc_i_j, rank, oct_table):
+    def generate_assignment(self, machines, c_proc_i_j, rank, oct_table):
         assignment = defaultdict(list)
         assigned_task = {}
         for task_id in rank.keys():
             machines_est = {}
             for machine_name, machine_data in machines.items():
-                dt = self.calc_EST(task_id, machine_name, assignment, pred, c_proc_i_j, assigned_task)
+                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, assigned_task)
                 data = {}
                 data["EST"] = dt["AFT"]
-                data["AFT"] = data["EST"] + w[machine_data.data["name"]][task_id]
+                data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
                 data["OEFT"] = data["AFT"] + oct_table[task_id][machine_name]
                 data["machine"] = machine_name
                 data["name"] = task_id

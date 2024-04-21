@@ -12,10 +12,12 @@ from aws_preprocessing import remove_bad_performing_machines, remove_dominated, 
 from dotenv import load_dotenv
 from mop_helper import AWSProblemDirect, remove_dominated_sol
 from optimization.algorithm import Algorithm
+from optimization.heuristic.base import generate_W
 from optimization.heuristic.heft import HEFT
 from optimization.heuristic.test import el_test
 from pymoo.core.problem import StarmapParallelization
 from pysim_helper import Machine, calc_makespan, get_pysim_data
+from utils.definitions import Config
 from utils.files import (
     format_solution_b,
     get_dot,
@@ -31,11 +33,6 @@ from utils.files import (
 very_start_time = time.time()
 
 load_dotenv()
-
-Config = namedtuple(
-    "Config",
-    "seed algorithm_name heuristic_name n_gen pop_size problem_name problem_file_path verbose eager_aws execution_id starting_region",
-)
 
 
 args = sys.argv[1:]
@@ -115,37 +112,10 @@ for region in regions:
     machines_names = list(dataset_machines.keys())
     machine_types = [machines_names[0]] * qtd_machine
 
-    w, w_line = generate_W(
-        task_names,
-        config,
-        problem,
-        problem_file_path,
-        region,
-        regions,
-        region_machines_dataset,
-        machine_types,
-    )
+    w = generate_W(config, problem, problem_file_path, regions, region_machines_dataset)[region]
 
-    machines = {}
-    for i, machine_data in enumerate(machine_types):
-        mach = Machine("host" + str(i), dataset_machines[machine_data], "link" + str(i))
-        machines[mach.name] = mach
-    # create test array with machine name
-    B_m_n, B_m_n_line = generate_B(dataset_machines, machine_types, machines)
-
-    rank_d, c_proc_i_j = generate_rank_d(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        task_names,
-        machine_types,
-        dataset_machines,
-        w,
-        succ,
-        data,
-    )
-    assignment, makespan, first_host, last_host = generate_assignment(machines, w, pred, c_proc_i_j, rank_d)
+    heu = HEFT(w, dataset_machines, succ, pred, data)
+    assignment, makespan, first_host, last_host, machines = heu.schedule(machine_types)
     assignment[last_host].append(
         {
             "machine": last_host,

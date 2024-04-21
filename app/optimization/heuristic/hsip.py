@@ -14,8 +14,8 @@ class HSIP(Heuristic):
             return memo[task]
 
         values = []
-        for t in pred.get(task, []):
-            data = calc_EST(t, task_machine, assignment, c_proc_i_j, memo)
+        for t in self.pred.get(task, []):
+            data = self.calc_EST(t, task_machine, assignment, c_proc_i_j, memo)
             if not isinstance(data, list):
                 cj = c_proc_i_j[t][task][data["machine"]][task_machine]
                 val = data["AFT"] + cj
@@ -52,7 +52,7 @@ class HSIP(Heuristic):
         memo[task] = sum(to_sum)
         return memo[task]
 
-    def calc_occw(self, succ, c_i_j_line):
+    def calc_occw(self, c_i_j_line):
         occw_table = {}
 
         for task in self.succ.keys():
@@ -65,12 +65,12 @@ class HSIP(Heuristic):
         mean_table = {}
         multiplied = {}
         for task in self.task_names:
-            all_w_task = [w[machine.data["name"]][task] for machine in machines.values()]
+            all_w_task = [self.w[machine.data["name"]][task] for machine in machines.values()]
             mean = sum(all_w_task) / len(machines)
             mean_table[task] = mean
 
             std_dev_table[task] = math.sqrt(
-                sum([math.pow(w[machine.data["name"]][task] - mean, 2) for machine in machines.values()])
+                sum([math.pow(self.w[machine.data["name"]][task] - mean, 2) for machine in machines.values()])
                 / len(machines)
             )
             multiplied[task] = mean * std_dev_table[task]
@@ -94,13 +94,7 @@ class HSIP(Heuristic):
         memo[task] = max(to_see)
         return memo[task]
 
-    def generate_rank(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        machine_types,
-    ):
+    def generate_rank(self, B_m_n, B_m_n_line, w_line, machines):
         L_m, L_line = self.generate_L(len(machines))
         c_proc_i_j, c_i_j_line = self.generate_C(machines, L_line, B_m_n, B_m_n_line)
 
@@ -114,11 +108,11 @@ class HSIP(Heuristic):
         while q:
             current = q.popleft()
             self.recursive_transverse_hsip(current, occw_table, multiplied, rank_d)
-            to_add = pred[current]
+            to_add = self.pred[current]
             q.extend(to_add)
 
         rank_d = OrderedDict(sorted(rank_d.items(), key=lambda x: x[1], reverse=True))
-        return rank_d, c_proc_i_j
+        return rank_d, c_proc_i_j, None
 
     def entry_node_rule(self, entry_task, selected, machines, assigned_task, c_proc_i_j, assignment, machines_est):
         selected_machine = selected["machine"]
@@ -141,7 +135,7 @@ class HSIP(Heuristic):
                     assignment[other_machine_name].append(data)
                     assigned_task[entry_task].append(data)
 
-    def generate_assignment(self, machines, c_proc_i_j, rank, table=None):
+    def generate_assignment(self, machines, c_proc_i_j, rank_d, table=None):
         no_pred = [task_name for task_name, task_pred in self.pred.items() if not task_pred]
         entry_task = no_pred[0]
         assignment = defaultdict(list)
@@ -154,7 +148,7 @@ class HSIP(Heuristic):
             dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, assigned_task)
             data = {}
             data["EST"] = 0
-            data["AFT"] = data["EST"] + w[machine_data.data["name"]][task_id]
+            data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
             data["machine"] = machine_name
             data["name"] = task_id
             machines_est[machine_name] = data
@@ -170,20 +164,18 @@ class HSIP(Heuristic):
         l.append(selected_data)
         assigned_task[task_id] = l
         assignment[selected].append(selected_data)
-        entry_node_rule(
-            entry_task, selected_data, machines, succ, assigned_task, c_proc_i_j, w, assignment, machines_est
-        )
+        self.entry_node_rule(entry_task, selected_data, machines, assigned_task, c_proc_i_j, assignment, machines_est)
 
         del rank_d[entry_task]
         # end - special processing for entry
         for task_id in rank_d.keys():
             machines_est = {}
             for machine_name, machine_data in machines.items():
-                dt = calc_EST(task_id, machine_name, assignment, pred, c_proc_i_j, assigned_task)
+                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, assigned_task)
                 data = {}
                 data["EST"] = dt["AFT"]
-                data["AFT"] = data["EST"] + w[machine_data.data["name"]][task_id]
-                data["w"] = w[machine_name][task_id]
+                data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
+                data["w"] = self.w[machine_name][task_id]
                 data["machine"] = machine_name
                 data["name"] = task_id
                 machines_est[machine_name] = data

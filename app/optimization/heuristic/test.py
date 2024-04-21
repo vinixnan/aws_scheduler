@@ -1,6 +1,8 @@
 import math
 from collections import defaultdict
 
+from aws.ec2 import generate_aws_dict, generate_data_transfer_dict, get_aws_regions_full
+from optimization.heuristic.base import generate_W
 from optimization.heuristic.heft import HEFT
 from optimization.heuristic.hsip import HSIP
 from optimization.heuristic.peft import PEFT
@@ -8,6 +10,18 @@ from optimization.heuristic.test_datasets import (
     generate_data_heft_paper,
     generate_data_hsip_paper,
     generate_data_peft_paper,
+)
+from utils.definitions import Config
+from utils.files import (
+    format_solution_b,
+    get_dot,
+    get_dot_full,
+    get_total_input,
+    load_xml_data,
+    read_yaml,
+    save_json,
+    save_xml,
+    save_yaml,
 )
 
 
@@ -52,12 +66,10 @@ def test_rank_u_peft_paper():
 
     dataset_machines = {}
 
-    heu = PEFT(w, dataset_machines, succ, preds, data)
+    heu = HEFT(w, dataset_machines, succ, preds, data)
     w_line = heu.generate_W_line(machine_types)
 
-    rank_d, c_proc_i_j, oct_table = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
-    print(oct_table)
-    print(rank_d)
+    rank_d, c_proc_i_j, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
     for task in task_names:
         assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01), (
             task + " " + str(rank_d[task]) + " " + str(rank_u_test[task])
@@ -81,26 +93,15 @@ def test_rank_oct_peft_paper():
         preds,
     ) = generate_data_peft_paper()
 
-    w_line = generate_W_line(w, task_names, machine_types)
-
     B_m_n_line = 1
     B_m_n = {machine_name: 1 for machine_name in machine_types}
 
     dataset_machines = {}
 
-    table, rank, c_proc_i_j = generate_oct(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        task_names,
-        machine_types,
-        dataset_machines,
-        w,
-        succ,
-        preds,
-        data,
-    )
+    heu = PEFT(w, dataset_machines, succ, preds, data)
+    w_line = heu.generate_W_line(machine_types)
+
+    rank, c_proc_i_j, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
 
     for task in task_names:
         assert math.isclose(rank[task], rank_oct_test[task], rel_tol=0.01), (
@@ -174,28 +175,14 @@ def test_allocation_from_for_peft_from_peft_paper():
         preds,
     ) = generate_data_peft_paper()
 
-    w_line = generate_W_line(w, task_names, machine_types)
-
     B_m_n_line = 1
     B_m_n = {machine_name: 1 for machine_name in machine_types}
 
     dataset_machines = {}
 
-    oct_table, rank_oct, c_proc_i_j = generate_oct(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        task_names,
-        machine_types,
-        dataset_machines,
-        w,
-        succ,
-        preds,
-        data,
-    )
+    heu = PEFT(w, dataset_machines, succ, preds, data)
 
-    allocation, makespan, _, _ = peft_generate_assignment(machines, w, preds, c_proc_i_j, oct_table, rank_oct)
+    allocation, makespan, _, _ = heu.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
 
     for processor_name in expected_allocation.keys():
         assert expected_allocation[processor_name] == [el["name"] for el in allocation[processor_name]], (
@@ -231,27 +218,14 @@ def test_allocation_from_for_heft_from_peft_paper():
         preds,
     ) = generate_data_peft_paper()
 
-    w_line = generate_W_line(w, task_names, machine_types)
-
     B_m_n_line = 1
     B_m_n = {machine_name: 1 for machine_name in machine_types}
 
     dataset_machines = {}
 
-    rank_d, c_proc_i_j = generate_rank_d(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        task_names,
-        machine_types,
-        dataset_machines,
-        w,
-        succ,
-        data,
-    )
+    heu = HEFT(w, dataset_machines, succ, preds, data)
 
-    allocation, makespan, _, _ = generate_assignment(machines, w, preds, c_proc_i_j, rank_d)
+    allocation, makespan, _, _ = heu.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
 
     assert makespan == expected_makespan
     for processor_name in expected_allocation.keys():
@@ -284,26 +258,16 @@ def test_rank_d_for_hsip_from_heft_paper():
         preds,
     ) = generate_data_hsip_paper()
 
-    w_line = generate_W_line(w, task_names, machine_types)
-
     B_m_n_line = 1
     B_m_n = {machine_name: 1 for machine_name in machine_types}
 
     dataset_machines = {}
 
-    rank_d, c_proc_i_j = generate_rank_d_hsip(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        task_names,
-        machine_types,
-        dataset_machines,
-        w,
-        succ,
-        preds,
-        data,
-    )
+    heu = HSIP(w, dataset_machines, succ, preds, data)
+    w_line = heu.generate_W_line(machine_types)
+
+    rank_d, c_proc_i_j, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
+
     for task in task_names:
         assert math.isclose(rank_d[task], expected[task], rel_tol=0.01), (
             task + " " + str(expected[task]) + " " + str(rank_d[task])
@@ -324,29 +288,58 @@ def test_allocation_for_hsip_from_hsip_paper():
         preds,
     ) = generate_data_hsip_paper()
 
-    w_line = generate_W_line(w, task_names, machine_types)
-
     B_m_n_line = 1
     B_m_n = {machine_name: 1 for machine_name in machine_types}
 
     dataset_machines = {}
 
-    rank_d, c_proc_i_j = generate_rank_d_hsip(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        task_names,
-        machine_types,
-        dataset_machines,
-        w,
-        succ,
-        preds,
-        data,
-    )
+    heu = HSIP(w, dataset_machines, succ, preds, data)
 
-    allocation, makespan, first_host, last_host = hsip_generate_assignment(machines, w, preds, c_proc_i_j, rank_d, succ)
+    allocation, makespan, _, _ = heu.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
+
     assert makespan == expected_makespan, str(expected_makespan) + " " + str(makespan)
+
+
+def test_real():
+    problem = "Cybershake_100.dot"
+    problem_file_path = "datasets/" + problem
+    problem_name = problem_file_path.split("/")[1].replace(".dot", "")
+    problem_xml_name = problem_file_path.replace(".dot", ".xml")
+    config = Config(
+        None,
+        None,
+        None,
+        None,
+        None,
+        problem_name,
+        problem,
+        False,
+        False,
+        0,
+        "us-east-1",
+    )
+    full_name_regions = get_aws_regions_full()
+    number_of_tasks = int(get_dot(problem_file_path)) - 2
+    # print("dataset size",size_of_dataset_in_gb/number_of_tasks * 1024, number_of_tasks)
+    region_machines_dataset, regions = generate_aws_dict(full_name_regions, config.eager_aws)
+
+    region_machines_dataset = {"us-east-1": region_machines_dataset["us-east-1"]}
+    region_machines_dataset["us-east-1"] = {"m1.small": region_machines_dataset["us-east-1"]["m1.small"]}
+    region_machines_dataset["us-east-1"]["m1.small"]["networkPerformance"] = 1000000000
+    regions = ["us-east-1"]
+    region = "us-east-1"
+
+    data, graph, pred, succ = load_xml_data(problem_xml_name, problem_file_path)
+    task_names = list(graph.keys())
+
+    w = generate_W(config, problem, problem_file_path, regions, region_machines_dataset)
+    w = w[region]
+    machine_types = ["m1.small", "m1.small"]
+
+    heu = HEFT(w, region_machines_dataset["us-east-1"], succ, pred, data)
+
+    allocation, makespan, _, _, _ = heu.schedule(machine_types)
+    assert makespan > 0
 
 
 def el_test():
@@ -366,3 +359,5 @@ def el_test():
     test_rank_d_for_hsip_from_heft_paper()
     print("test_allocation_for_hsip_from_hsip_paper")
     test_allocation_for_hsip_from_hsip_paper()
+    print("test_real")
+    test_real()
