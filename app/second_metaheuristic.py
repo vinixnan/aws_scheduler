@@ -12,8 +12,7 @@ from aws_preprocessing import remove_bad_performing_machines, remove_dominated, 
 from dotenv import load_dotenv
 from mop_helper import AWSProblemDirect, remove_dominated_sol
 from optimization.algorithm import Algorithm
-from optimization.heuristic.base import generate_B, generate_W
-from optimization.heuristic.heft import generate_assignment, generate_rank_d
+from optimization.heuristic.heft import HEFT
 from optimization.heuristic.test import el_test
 from pymoo.core.problem import StarmapParallelization
 from pysim_helper import Machine, calc_makespan, get_pysim_data

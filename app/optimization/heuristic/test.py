@@ -1,38 +1,28 @@
 import math
 from collections import defaultdict
 
-from optimization.heuristic.base import generate_W_line
-from optimization.heuristic.heft import generate_assignment, generate_rank_d
-from optimization.heuristic.peft import generate_oct, peft_generate_assignment
-from optimization.heuristic.hsip import generate_rank_d_hsip, hsip_generate_assignment
+from optimization.heuristic.heft import HEFT
+from optimization.heuristic.hsip import HSIP
+from optimization.heuristic.peft import PEFT
 from optimization.heuristic.test_datasets import (
     generate_data_heft_paper,
-    generate_data_peft_paper,
     generate_data_hsip_paper,
+    generate_data_peft_paper,
 )
 
 
 def test_rank_u_heft_paper():
     (task_names, machines, machine_types, w, data, rank_u_test, succ, preds) = generate_data_heft_paper()
-    w_line = generate_W_line(w, task_names, machine_types)
 
     B_m_n_line = 1
     B_m_n = {machine_name: 1 for machine_name in machine_types}
 
     dataset_machines = {}
 
-    rank_d, c_proc_i_j = generate_rank_d(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        task_names,
-        machine_types,
-        dataset_machines,
-        w,
-        succ,
-        data,
-    )
+    heu = HEFT(w, dataset_machines, succ, preds, data)
+    w_line = heu.generate_W_line(machine_types)
+
+    rank_d, c_proc_i_j, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
 
     for task in task_names:
         assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01), (
@@ -57,26 +47,17 @@ def test_rank_u_peft_paper():
         preds,
     ) = generate_data_peft_paper()
 
-    w_line = generate_W_line(w, task_names, machine_types)
-
     B_m_n_line = 1
     B_m_n = {machine_name: 1 for machine_name in machine_types}
 
     dataset_machines = {}
 
-    rank_d, c_proc_i_j = generate_rank_d(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        task_names,
-        machine_types,
-        dataset_machines,
-        w,
-        succ,
-        data,
-    )
+    heu = PEFT(w, dataset_machines, succ, preds, data)
+    w_line = heu.generate_W_line(machine_types)
 
+    rank_d, c_proc_i_j, oct_table = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
+    print(oct_table)
+    print(rank_d)
     for task in task_names:
         assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01), (
             task + " " + str(rank_d[task]) + " " + str(rank_u_test[task])
@@ -145,27 +126,14 @@ def test_allocation_from_for_heft_from_heft_paper():
         preds,
     ) = generate_data_heft_paper()
 
-    w_line = generate_W_line(w, task_names, machine_types)
-
     B_m_n_line = 1
     B_m_n = {machine_name: 1 for machine_name in machine_types}
 
     dataset_machines = {}
 
-    rank_d, c_proc_i_j = generate_rank_d(
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-        task_names,
-        machine_types,
-        dataset_machines,
-        w,
-        succ,
-        data,
-    )
+    heu = HEFT(w, dataset_machines, succ, preds, data)
 
-    allocation, makespan, _, _ = generate_assignment(machines, w, preds, c_proc_i_j, rank_d)
+    allocation, makespan, _, _ = heu.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
 
     for processor_name in expected_allocation.keys():
         assert expected_allocation[processor_name] == [el["name"] for el in allocation[processor_name]], (

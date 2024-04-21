@@ -1,77 +1,78 @@
-import math
-from collections import OrderedDict, defaultdict, deque
+from collections import OrderedDict, defaultdict
 
-from optimization.heuristic.base import (
-    OCT,
-    calc_EST,
-    generate_B,
-    generate_C,
-    generate_L,
-    generate_W,
-    generate_W_line,
-    recursive_transverse,
-)
-from pysim_helper import Machine
+from optimization.heuristic.base import Heuristic
 
 
-def generate_rank_d(
-    B_m_n,
-    B_m_n_line,
-    w_line,
-    machines,
-    task_names,
-    machine_types,
-    dataset_machines,
-    w,
-    succ,
-    data,
-):
-    L_m, L_line = generate_L(len(machines))
-    c_proc_i_j, c_i_j_line = generate_C(task_names, machines, succ, L_line, data, B_m_n, B_m_n_line)
+class HEFT(Heuristic):
+    def __init__(self, w, dataset_machines, succ, pred, data):
+        super().__init__(w, dataset_machines, succ, pred, data)
 
-    succ = OrderedDict(sorted(succ.items(), key=lambda x: len(x[1])))
-    rank_d = {}
-    for task in succ.keys():
-        recursive_transverse(task, succ, c_i_j_line, w_line, rank_d)
+    def recursive_transverse(self, task, c_i_j_line, w_line, memo):
+        if memo.get(task):
+            return memo[task]
 
-    rank_d = OrderedDict(sorted(rank_d.items(), key=lambda x: x[1], reverse=True))
-    return rank_d, c_proc_i_j
+        if not self.succ[task]:
+            memo[task] = w_line[task]
+            return memo[task]
 
+        to_see = []
+        for suc in self.succ[task]:
+            val = self.recursive_transverse(suc, c_i_j_line, w_line, memo) + c_i_j_line[task][suc]
+            to_see.append(val)
 
-def generate_assignment(machines, w, pred, c_proc_i_j, rank_d):
-    assignment = defaultdict(list)
-    assigned_task = {}
-    for task_id in rank_d.keys():
-        machines_est = {}
-        for machine_name, machine_data in machines.items():
-            dt = calc_EST(task_id, machine_name, assignment, pred, c_proc_i_j, assigned_task)
-            data = {}
-            data["EST"] = dt["AFT"]
-            data["AFT"] = data["EST"] + w[machine_data.data["name"]][task_id]
-            data["machine"] = machine_name
-            data["name"] = task_id
-            machines_est[machine_name] = data
+        memo[task] = round(max(to_see) + w_line[task], 3)
+        return memo[task]
 
-        machines_est = OrderedDict(sorted(machines_est.items(), key=lambda x: x[1]["AFT"]))
-        selected = list(machines_est.keys())[0]
-        selected_data = machines_est[selected]
+    def generate_rank(
+        self,
+        B_m_n,
+        B_m_n_line,
+        w_line,
+        machines,
+    ):
+        L_m, L_line = self.generate_L(len(machines))
+        c_proc_i_j, c_i_j_line = self.generate_C(machines, L_line, B_m_n, B_m_n_line)
+        rank_d = {}
+        for task in self.succ.keys():
+            self.recursive_transverse(task, c_i_j_line, w_line, rank_d)
 
-        selected_machine_type = machines[selected].data
-        selected_data["machine_type"] = selected_machine_type
+        rank_d = OrderedDict(sorted(rank_d.items(), key=lambda x: x[1], reverse=True))
+        return rank_d, c_proc_i_j, None
 
-        assigned_task[task_id] = selected_data
-        assignment[selected].append(selected_data)
+    def generate_assignment(self, machines, c_proc_i_j, rank, table=None):
+        assignment = defaultdict(list)
+        assigned_task = {}
+        for task_id in rank.keys():
+            machines_est = {}
+            for machine_name, machine_data in machines.items():
+                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, assigned_task)
+                data = {}
+                data["EST"] = dt["AFT"]
+                data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
+                data["machine"] = machine_name
+                data["name"] = task_id
+                machines_est[machine_name] = data
 
-    last_host = None
-    first_host = None
-    makespan = 0
-    for host_name, l in assignment.items():
-        data = l[-1]
-        if data["AFT"] > makespan:
-            makespan = data["AFT"]
-            last_host = host_name
-        data = l[0]
-        if data["EST"] == 0:
-            first_host = host_name
+            machines_est = OrderedDict(sorted(machines_est.items(), key=lambda x: x[1]["AFT"]))
+            selected = list(machines_est.keys())[0]
+            selected_data = machines_est[selected]
 
-    return assignment, makespan, first_host, last_host
+            selected_machine_type = machines[selected].data
+            selected_data["machine_type"] = selected_machine_type
+
+            assigned_task[task_id] = selected_data
+            assignment[selected].append(selected_data)
+
+        last_host = None
+        first_host = None
+        makespan = 0
+        for host_name, l in assignment.items():
+            data = l[-1]
+            if data["AFT"] > makespan:
+                makespan = data["AFT"]
+                last_host = host_name
+            data = l[0]
+            if data["EST"] == 0:
+                first_host = host_name
+
+        return assignment, makespan, first_host, last_host
