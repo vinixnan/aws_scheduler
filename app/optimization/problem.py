@@ -55,11 +55,14 @@ class AWSProblemDirect(ElementwiseProblem):
             return float("inf"), float("inf"), None, violations
 
         makespan, price, tasks = self.run_heu(used_machines)
-        # X.clear()
-        # for machine_id, tasks_in_machine in tasks.items():
-        #    if tasks_in_machine:
-        #        X.append(self.ids_rev[tasks_in_machine[0]['machine_type']['name']])
-        # print(x)
+        i = 0
+        for tasks_in_machine in tasks.values():
+            if tasks_in_machine:
+                X[i]=self.ids_rev[tasks_in_machine[0]['machine_type']['name']]
+                i = i + 1
+        while i < len(X):
+            X[i] = -1
+            i = i + 1
         return makespan, price, tasks, 0
 
 

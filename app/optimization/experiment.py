@@ -13,7 +13,7 @@ from optimization.heuristic.heft import HEFT
 from optimization.heuristic.hsip import HSIP
 from optimization.heuristic.peft import PEFT
 from optimization.problem import AWSProblemDirect, remove_dominated_sol
-from optimization.pysimgrid.pysim_helper import calc_makespan, get_pysim_data
+from optimization.pysimgrid.pysim_helper import calc_makespan
 from pymoo.core.problem import StarmapParallelization
 from utils.definitions import Machine
 from utils.files import format_solution_b, get_dot, get_total_input, load_xml_data, save_json
@@ -71,7 +71,10 @@ def run_experiment(config, problem_file_path, n_threads):
     runners = StarmapParallelization(pool.starmap)
 
     problems = {}
-    print(config)
+    region_machines_dataset = {region_name:machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data}
+    qtd_valid_regions = len(region_machines_dataset)
+    gen = int(math.ceil(config.n_gen / qtd_valid_regions))
+    print(config, 'valid_regions='+str(qtd_valid_regions), 'gen='+str(gen))
     for region_name, machines_data in region_machines_dataset.items():
         if len(machines_data) > 1:
             w = W[region_name]
@@ -92,7 +95,8 @@ def run_experiment(config, problem_file_path, n_threads):
         if len(machines_data) > 1:
             problem = problems[region_name]
             print(problem.region_name)
-            alg = Algorithm(config.algorithm_name, config.n_gen, config.pop_size, problem, problem.region_name)
+            
+            alg = Algorithm(config.algorithm_name, gen , config.pop_size, problem, problem.region_name)
 
             start_time = time.time()
             res = alg.run()
