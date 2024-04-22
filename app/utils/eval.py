@@ -5,7 +5,7 @@ import tempfile
 from collections import OrderedDict, defaultdict
 
 from aws.ec2 import generate_aws_dict, get_aws_regions_full
-from pysim_helper import Machine, generate_simgrid_xml
+from app.optimization.pysimgrid.pysim_helper import generate_simgrid_xml
 from utils.files import save_json, save_xml
 
 

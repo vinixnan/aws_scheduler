@@ -11,12 +11,10 @@ from utils.files import format_solution, save_json, save_yaml
 load_dotenv()
 
 algs = [
-    "DLS",
-    "HCPT",
     "HEFT",
-    "Lookahead",
     "PEFT",
-    # "SimHEFT",
+    "HSIP",
+    "MPEFT",
 ]
 
 Config = namedtuple(

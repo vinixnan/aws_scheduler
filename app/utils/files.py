@@ -1,5 +1,4 @@
 import json
-import os
 import urllib.request
 import xml.etree.ElementTree as ET
 from collections import Counter, defaultdict
@@ -98,7 +97,7 @@ def get_total_input(filename):
             if uses.attrib.get("type") == "data" and uses.attrib.get("link") == "input":
                 # Add the size to the total
                 total_size += int(uses.attrib.get("size"))
-    return
+    return total_size
 
 
 def read_xml_data(filename):

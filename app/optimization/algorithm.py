@@ -1,28 +1,18 @@
 import warnings
 
 warnings.filterwarnings("ignore", message=".*The 'nopython' keyword.*")
-import random
+
 
 import numpy as np
 from pymoo.algorithms.moo.age2 import AGEMOEA2
 from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.algorithms.moo.sms import SMSEMOA
-from pymoo.core.mutation import Mutation
+from pymoo.algorithms.moo.moead import MOEAD
+
 from pymoo.operators.crossover.pntx import TwoPointCrossover
-from pymoo.operators.mutation.bitflip import BitflipMutation
 from pymoo.operators.sampling.rnd import IntegerRandomSampling
 from pymoo.optimize import minimize
-
-
-class ChoiceRandomMutation(Mutation):
-    def _do(self, problem, X, **kwargs):
-        prob_var = self.get_prob_var(problem, size=(len(X), 1))
-        Xp = np.copy(X)
-        flip = np.random.random(X.shape) < prob_var
-        l = list(problem.ids.keys())
-        # l.append(0)
-        Xp[flip] = random.choice(l) * random.getrandbits(1)
-        return Xp
+from optimization.heuristic.mutations import ChoiceRandomMutation
 
 
 class Algorithm:
@@ -42,7 +32,6 @@ class Algorithm:
         crossover = TwoPointCrossover(prob=0.9)
         # mutation_probability = 1.0 / self.problem.n_var
         mutation_probability = 0.1
-        mutation = BitflipMutation(prob=mutation_probability)
         mutation = ChoiceRandomMutation(prob=mutation_probability)
         if "NSGA" in self.algorithm_name:
             self.algorithm = NSGA2(
@@ -63,6 +52,14 @@ class Algorithm:
             )
         elif self.algorithm_name == "SMSEMOA":
             self.algorithm = SMSEMOA(
+                pop_size=self.pop_size,
+                sampling=sampling,
+                crossover=crossover,
+                mutation=mutation,
+                eliminate_duplicates=self.eliminate_duplicates,
+            )
+        elif self.algorithm_name == "MOEAD":
+            self.algorithm = MOEAD(
                 pop_size=self.pop_size,
                 sampling=sampling,
                 crossover=crossover,

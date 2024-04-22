@@ -215,7 +215,6 @@ def generate_data_transfer_dict(eager):
             if item["from"] and item["to"]:
                 data[item["from"]][item["from"]] = 0
                 data[item["from"]][item["to"]] = float(item["price"])
-            # print(f"Region: {item['from']}, Price per GB: ${item['price']}")
 
         save_yaml(dict(data), "aws_trasfer.yml")
 

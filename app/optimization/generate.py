@@ -6,7 +6,7 @@ from collections import OrderedDict, defaultdict
 import numpy as np
 from aws.ec2 import generate_aws_dict
 from optimization.algorithm import run_all
-from optimization.problem import Instance, get_problems, remove_dominated
+from optimization.problem import remove_dominated_sol
 from utils.files import get_dot, save_json, save_xml
 
 

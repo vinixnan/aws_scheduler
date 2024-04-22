@@ -1,8 +1,8 @@
 import os
 from abc import ABC, abstractmethod
 from collections import OrderedDict, defaultdict
-
-from pysim_helper import Machine, get_pysim_data
+from utils.definitions import Machine
+from optimization.pysimgrid.pysim_helper import get_pysim_data
 from utils.files import read_yaml, save_yaml
 
 

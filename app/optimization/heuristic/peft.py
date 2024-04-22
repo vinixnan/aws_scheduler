@@ -85,12 +85,13 @@ class PEFT(Heuristic):
         first_host = None
         makespan = 0
         for host_name, l in assignment.items():
-            data = l[-1]
-            if data["AFT"] > makespan:
-                makespan = data["AFT"]
-                last_host = host_name
-            data = l[0]
-            if data["EST"] == 0:
-                first_host = host_name
+            if l:
+                data = l[-1]
+                if data["AFT"] > makespan:
+                    makespan = data["AFT"]
+                    last_host = host_name
+                data = l[0]
+                if data["EST"] == 0:
+                    first_host = host_name
 
         return assignment, makespan, first_host, last_host

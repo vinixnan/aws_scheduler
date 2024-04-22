@@ -6,13 +6,20 @@ from multiprocessing.pool import ThreadPool
 
 import numpy as np
 from aws.ec2 import generate_aws_dict, generate_data_transfer_dict, get_aws_regions_full
-from aws_preprocessing import remove_bad_performing_machines, remove_dominated, remove_non_dominated_per_region
+from aws.aws_preprocessing import remove_bad_performing_machines, remove_dominated, remove_non_dominated_per_region
 from dotenv import load_dotenv
-from mop_helper import AWSProblemDirect, remove_dominated_sol
+from optimization.problem import AWSProblemDirect, remove_dominated_sol
 from optimization.algorithm import Algorithm
 from pymoo.core.problem import StarmapParallelization
-from pysim_helper import Machine, get_pysim_data
+from optimization.pysimgrid.pysim_helper import get_pysim_data
 from utils.files import format_solution_b, get_dot, get_total_input, save_json
+from optimization.heuristic.heft import HEFT
+from utils.files import (
+    get_dot,
+    load_xml_data,
+)
+from optimization.heuristic.base import generate_W
+from utils.definitions import Machine
 
 very_start_time = time.time()
 
@@ -31,8 +38,8 @@ alg = "NSGAII"
 alg = "AGEMOEA"
 heu = "HEFT"
 idexec = 666
-pop_size = 50
-gen = 2
+pop_size = 100
+gen = 500
 
 if args:
     problem = args[0]
@@ -90,11 +97,20 @@ print(
     region_machines_dataset.keys(),
 )
 print("Number of tasks", number_of_tasks, "Average of number of executed machines", n_var)
+problem_xml_name = problem_file_path.replace(".dot", ".xml")
+data, graph, pred, succ = load_xml_data(problem_xml_name, problem_file_path)
+task_names = list(graph.keys())
+
+W = generate_W(config, problem, problem_file_path, regions, region_machines_dataset)
+
+
 pool = ThreadPool(n_threads)
 runners = StarmapParallelization(pool.starmap)
 
 problems = {}
 for region_name, machines_data in region_machines_dataset.items():
+    w = W[region_name]
+    heu = HEFT(w, machines_data, succ, pred, data)
     if len(machines_data) > 1:
         problem = AWSProblemDirect(
             n_var + 1,
@@ -102,7 +118,7 @@ for region_name, machines_data in region_machines_dataset.items():
             region_name,
             problem_file_path,
             elementwise_runner=runners,
-            heu=config.heuristic_name,
+            heu=heu,
         )
         problems[region_name] = problem
 
@@ -121,6 +137,7 @@ for region_name, machines_data in region_machines_dataset.items():
         for sol in res.pop:
             sol.region_name = problem.region_name
         pop.extend(res.pop)
+    break
 
 # remove dominates and repeated
 print("MOEA generated population", len(pop))
@@ -192,7 +209,7 @@ to_save["n_var"] = n_var
 to_save["considered_regions"] = list(region_machines_dataset.keys())
 
 file_output = (
-    "outputf/"
+    "outputx/"
     + config.algorithm_name
     + "_"
     + str(config.execution_id)

@@ -1,27 +1,22 @@
 import math
+import pytest
 from collections import defaultdict
 
-from aws.ec2 import generate_aws_dict, generate_data_transfer_dict, get_aws_regions_full
+from aws.ec2 import generate_aws_dict, get_aws_regions_full
 from optimization.heuristic.base import generate_W
 from optimization.heuristic.heft import HEFT
 from optimization.heuristic.hsip import HSIP
 from optimization.heuristic.peft import PEFT
-from optimization.heuristic.test_datasets import (
+from app.optimization.pysimgrid.pysim_helper import calc_makespan
+from app.tests.datasets import (
     generate_data_heft_paper,
     generate_data_hsip_paper,
     generate_data_peft_paper,
 )
 from utils.definitions import Config
 from utils.files import (
-    format_solution_b,
     get_dot,
-    get_dot_full,
-    get_total_input,
     load_xml_data,
-    read_yaml,
-    save_json,
-    save_xml,
-    save_yaml,
 )
 
 
@@ -338,26 +333,20 @@ def test_real():
 
     heu = HEFT(w, region_machines_dataset["us-east-1"], succ, pred, data)
 
-    allocation, makespan, _, _, _ = heu.schedule(machine_types)
+    assignment, makespan, first_host, last_host, machines = heu.schedule(machine_types)
     assert makespan > 0
 
+    assignment[last_host].append(
+        {
+            "machine": last_host,
+            "name": "end",
+            "AFT": assignment[last_host][-1],
+            "EST": assignment[last_host][-1],
+        }
+    )
+    assignment[first_host].insert(0, {"machine": last_host, "name": "root", "AFT": 0, "EST": 0})
+    resp2 = calc_makespan(machines, assignment, problem_file_path)
+    print(makespan, resp2["makespan"])
 
-def el_test():
-    print("test_rank_u_heft_paper")
-    test_rank_u_heft_paper()
-    print("test_allocation_from_for_heft_from_heft_paper")
-    test_allocation_from_for_heft_from_heft_paper()
-    print("test_rank_u_peft_paper")
-    test_rank_u_peft_paper()
-    print("test_rank_oct_peft_paper")
-    test_rank_oct_peft_paper()
-    print("test_allocation_from_for_peft_from_peft_paper")
-    test_allocation_from_for_peft_from_peft_paper()
-    print("test_allocation_from_for_heft_from_peft_paper")
-    test_allocation_from_for_heft_from_peft_paper()
-    print("test_rank_d_for_hsip_from_heft_paper")
-    test_rank_d_for_hsip_from_heft_paper()
-    print("test_allocation_for_hsip_from_hsip_paper")
-    test_allocation_for_hsip_from_hsip_paper()
-    print("test_real")
-    test_real()
+
+
