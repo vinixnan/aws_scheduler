@@ -5,8 +5,9 @@ import tempfile
 from collections import OrderedDict, defaultdict
 
 from aws.ec2 import generate_aws_dict, get_aws_regions_full
-from app.optimization.pysimgrid.pysim_helper import generate_simgrid_xml
 from utils.files import save_json, save_xml
+
+from app.optimization.pysimgrid.pysim_helper import generate_simgrid_xml
 
 
 def get_simple_decision(task2ins, ins2type, taskInOrder, task_names, machines_dataset):

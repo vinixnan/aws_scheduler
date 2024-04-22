@@ -42,10 +42,11 @@ class HEFT(Heuristic):
     def generate_assignment(self, machines, c_proc_i_j, rank, table=None):
         assignment = defaultdict(list)
         assigned_task = {}
+        makespans = {machine_name: 0 for machine_name in machines.keys()}
         for task_id in rank.keys():
             machines_est = {}
             for machine_name, machine_data in machines.items():
-                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, assigned_task)
+                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task)
                 data = {}
                 data["EST"] = dt["AFT"]
                 data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
@@ -62,6 +63,7 @@ class HEFT(Heuristic):
 
             assigned_task[task_id] = selected_data
             assignment[selected].append(selected_data)
+            makespans[selected] = selected_data
 
         last_host = None
         first_host = None

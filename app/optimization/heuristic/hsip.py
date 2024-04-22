@@ -9,13 +9,13 @@ class HSIP(Heuristic):
     def __init__(self, w, dataset_machines, succ, pred, data):
         super().__init__(w, dataset_machines, succ, pred, data)
 
-    def calc_EST(self, task, task_machine, assignment, c_proc_i_j, memo):
+    def calc_EST(self, task, task_machine, assignment, c_proc_i_j, makespans, memo):
         if memo.get(task):
             return memo[task]
 
         values = []
         for t in self.pred.get(task, []):
-            data = self.calc_EST(t, task_machine, assignment, c_proc_i_j, memo)
+            data = self.calc_EST(t, task_machine, assignment, c_proc_i_j, makespans, memo)
             if not isinstance(data, list):
                 cj = c_proc_i_j[t][task][data["machine"]][task_machine]
                 val = data["AFT"] + cj
@@ -38,8 +38,8 @@ class HSIP(Heuristic):
         data["AFT"] = to_return
         machine_assignment = assignment[task_machine]
         if machine_assignment:
-            if machine_assignment[-1]["AFT"] > to_return:
-                data = machine_assignment[-1]
+            if makespans[task_machine]["AFT"] > to_return:
+                data = makespans[task_machine]
 
         return data
 
@@ -114,7 +114,9 @@ class HSIP(Heuristic):
         rank_d = OrderedDict(sorted(rank_d.items(), key=lambda x: x[1], reverse=True))
         return rank_d, c_proc_i_j, None
 
-    def entry_node_rule(self, entry_task, selected, machines, assigned_task, c_proc_i_j, assignment, machines_est):
+    def entry_node_rule(
+        self, entry_task, selected, machines, assigned_task, c_proc_i_j, assignment, machines_est, makespans
+    ):
         selected_machine = selected["machine"]
         selected_machine_type = selected["machine_type"]["name"]
         other_machines = {
@@ -128,24 +130,25 @@ class HSIP(Heuristic):
                 if other_machine_name in machines_names:
                     continue
 
-                c_i_j_to_suc = c_proc_i_j[entry_task][suc][other_machine_type][other_machine_type]
+                c_i_j_to_suc = c_proc_i_j[entry_task][suc][selected_machine][other_machine_name]
 
                 if self.w[selected_machine_type][entry_task] < self.w[other_machine_type][entry_task] + c_i_j_to_suc:
                     data = machines_est[other_machine_name]
                     assignment[other_machine_name].append(data)
                     assigned_task[entry_task].append(data)
+                    makespans[other_machine_name] = data
 
     def generate_assignment(self, machines, c_proc_i_j, rank_d, table=None):
         no_pred = [task_name for task_name, task_pred in self.pred.items() if not task_pred]
         entry_task = no_pred[0]
         assignment = defaultdict(list)
         assigned_task = {}
-
+        makespans = {machine_name: 0 for machine_name in machines.keys()}
         # special processing for entry
         task_id = entry_task
         machines_est = {}
         for machine_name, machine_data in machines.items():
-            dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, assigned_task)
+            dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task)
             data = {}
             data["EST"] = 0
             data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
@@ -164,18 +167,21 @@ class HSIP(Heuristic):
         l.append(selected_data)
         assigned_task[task_id] = l
         assignment[selected].append(selected_data)
-        self.entry_node_rule(entry_task, selected_data, machines, assigned_task, c_proc_i_j, assignment, machines_est)
+        makespans[selected] = selected_data
+        self.entry_node_rule(
+            entry_task, selected_data, machines, assigned_task, c_proc_i_j, assignment, machines_est, makespans
+        )
 
         del rank_d[entry_task]
         # end - special processing for entry
         for task_id in rank_d.keys():
             machines_est = {}
             for machine_name, machine_data in machines.items():
-                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, assigned_task)
+                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task)
                 data = {}
                 data["EST"] = dt["AFT"]
                 data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
-                data["w"] = self.w[machine_name][task_id]
+                data["w"] = self.w[machine_data.data["name"]][task_id]
                 data["machine"] = machine_name
                 data["name"] = task_id
                 machines_est[machine_name] = data
@@ -189,7 +195,7 @@ class HSIP(Heuristic):
 
             assigned_task[task_id] = selected_data
             assignment[selected].append(selected_data)
-            assignment[selected] = sorted(assignment[selected], key=lambda x: x["AFT"])
+            makespans[selected] = selected_data
 
         last_host = None
         first_host = None

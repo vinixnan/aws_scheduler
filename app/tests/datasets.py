@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from pysim_helper import Machine
+from utils.definitions import Machine
 
 
 def generate_data_heft_paper():

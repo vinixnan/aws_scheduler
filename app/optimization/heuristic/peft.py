@@ -18,14 +18,13 @@ class PEFT(Heuristic):
         to_see = []
         for suc in self.succ[task]:
             find_min = []
-            for machine in machines:
-                v = self.OCT(suc, machine, machines, c_i_j_line, memo)
+            for machine_name, machine_data in machines.items():
+                v = self.OCT(suc, machine_name, machines, c_i_j_line, memo)
 
                 c_i_j = 0
-                if machine != task_machine:
+                if machine_name != task_machine:
                     c_i_j = c_i_j_line[task][suc]
-
-                val = v + c_i_j + self.w[machine][suc]
+                val = v + c_i_j + self.w[machine_data.data["name"]][suc]
                 find_min.append(val)
 
             to_see.append(min(find_min))
@@ -42,7 +41,6 @@ class PEFT(Heuristic):
         P = len(machines)
 
         q = deque([self.last])
-
         while q:
             current = q.popleft()
             for task_machine in machines:
@@ -59,10 +57,11 @@ class PEFT(Heuristic):
     def generate_assignment(self, machines, c_proc_i_j, rank, oct_table):
         assignment = defaultdict(list)
         assigned_task = {}
+        makespans = {machine_name: 0 for machine_name in machines.keys()}
         for task_id in rank.keys():
             machines_est = {}
             for machine_name, machine_data in machines.items():
-                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, assigned_task)
+                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task)
                 data = {}
                 data["EST"] = dt["AFT"]
                 data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
@@ -80,6 +79,7 @@ class PEFT(Heuristic):
 
             assigned_task[task_id] = selected_data
             assignment[selected].append(selected_data)
+            makespans[selected] = selected_data
 
         last_host = None
         first_host = None

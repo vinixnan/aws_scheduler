@@ -4,15 +4,13 @@ warnings.filterwarnings("ignore", message=".*The 'nopython' keyword.*")
 
 
 import numpy as np
+from optimization.heuristic.mutations import ChoiceRandomMutation
 from pymoo.algorithms.moo.age2 import AGEMOEA2
 from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.algorithms.moo.sms import SMSEMOA
-from pymoo.algorithms.moo.moead import MOEAD
-
 from pymoo.operators.crossover.pntx import TwoPointCrossover
 from pymoo.operators.sampling.rnd import IntegerRandomSampling
 from pymoo.optimize import minimize
-from optimization.heuristic.mutations import ChoiceRandomMutation
 
 
 class Algorithm:
@@ -52,14 +50,6 @@ class Algorithm:
             )
         elif self.algorithm_name == "SMSEMOA":
             self.algorithm = SMSEMOA(
-                pop_size=self.pop_size,
-                sampling=sampling,
-                crossover=crossover,
-                mutation=mutation,
-                eliminate_duplicates=self.eliminate_duplicates,
-            )
-        elif self.algorithm_name == "MOEAD":
-            self.algorithm = MOEAD(
                 pop_size=self.pop_size,
                 sampling=sampling,
                 crossover=crossover,

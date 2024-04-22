@@ -23,7 +23,6 @@ class AWSProblemDirect(ElementwiseProblem):
         print(region_name, self.ids)
         xl = np.zeros(n_var)
         xu = np.ones(n_var) * max(self.ids.keys())
-        self.ccc = 0
         super().__init__(
             n_var=n_var,
             n_obj=2,
@@ -34,12 +33,10 @@ class AWSProblemDirect(ElementwiseProblem):
             elementwise_runner=elementwise_runner,
         )
 
-    def run_heu(self, machine_types, heu):
-        assignment, makespan, _, _, machines = heu.schedule(machine_types)
+    def run_heu(self, machine_types):
+        assignment, makespan, _, _, machines = self.heu.schedule(machine_types)
         machines = {k: v for k, v in machines.items() if k in assignment.keys()}
-        price = math.ceil(makespan / 3600) * sum(
-            [machine.data["pricePerUnit"] for machine in machines.values()]
-        )
+        price = math.ceil(makespan / 3600) * sum([machine.data["pricePerUnit"] for machine in machines.values()])
         return makespan, price, assignment
 
     def _evaluate(self, x, out, *args, **kwargs):
@@ -57,14 +54,13 @@ class AWSProblemDirect(ElementwiseProblem):
             violations = len(used_machines)
             return float("inf"), float("inf"), None, violations
 
-        makespan, price, tasks = self.run_heu(used_machines, self.heu)
-        data = {}
-        data["makespan"] = makespan
-        data["price"] = price
-        data["tasks"] = tasks
-
-        self.ccc = self.ccc + 1
-        return data["makespan"], data["price"], data["tasks"], 0
+        makespan, price, tasks = self.run_heu(used_machines)
+        # X.clear()
+        # for machine_id, tasks_in_machine in tasks.items():
+        #    if tasks_in_machine:
+        #        X.append(self.ids_rev[tasks_in_machine[0]['machine_type']['name']])
+        # print(x)
+        return makespan, price, tasks, 0
 
 
 def normalize(value, min_value, max_value):

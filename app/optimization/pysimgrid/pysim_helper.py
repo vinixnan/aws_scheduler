@@ -4,12 +4,11 @@ import tempfile
 import uuid
 from collections import defaultdict
 
+from fastprocess import FastProcess
 from optimization.generate import get_simple_decision
 from utils.definitions import Machine
 from utils.files import save_json, save_xml
 from yattag import Doc, indent
-
-from fastprocess import FastProcess
 
 
 def generate_simgrid_xml(machines, machines_as_one=False):

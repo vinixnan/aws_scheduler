@@ -1,8 +1,9 @@
 import os
 from abc import ABC, abstractmethod
 from collections import OrderedDict, defaultdict
-from utils.definitions import Machine
+
 from optimization.pysimgrid.pysim_helper import get_pysim_data
+from utils.definitions import Machine
 from utils.files import read_yaml, save_yaml
 
 
@@ -42,13 +43,13 @@ class Heuristic(ABC):
     def generate_rank(self, B_m_n, B_m_n_line, w_line, machines):
         pass
 
-    def calc_EST(self, task, task_machine, assignment, c_proc_i_j, memo):
+    def calc_EST(self, task, task_machine, assignment, c_proc_i_j, makespans, memo):
         if memo.get(task):
             return memo[task]
 
         values = []
         for t in self.pred.get(task, []):
-            data = self.calc_EST(t, task_machine, assignment, c_proc_i_j, memo)
+            data = self.calc_EST(t, task_machine, assignment, c_proc_i_j, makespans, memo)
             cj = c_proc_i_j[t][task][data["machine"]][task_machine]
             val = data["AFT"] + cj
             values.append(val)
@@ -61,8 +62,8 @@ class Heuristic(ABC):
         data["AFT"] = to_return
         machine_assignment = assignment[task_machine]
         if machine_assignment:
-            if machine_assignment[-1]["AFT"] > to_return:
-                data = machine_assignment[-1]
+            if makespans[task_machine]["AFT"] > to_return:
+                data = makespans[task_machine]
 
         return data
 

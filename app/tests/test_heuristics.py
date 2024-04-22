@@ -1,23 +1,16 @@
 import math
-import pytest
 from collections import defaultdict
 
+import pytest
 from aws.ec2 import generate_aws_dict, get_aws_regions_full
 from optimization.heuristic.base import generate_W
 from optimization.heuristic.heft import HEFT
 from optimization.heuristic.hsip import HSIP
 from optimization.heuristic.peft import PEFT
-from app.optimization.pysimgrid.pysim_helper import calc_makespan
-from app.tests.datasets import (
-    generate_data_heft_paper,
-    generate_data_hsip_paper,
-    generate_data_peft_paper,
-)
+from optimization.pysimgrid.pysim_helper import calc_makespan
+from tests.datasets import generate_data_heft_paper, generate_data_hsip_paper, generate_data_peft_paper
 from utils.definitions import Config
-from utils.files import (
-    get_dot,
-    load_xml_data,
-)
+from utils.files import get_dot, load_xml_data
 
 
 def test_rank_u_heft_paper():
@@ -347,6 +340,3 @@ def test_real():
     assignment[first_host].insert(0, {"machine": last_host, "name": "root", "AFT": 0, "EST": 0})
     resp2 = calc_makespan(machines, assignment, problem_file_path)
     print(makespan, resp2["makespan"])
-
-
-

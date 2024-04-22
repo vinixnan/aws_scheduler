@@ -1,8 +1,8 @@
 import math
 from collections import defaultdict
-from utils.definitions import Machine
-from optimization.pysimgrid.pysim_helper import get_pysim_data
 
+from optimization.pysimgrid.pysim_helper import get_pysim_data
+from utils.definitions import Machine
 
 
 def dominates(s1, s2):
