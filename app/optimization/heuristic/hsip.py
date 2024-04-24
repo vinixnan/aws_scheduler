@@ -134,6 +134,7 @@ class HSIP(Heuristic):
 
                 if self.w[selected_machine_type][entry_task] < self.w[other_machine_type][entry_task] + c_i_j_to_suc:
                     data = machines_est[other_machine_name]
+                    data["machine_type"] = machines[other_machine_name].data
                     assignment[other_machine_name].append(data)
                     assigned_task[entry_task].append(data)
                     makespans[other_machine_name] = data

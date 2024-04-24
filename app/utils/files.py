@@ -19,6 +19,11 @@ def save_yaml(dc, filename):
         outfile.write(json_object)
 
 
+def read_json(filename):
+    with open(filename, "r") as stream:
+        return json.load(stream)
+
+
 def read_yaml(filename):
     with open(filename, "r") as stream:
         try:
@@ -32,24 +37,14 @@ def save_xml(xml_data, filename):
         outfile.write(xml_data)
 
 
-def format_solution(s):
+def format_solution(s, problems):
+    problem = problems[s.region]
+    X = problem.show_solution(s)
     dc = {}
-    dc["X"] = s.x_aws
-    dc["F"] = [float(f) for f in s.F]
-    dc["region"] = s.region
-    dc["x_aws_tasks"] = s.x_aws_tasks
-    dc["valid"] = s.valid
-    dc["fitness"] = s.fitness
-    return dc
-
-
-def format_solution_b(s):
-    dc = {}
-    dc["X"] = Counter(s.X)
+    dc["X"] = dict(Counter(X))
     dc["F"] = [float(f) for f in s.F]
     dc["region"] = s.region_name
-    dc["x_aws_tasks"] = s.tasks
-    dc["valid"] = True
+    dc["x_aws_tasks"] = dict(s.data["saved_data"].item()["assignment"])
     return dc
 
 

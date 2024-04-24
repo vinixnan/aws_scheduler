@@ -1,11 +1,10 @@
 import math
+import os
 import time
-from collections import namedtuple
-from multiprocessing.pool import ThreadPool
 
-import numpy as np
-from aws.aws_preprocessing import remove_bad_performing_machines, remove_dominated, remove_non_dominated_per_region
+from aws.aws_preprocessing import remove_bad_performing_machines, remove_non_dominated_per_region
 from aws.ec2 import generate_aws_dict, generate_data_transfer_dict, get_aws_regions_full
+from dask.distributed import Client, LocalCluster
 from dotenv import load_dotenv
 from optimization.algorithm import Algorithm
 from optimization.heuristic.base import generate_W
@@ -13,10 +12,12 @@ from optimization.heuristic.heft import HEFT
 from optimization.heuristic.hsip import HSIP
 from optimization.heuristic.peft import PEFT
 from optimization.problem import AWSProblemDirect, remove_dominated_sol
-from optimization.pysimgrid.pysim_helper import calc_makespan
-from pymoo.core.problem import StarmapParallelization
+from pymoo.config import Config
+from pymoo.core.problem import DaskParallelization
 from utils.definitions import Machine
-from utils.files import format_solution_b, get_dot, get_total_input, load_xml_data, save_json
+from utils.files import format_solution, get_dot, get_total_input, load_xml_data, read_json, save_json
+
+Config.warnings["not_compiled"] = False
 
 very_start_time = time.time()
 
@@ -32,9 +33,9 @@ def get_heuristic(heuristic_name, w, machines_data, succ, pred, data):
         return HSIP(w, machines_data, succ, pred, data)
 
 
-def run_experiment(config, problem_file_path, n_threads):
+def data_generation(config, problem_file_path):
     # Get data
-    print(config)
+    print("data gen", config)
     size_of_dataset_in_gb = get_total_input(problem_file_path.replace(".dot", ".xml")) / 1024 / 1024 / 1024
     full_name_regions = get_aws_regions_full()
     number_of_tasks = int(get_dot(problem_file_path)) - 2
@@ -61,26 +62,45 @@ def run_experiment(config, problem_file_path, n_threads):
         region_machines_dataset.keys(),
     )
     print("Number of tasks", number_of_tasks, "Average of number of executed machines", n_var)
+    save_json(region_machines_dataset, "ndmachines/" + config.problem_name + "_nd_regions.json")
+    generate_W(config, config.problem_name, problem_file_path, regions, region_machines_dataset)
+
+
+def run_experiment(config, problem_file_path, n_threads):
+    # Get data
+    machine_nd_name = "ndmachines/" + config.problem_name + "_nd_regions.json"
+    if not os.path.isfile(machine_nd_name):
+        data_generation(config, problem_file_path)
+    else:
+        print("read it")
+        region_machines_dataset = read_json(machine_nd_name)
+
     problem_xml_name = problem_file_path.replace(".dot", ".xml")
     data, graph, pred, succ = load_xml_data(problem_xml_name, problem_file_path)
-    task_names = list(graph.keys())
+    regions = list(region_machines_dataset.keys())
+    n_var = int(len(graph) * 0.05 + 3)
 
     W = generate_W(config, config.problem_name, problem_file_path, regions, region_machines_dataset)
 
-    pool = ThreadPool(n_threads)
-    runners = StarmapParallelization(pool.starmap)
-
     problems = {}
-    region_machines_dataset = {region_name:machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data}
+    region_machines_dataset = {
+        region_name: machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data
+    }
     qtd_valid_regions = len(region_machines_dataset)
     gen = int(math.ceil(config.n_gen / qtd_valid_regions))
-    print(config, 'valid_regions='+str(qtd_valid_regions), 'gen='+str(gen))
+    print(config, "valid_regions=" + str(qtd_valid_regions), "gen=" + str(gen), "n_var=" + str(n_var))
+    pop = []
+    cluster = LocalCluster(n_workers=n_threads)
+    client = Client(cluster)
+    print("DASK STARTED")
     for region_name, machines_data in region_machines_dataset.items():
         if len(machines_data) > 1:
             w = W[region_name]
             heu = get_heuristic(config.heuristic_name, w, machines_data, succ, pred, data)
+            client.restart()
+            runners = DaskParallelization(client)
             problem = AWSProblemDirect(
-                n_var + 1,
+                n_var,
                 machines_data,
                 region_name,
                 problem_file_path,
@@ -88,15 +108,9 @@ def run_experiment(config, problem_file_path, n_threads):
                 heu=heu,
             )
             problems[region_name] = problem
-
-    # run GA for all problems and add everyone to the same pop
-    pop = []
-    for region_name, machines_data in region_machines_dataset.items():
-        if len(machines_data) > 1:
-            problem = problems[region_name]
             print(problem.region_name)
-            
-            alg = Algorithm(config.algorithm_name, gen , config.pop_size, problem, problem.region_name)
+
+            alg = Algorithm(config.algorithm_name, gen, config.pop_size, problem, problem.region_name)
 
             start_time = time.time()
             res = alg.run()
@@ -104,6 +118,7 @@ def run_experiment(config, problem_file_path, n_threads):
 
             for sol in res.pop:
                 sol.region_name = problem.region_name
+                sol.X = sol.data["saved_data"].item()["data"]["X"]
             pop.extend(res.pop)
 
     # remove dominates and repeated
@@ -118,60 +133,8 @@ def run_experiment(config, problem_file_path, n_threads):
     npop = list(dc.values())
     print("MOEA generated after removing repeated", len(npop))
 
-    # run everyone in pysim, update solutions
-    print("Run to get taks")
-    for sol in npop:
-        region_machines = region_machines_dataset[sol.region_name]
-        if len(region_machines) > 1:
-            problem = problems[sol.region_name]
-            used_machines = [machine_name for machine_name in problem.show_solution(sol)]
-            assignment, makespan, first_host, last_host, machines = problem.heu.schedule(used_machines)
-            assignment[last_host].append(
-                {
-                    "machine": last_host,
-                    "name": "end",
-                    "AFT": assignment[last_host][-1],
-                    "EST": assignment[last_host][-1],
-                }
-            )
-            assignment[first_host].insert(0, {"machine": last_host, "name": "root", "AFT": 0, "EST": 0})
-            resp = calc_makespan(machines, assignment, problem_file_path)
-            machines = {k: v for k, v in machines.items() if k in resp["tasks"].keys()}
-            sol.makespan = resp["makespan"]
-            sol.tasks = resp["tasks"]
-            sol.X = [v.data["name"] for k, v in machines.items() if k in resp["tasks"].keys()]
-            sol.price = math.ceil(float(resp["makespan"]) / 3600) * sum(
-                [machine.data["pricePerUnit"] for machine in machines.values()]
-            ) + from_origin_data_trasfer_cost.get(region_name, 0)
-            sol.oldF = sol.F
-            sol.F = np.array([sol.makespan, sol.price])
-
-    # remove dominated considering makespan and cost
-    npop = remove_dominated_sol(npop)
-    print("MOEA generated non-dominated population", len(npop))
-
-    all_makespan = []
-    all_price = []
-    for sol in npop:
-        all_makespan.append(sol.F[0])
-        all_price.append(sol.F[1])
-        element = (
-            (sol.F[0], sol.F[1]),
-            (sol.X, sol.region_name, sol.tasks),
-        )
-        ndom_base.append(element)
-
-    avg_makespan = sum(all_makespan) / len(all_makespan)
-    avg_price = sum(all_price) / len(all_price)
-
-    ndom_base = remove_dominated(ndom_base)
-    print("Final size of population", len(ndom_base))
-    print("avg_makespan", avg_makespan, "avg_price", avg_price)
-
     to_save = dict(config._asdict())
-    to_save["population"] = [format_solution_b(ss) for ss in npop]
-    to_save["avg_makespan"] = avg_makespan
-    to_save["avg_price"] = avg_price
+    to_save["population"] = [format_solution(ss, problems) for ss in npop]
     to_save["n_var"] = n_var
     to_save["considered_regions"] = list(region_machines_dataset.keys())
 

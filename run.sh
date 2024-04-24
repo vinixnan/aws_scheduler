@@ -8,11 +8,16 @@ problems="CyberShake_100.dot Epigenomics_100.dot Inspiral_100.dot Montage_100.do
 algs="NSGA2 SMSEMOA AGEMOEA"
 algs="NSGA2 AGEMOEA"
 heur="HEFT PEFT HSIP"
+heur="HEFT HSIP"
 problems="CyberShake_100.dot Epigenomics_100.dot Inspiral_100.dot Montage_100.dot"
-pop=50
-gen=250
-idexec=1
-qtdExp=10
+problems="CyberShake_100.dot Epigenomics_100.dot Inspiral_100.dot Montage_100.dot Sipht_100.dot Epigenomics_24.dot CyberShake_30.dot Epigenomics_46.dot Inspiral_30.dot Montage_25.dot Sipht_30.dot CyberShake_50.dot Inspiral_50.dot Montage_50.dot Sipht_60.dot" 
+
+#problems="CyberShake_100.dot"
+algs="NSGA2 AGEMOEA"
+heur="HEFT PEFT HSIP"
+pop=100
+gen=500
+qtdExp=1
 #for a in $algs
 #do
     for h in $heur

@@ -1,4 +1,5 @@
 import math
+from collections import defaultdict
 
 import numpy as np
 from pymoo.core.problem import ElementwiseProblem
@@ -35,14 +36,19 @@ class AWSProblemDirect(ElementwiseProblem):
 
     def run_heu(self, machine_types):
         assignment, makespan, _, _, machines = self.heu.schedule(machine_types)
-        machines = {k: v for k, v in machines.items() if k in assignment.keys()}
+        clean_assignment = {k: v for k, v in assignment.items() if len(v) > 0}
+        machines = {k: v for k, v in machines.items() if k in clean_assignment.keys()}
         price = math.ceil(makespan / 3600) * sum([machine.data["pricePerUnit"] for machine in machines.values()])
-        return makespan, price, assignment
+        return makespan, price, clean_assignment, machines
 
     def _evaluate(self, x, out, *args, **kwargs):
-        makespan, price, _, violations = self.calculate_fitness(x)
+        makespan, price, clean_assignment, violations = self.calculate_fitness(x)
         out["F"] = [makespan, price]
         out["G"] = [violations]
+        to_save_data = {}
+        to_save_data["assignment"] = clean_assignment
+        to_save_data["data"] = {"makespan": makespan, "price": price, "X": [int(el) for el in x]}
+        out["saved_data"] = to_save_data
 
     def show_solution(self, sol):
         return [self.ids[x] for x in sol.X if x > 0]
@@ -52,18 +58,28 @@ class AWSProblemDirect(ElementwiseProblem):
         violations = 0
         if len(used_machines) <= 1:
             violations = len(used_machines)
-            return float("inf"), float("inf"), None, violations
+            return float("inf"), float("inf"), dict(), violations
 
-        makespan, price, tasks = self.run_heu(used_machines)
+        makespan, price, assignment, machines = self.run_heu(used_machines)
+
         i = 0
-        for tasks_in_machine in tasks.values():
-            if tasks_in_machine:
-                X[i]=self.ids_rev[tasks_in_machine[0]['machine_type']['name']]
+        clean_assignment = defaultdict(dict)
+        for machine_id, t_list in assignment.items():
+            if len(t_list) > 0:
+                machine_data = machines[machine_id]
+                machine_type = machine_data.data["name"]
+                to_add = {}
+                for t in t_list:
+                    to_add[t["name"]] = machine_type
+
+                clean_assignment[machine_id] = to_add
+                X[i] = self.ids_rev[machine_type]
                 i = i + 1
         while i < len(X):
             X[i] = -1
             i = i + 1
-        return makespan, price, tasks, 0
+
+        return makespan, price, clean_assignment, 0
 
 
 def normalize(value, min_value, max_value):

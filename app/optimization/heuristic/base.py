@@ -127,7 +127,7 @@ class Heuristic(ABC):
 
 
 def generate_W(config, problem, problem_file_path, regions, region_machines_dataset):
-    if config.eager_aws or not os.path.isfile(problem + "_machine_execution_time.yml"):
+    if config.eager_aws or not os.path.isfile("execution_time/" + problem + "_machine_execution_time.yml"):
         dc_region_machines_task_time = {}
         for region in regions:
             dataset_machines = region_machines_dataset[region]
@@ -150,9 +150,9 @@ def generate_W(config, problem, problem_file_path, regions, region_machines_data
 
             dc_region_machines_task_time[region] = dc_machines_task_time
 
-        save_yaml(dc_region_machines_task_time, problem + "_machine_execution_time.yml")
+        save_yaml(dc_region_machines_task_time, "execution_time/" + problem + "_machine_execution_time.yml")
 
     else:
-        dc_region_machines_task_time = read_yaml(problem + "_machine_execution_time.yml")
+        dc_region_machines_task_time = read_yaml("execution_time/" + problem + "_machine_execution_time.yml")
 
     return dc_region_machines_task_time
