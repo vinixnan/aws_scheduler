@@ -1,92 +1,92 @@
+import math
+from collections import defaultdict
+
 import numpy as np
 from pymoo.core.problem import ElementwiseProblem
-from yattag import Doc, indent
-import math
 
 
-class Instance:
-    def __init__(self, id, instance_type, data):
-        self.name = "host" + str(id)
-        self.link = "link" + str(id)
-        self.instance_type = instance_type
-        self.active = True
-        self.data = data
-
-
-class AWSProblem(ElementwiseProblem):
-    def __init__(self, n_var, dccv, region, problem_file_path):
-        self.region = region
-        self.base = dccv[self.region]
-        enumerated = enumerate(self.base.keys(), 1)
-        self.ids = {k: v for k, v in enumerated}
-        self.ids_rev = {v: k for k, v in self.ids.items()}
+class AWSProblemDirect(ElementwiseProblem):
+    def __init__(
+        self,
+        n_var,
+        machines_data,
+        region_name,
+        problem_file_path,
+        elementwise_runner=None,
+        heu=None,
+    ):
+        self.region_name = region_name
+        self.heu = heu
+        self.machines_data = machines_data
         self.problem_file_path = problem_file_path
-        self.smaller_machine = min(self.base.values(), key=lambda x: x["pricePerUnit"])
+        self.ids = {k: v for k, v in enumerate(self.machines_data.keys(), 1)}
+        self.ids_rev = {v: k for k, v in self.ids.items()}
+        print(region_name, self.ids)
         xl = np.zeros(n_var)
         xu = np.ones(n_var) * max(self.ids.keys())
-        super().__init__(n_var=n_var, n_obj=2, n_constr=2, xl=xl, xu=xu, vtype=int)
-
-    def _evaluate(self, x, out, *args, **kwargs):
-        total, power, violations = self.calculate_fitness(x)
-        out["F"] = [total, power]
-        out["G"] = [violations, violations]
-
-    def calculate_fitness(self, X):
-        sub_dict = [self.base[self.ids[ins]] for ins in X if ins > 0]
-        total = sum([v["pricePerUnit"] for v in sub_dict])
-        power = sum([v["ecu"] for v in sub_dict]) * -1
-        violations = 0
-        if len(sub_dict) == 0:
-            violations = 1
-        return total, power, violations
-
-    def x_to_aws(self, s):
-        s.x_aws = [self.ids[el] for el in s.X if el > 0]
-
-    def aws_to_x(self, s):
-        x = [self.ids_rev[name] for name in s.x_aws]
-        s.X = np.array(x)
-
-    def generate_simgrid_xml(self, machines):
-        doc, tag, _ = Doc().tagtext()
-        doc.asis("<?xml version='1.0'?>")
-        doc.asis(
-            '<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">'
+        super().__init__(
+            n_var=n_var,
+            n_obj=2,
+            n_constr=1,
+            xl=xl,
+            xu=xu,
+            vtype=int,
+            elementwise_runner=elementwise_runner,
         )
 
-        with tag("platform", version="4"):
-            with tag("AS", id="AS0", routing="Floyd"):
-                for machine in machines.values():
-                    doc.stag(
-                        "host",
-                        id=machine.name,
-                        core=machine.data["vcpu"],
-                        speed=machine.data["flop"],
-                    )
-                    doc.stag(
-                        "link",
-                        id=machine.link,
-                        bandwidth=str(machine.data["networkPerformance"]) + "Bps",
-                        latency="0.0001s",
-                    )
-                keys = list(machines.keys())
-                origin = machines[keys[0]]
-                for j in range(1, len(keys)):
-                    destiny = machines[keys[j]]
-                    with tag("route", src=origin.name, dst=destiny.name):
-                        doc.stag("link_ctn", id=origin.link)
+    def run_heu(self, machine_types):
+        assignment, makespan, _, _, machines = self.heu.schedule(machine_types)
+        clean_assignment = {k: v for k, v in assignment.items() if len(v) > 0}
+        machines = {k: v for k, v in machines.items() if k in clean_assignment.keys()}
+        price = math.ceil(makespan / 3600) * sum([machine.data["pricePerUnit"] for machine in machines.values()])
+        return makespan, price, clean_assignment, machines
 
-        return indent(doc.getvalue(), indentation=" " * 4, newline="\r\n")
+    def _evaluate(self, x, out, *args, **kwargs):
+        makespan, price, clean_assignment, violations = self.calculate_fitness(x)
+        out["F"] = [makespan, price]
+        out["G"] = [violations]
+        to_save_data = {}
+        to_save_data["assignment"] = clean_assignment
+        to_save_data["data"] = {"makespan": makespan, "price": price, "X": [int(el) for el in x]}
+        out["saved_data"] = to_save_data
 
-    def update_decision_variables(self, sol, makespan):
-        self.aws_to_x(sol)
-        total, _, _ = self.calculate_fitness(sol.X)
-        # seconds to hours
-        sol.F[0] = total * math.ceil(makespan / 3600)
-        sol.F[1] = makespan
+    def show_solution(self, sol):
+        return [self.ids[x] for x in sol.X if x > 0]
+
+    def calculate_fitness(self, X):
+        used_machines = [self.ids[ins] for ins in X if ins > 0]
+        violations = 0
+        if len(used_machines) <= 1:
+            violations = len(used_machines)
+            return float("inf"), float("inf"), dict(), violations
+
+        makespan, price, assignment, machines = self.run_heu(used_machines)
+
+        i = 0
+        clean_assignment = defaultdict(dict)
+        for machine_id, t_list in assignment.items():
+            if len(t_list) > 0:
+                machine_data = machines[machine_id]
+                machine_type = machine_data.data["name"]
+                to_add = {}
+                for t in t_list:
+                    to_add[t["name"]] = {"machine_type": machine_type, "AFT": t["AFT"], "EST": t["EST"]}
+
+                clean_assignment[machine_id] = to_add
+                X[i] = self.ids_rev[machine_type]
+                i = i + 1
+        while i < len(X):
+            X[i] = -1
+            i = i + 1
+
+        return makespan, price, clean_assignment, 0
 
 
-def dominates(s1s, s2s):
+def normalize(value, min_value, max_value):
+    return (value - min_value) / (max_value - min_value)
+
+
+def dominates_sol(s1s, s2s):
     s1 = s1s.F
     s2 = s2s.F
     better = 0
@@ -119,30 +119,15 @@ def dominates(s1s, s2s):
     return 0
 
 
-def remove_dominated(pop):
+def remove_dominated_sol(pop):
     returning = []
     for i in range(len(pop)):
         dominated = False
         for j in range(len(pop)):
             if i != j:
-                if dominates(pop[i], pop[j]) == -1:
+                if dominates_sol(pop[i], pop[j]) == -1:
                     dominated = True
                     break
         if not dominated:
             returning.append(pop[i])
     return returning
-
-
-def invert_maximization(pop):
-    for s in pop:
-        F = list(s.F)
-        F[1] = F[1] * -1
-        s.F = F
-
-
-def get_problems(number_of_tasks, regions, dccv, problem_file_path):
-    problems = []
-    for region in regions:
-        problem = AWSProblem(number_of_tasks, dccv, region, problem_file_path)
-        problems.append(problem)
-    return problems

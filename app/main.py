@@ -1,76 +1,20 @@
-from aws.ec2 import get_aws_regions_full
-from optimization.generate import (
-    generate_solutions,
-    get_pysim_data,
-    select_one_solution,
-    calc_makespan,
-)
-from optimization.problem import remove_dominated
-from dotenv import load_dotenv
-import numpy as np
-from collections import namedtuple
-from utils.files import save_yaml, format_solution, save_json
 import click
+from dotenv import load_dotenv
+from optimization.experiment import run_experiment
+from utils.definitions import Config
 
 load_dotenv()
 
 algs = [
-    "DLS",
-    "HCPT",
     "HEFT",
-    "Lookahead",
     "PEFT",
-    # "SimHEFT",
+    "HSIP",
+    "MPEFT",
 ]
-
-Config = namedtuple(
-    "Config",
-    "seed algorithm_name heuristic_name n_gen pop_size problem_name problem_file_path verbose eager_aws execution_id",
-)
-
-
-def run_exp(config):
-    full_name_regions = get_aws_regions_full()
-    print("Generating solutions for " + str(full_name_regions))
-    full_name_regions = "US East (N. Virginia)"
-    non_dominated_population = generate_solutions(config, full_name_regions)
-    # non_dominated_population has as objective price per hour and power
-    print(len(non_dominated_population), "non-dominated solutions")
-    print("Running scheduler")
-    selections = {}
-    for sol in non_dominated_population:
-        get_pysim_data(sol, [config.heuristic_name], selections)
-
-    # not each solution in non_dominated_population have as objective the price and the makespan
-    print("Removing non-dominated from the new problem setup")
-    non_dominated_population = remove_dominated(non_dominated_population)
-
-    s, filtered = select_one_solution(non_dominated_population)
-    calc_makespan(s)
-    # print(format_solution(s))
-    print(len(non_dominated_population), "non-dominated solutions")
-
-    to_save = dict(config._asdict())
-    to_save["population"] = [format_solution(ss) for ss in filtered]
-    to_save["selected"] = format_solution(s)
-    to_save["selections"] = selections
-
-    file_output = (
-        "output/"
-        + config.algorithm_name
-        + "_"
-        + str(config.execution_id)
-        + "_"
-        + config.problem_name
-        + "_"
-        + config.heuristic_name
-    )
-    # save_yaml(to_save, file_output + ".yml")
-    save_json(to_save, file_output + ".json")
 
 
 @click.command()
-@click.option("--idexec", help="Id execution", required=True, default=0)
+@click.option("--idexec", help="Id execution", required=True, default=666)
 @click.option(
     "--problem",
     "-p",
@@ -81,7 +25,7 @@ def run_exp(config):
 @click.option(
     "--alg",
     "-a",
-    help="Algorithm in (NSGA2, AGEMOEA, SMSEMOA)",
+    help="Algorithm in (NSGA2, AGEMOEA, SMSEMOA, MOEAD)",
     default="NSGA2",
 )
 @click.option("--heu", "-h", help="Heuristic in " + str(algs), default="HEFT")
@@ -95,12 +39,23 @@ def run(
     pop,
     gen,
 ):
-    problem = "datasets/" + problem
-    problem_name = problem.split("/")[1].replace(".dot", "")
+    problem_file_path = "datasets/" + problem
+    problem_name = problem_file_path.split("/")[1].replace(".dot", "")
     config = Config(
-        None, alg, heu, gen, pop, problem_name, problem, False, False, idexec
+        None,
+        alg,
+        heu,
+        gen,
+        pop,
+        problem_name,
+        problem,
+        False,
+        False,
+        idexec,
+        "us-east-1",
     )
-    run_exp(config)
+    n_threads = 6
+    run_experiment(config, problem_file_path, n_threads)
 
 
 if __name__ == "__main__":
