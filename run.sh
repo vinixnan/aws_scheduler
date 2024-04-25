@@ -17,7 +17,7 @@ algs="NSGA2 AGEMOEA"
 heur="HEFT PEFT HSIP"
 pop=100
 gen=500
-qtdExp=1
+qtdExp=4
 #for a in $algs
 #do
     for h in $heur
@@ -26,7 +26,7 @@ qtdExp=1
         do
             for problem in $problems
             do
-                idexec=0
+                idexec=2
                 while [ $idexec -lt $qtdExp ]
                 do
                     python app/main.py --idexec $idexec -p $problem -a $a -h $h --pop $pop --gen $gen

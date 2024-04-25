@@ -82,11 +82,11 @@ def run_experiment(config, problem_file_path, n_threads):
     W = generate_W(config, config.problem_name, problem_file_path, regions, region_machines_dataset)
 
     problems = {}
-    full_name_regions = get_aws_regions_full()
-    region_machines_dataset, regions = generate_aws_dict(full_name_regions, config.eager_aws)
-    # region_machines_dataset = {
-    #    region_name: machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data
-    # }
+    # full_name_regions = get_aws_regions_full()
+    # region_machines_dataset, regions = generate_aws_dict(full_name_regions, config.eager_aws)
+    region_machines_dataset = {
+        region_name: machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data
+    }
     qtd_valid_regions = len(region_machines_dataset)
     gen = int(math.ceil(config.n_gen / qtd_valid_regions))
     print(config, "valid_regions=" + str(qtd_valid_regions), "gen=" + str(gen), "n_var=" + str(n_var))
