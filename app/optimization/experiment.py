@@ -45,12 +45,12 @@ def data_generation(config, problem_file_path):
     from_origin_data_trasfer_cost = data_trasfer_cost[config.starting_region]
     from_origin_data_trasfer_cost = {k: v * size_of_dataset_in_gb for k, v in from_origin_data_trasfer_cost.items()}
     # print(from_origin_data_trasfer_cost)
-
+    generate_W(config, config.problem_name, problem_file_path, regions, region_machines_dataset)
     # remove dominated per region
     print("Before remove dominated regions", len(region_machines_dataset.keys()))
     region_machines_dataset = remove_non_dominated_per_region(region_machines_dataset)
     print("After remove dominated regions", len(region_machines_dataset.keys()))
-    region_machines_dataset, n_var, ndom_base = remove_bad_performing_machines(
+    region_machines_dataset, n_var, _ = remove_bad_performing_machines(
         region_machines_dataset,
         number_of_tasks,
         from_origin_data_trasfer_cost,
@@ -63,7 +63,6 @@ def data_generation(config, problem_file_path):
     )
     print("Number of tasks", number_of_tasks, "Average of number of executed machines", n_var)
     save_json(region_machines_dataset, "ndmachines/" + config.problem_name + "_nd_regions.json")
-    generate_W(config, config.problem_name, problem_file_path, regions, region_machines_dataset)
 
 
 def run_experiment(config, problem_file_path, n_threads):
@@ -83,9 +82,11 @@ def run_experiment(config, problem_file_path, n_threads):
     W = generate_W(config, config.problem_name, problem_file_path, regions, region_machines_dataset)
 
     problems = {}
-    region_machines_dataset = {
-        region_name: machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data
-    }
+    full_name_regions = get_aws_regions_full()
+    region_machines_dataset, regions = generate_aws_dict(full_name_regions, config.eager_aws)
+    # region_machines_dataset = {
+    #    region_name: machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data
+    # }
     qtd_valid_regions = len(region_machines_dataset)
     gen = int(math.ceil(config.n_gen / qtd_valid_regions))
     print(config, "valid_regions=" + str(qtd_valid_regions), "gen=" + str(gen), "n_var=" + str(n_var))
@@ -118,7 +119,6 @@ def run_experiment(config, problem_file_path, n_threads):
 
             for sol in res.pop:
                 sol.region_name = problem.region_name
-                sol.X = sol.data["saved_data"].item()["data"]["X"]
             pop.extend(res.pop)
 
     # remove dominates and repeated

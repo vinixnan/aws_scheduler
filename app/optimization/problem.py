@@ -70,7 +70,7 @@ class AWSProblemDirect(ElementwiseProblem):
                 machine_type = machine_data.data["name"]
                 to_add = {}
                 for t in t_list:
-                    to_add[t["name"]] = {'machine_type':machine_type, 'AFT':t['AFT'], 'EST':t['EST']}
+                    to_add[t["name"]] = {"machine_type": machine_type, "AFT": t["AFT"], "EST": t["EST"]}
 
                 clean_assignment[machine_id] = to_add
                 X[i] = self.ids_rev[machine_type]
