@@ -49,7 +49,7 @@ class HEFT(Heuristic):
         for task_id in rank.keys():
             machines_est = {}
             for machine_name, machine_data in machines.items():
-                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task)
+                dt, _ = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task)
                 data = {}
                 data["EST"] = dt["AFT"]
                 data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]

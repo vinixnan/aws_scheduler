@@ -20,7 +20,7 @@ algs = [
     "-p",
     help="Path for the problem definition (.dot file)",
     required=True,
-    default="Sipht_30.dot",
+    default="Inspiral_30.dot",
 )
 @click.option(
     "--alg",
@@ -28,7 +28,7 @@ algs = [
     help="Algorithm in (NSGA2, AGEMOEA, SMSEMOA, MOEAD)",
     default="NSGA2",
 )
-@click.option("--heu", "-h", help="Heuristic in " + str(algs), default="HEFT")
+@click.option("--heu", "-h", help="Heuristic in " + str(algs), default="HSIP")
 @click.option("--pop", help="Pop size ", default=100)
 @click.option("--gen", help="Generation", default=500)
 def run(

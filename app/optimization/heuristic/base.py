@@ -44,11 +44,13 @@ class Heuristic(ABC):
 
     def calc_EST(self, task, task_machine, assignment, c_proc_i_j, makespans, memo):
         if memo.get(task):
-            return memo[task]
+            return memo[task], None
 
         values = []
         for t in self.pred.get(task, []):
-            data = self.calc_EST(t, task_machine, assignment, c_proc_i_j, makespans, memo)
+            data, _ = self.calc_EST(t, task_machine, assignment, c_proc_i_j, makespans, memo)
+            if not data.get("machine"):
+                return None, t
             cj = c_proc_i_j[t][task][data["machine"]][task_machine]
             val = data["AFT"] + cj
             values.append(val)
@@ -64,7 +66,7 @@ class Heuristic(ABC):
             if makespans[task_machine]["AFT"] > to_return:
                 data = makespans[task_machine]
 
-        return data
+        return data, None
 
     def generate_C(self, machines, L_line, B_m_n, B_m_n_line):
         c_proc_i_j = {}

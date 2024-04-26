@@ -6,7 +6,9 @@ problems="CyberShake_100.dot Epigenomics_100.dot Inspiral_100.dot Montage_100.do
 algs="NSGA2 AGEMOEA"
 heur="HEFT PEFT HSIP"
 qtdExp=1
-
+algs="NSGA2"
+pop=50
+gen=250
 idexec=0
 while [ $idexec -lt $qtdExp ]
 do
