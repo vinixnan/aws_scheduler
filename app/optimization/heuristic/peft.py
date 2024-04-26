@@ -6,6 +6,7 @@ from optimization.heuristic.base import Heuristic
 class PEFT(Heuristic):
     def __init__(self, w, dataset_machines, succ, pred, data):
         super().__init__(w, dataset_machines, succ, pred, data)
+        self.name = "PEFT"
 
     def OCT(self, task, task_machine, machines, c_i_j_line, memo):
         if memo.get(task) and memo.get(task).get(task_machine):
@@ -50,6 +51,8 @@ class PEFT(Heuristic):
             q.extend(to_add)
 
         rank_oct = {task_name: (sum([v for v in values.values()]) / P) for task_name, values in oct_table.items()}
+        rank_oct["root"] = float("inf")
+        rank_oct["end"] = -1
         rank_oct = OrderedDict(sorted(rank_oct.items(), key=lambda x: x[1], reverse=True))
 
         return rank_oct, c_proc_i_j, oct_table

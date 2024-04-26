@@ -8,6 +8,7 @@ from optimization.heuristic.base import Heuristic
 class HSIP(Heuristic):
     def __init__(self, w, dataset_machines, succ, pred, data):
         super().__init__(w, dataset_machines, succ, pred, data)
+        self.name = "HSIP"
 
     def calc_EST(self, task, task_machine, assignment, c_proc_i_j, makespans, memo):
         if memo.get(task):
@@ -111,6 +112,8 @@ class HSIP(Heuristic):
             to_add = self.pred[current]
             q.extend(to_add)
 
+        rank_d["root"] = float("inf")
+        rank_d["end"] = -1
         rank_d = OrderedDict(sorted(rank_d.items(), key=lambda x: x[1], reverse=True))
         return rank_d, c_proc_i_j, None
 
