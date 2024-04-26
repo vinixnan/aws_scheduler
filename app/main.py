@@ -20,7 +20,7 @@ algs = [
     "-p",
     help="Path for the problem definition (.dot file)",
     required=True,
-    default="CyberShake_100.dot",
+    default="Sipht_30.dot",
 )
 @click.option(
     "--alg",

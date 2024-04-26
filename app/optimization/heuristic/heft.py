@@ -6,6 +6,7 @@ from optimization.heuristic.base import Heuristic
 class HEFT(Heuristic):
     def __init__(self, w, dataset_machines, succ, pred, data):
         super().__init__(w, dataset_machines, succ, pred, data)
+        self.name = "HEFT"
 
     def recursive_transverse(self, task, c_i_j_line, w_line, memo):
         if memo.get(task):
@@ -36,6 +37,8 @@ class HEFT(Heuristic):
         for task in self.succ.keys():
             self.recursive_transverse(task, c_i_j_line, w_line, rank_d)
 
+        rank_d["root"] = float("inf")
+        rank_d["end"] = -1
         rank_d = OrderedDict(sorted(rank_d.items(), key=lambda x: x[1], reverse=True))
         return rank_d, c_proc_i_j, None
 

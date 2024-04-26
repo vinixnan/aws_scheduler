@@ -61,7 +61,8 @@ def get_dot(dot_path):
 
 def get_dot_full(dot_path):
     graph_output = {}
-    number_of_tasks = -1
+    succ = defaultdict(list)
+    preds = defaultdict(list)
     if "https" in dot_path:
         urllib.request.urlretrieve(dot_path, "tmp")
 
@@ -71,9 +72,13 @@ def get_dot_full(dot_path):
         if node.get("size"):
             st = node.get("size").replace("'", "").replace('"', "")
             size = float(st)
-            graph_output[node.get_name()] = size / 4
+            graph_output[node.get_name()] = size
+    edges = graph.get_edges()
+    for edge in edges:
+        succ[edge.get_source()].append(edge.get_destination())
+        preds[edge.get_destination()].append(edge.get_source())
 
-    return graph_output
+    return graph_output, succ, preds
 
 
 def get_total_input(filename):
@@ -170,25 +175,39 @@ def generate_dict_of_size(dax_dict):
 
 
 def load_xml_data(xml_path, dot_path):
-    dax_dict = read_xml_data(xml_path)
-    graph = generate_dict_of_size(dax_dict)
-    # graph = get_dot_full(dot_path)
+    # dax_dict = read_xml_data(xml_path)
+    # graph2 = generate_dict_of_size(dax_dict)
+    graph, succ, preds = get_dot_full(dot_path)
     # del graph['end']
     # del graph['root']
-    preds = dax_dict["dependencies"]
+    # preds = dax_dict["dependencies"]
 
+    # They must be explicit, default dict is not enought
     missing = [el for el in graph.keys() if el not in preds.keys()]
     for mis in missing:
         preds[mis] = []
 
-    succ = defaultdict(list)
-    for dependent, dependencies in preds.items():
-        for dependency in dependencies:
-            succ[dependency].append(dependent)
+    # succ = defaultdict(list)
+    # for dependent, dependencies in preds.items():
+    #    for dependency in dependencies:
+    #        succ[dependency].append(dependent)
 
     missing = [el for el in graph.keys() if el not in succ.keys()]
     for mis in missing:
         succ[mis] = []
+
+    # no_pred = [node for node in graph.keys() if not preds[node]]
+    # for node in no_pred:
+    #    succ['root'].append(node)
+    #    preds[node].append('root')
+
+    # no_succ = [node for node in graph.keys() if not succ[node]]
+    # for node in no_succ:
+    #    preds['end'].append(node)
+    #    succ[node].append('end')
+
+    # graph['root']=0
+    # graph['end']=0
 
     data = defaultdict(dict)
     for task_i in graph.keys():

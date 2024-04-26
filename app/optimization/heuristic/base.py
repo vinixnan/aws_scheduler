@@ -12,12 +12,11 @@ class Heuristic(ABC):
         self.dataset_machines = dataset_machines
         self.w = w
         self.pred = pred
-        self.succ = succ = OrderedDict(sorted(succ.items(), key=lambda x: len(x[1])))
+        self.succ = OrderedDict(sorted(succ.items(), key=lambda x: len(x[1])))
         self.data = data
         self.task_names = list(succ.keys())
-        # cuidado
-        self.last = list(self.succ.keys())[0]
-        # cuidado
+        self.last = "end"
+        self.name = None
 
     def schedule(self, machine_types):
         machines = {}
@@ -145,7 +144,6 @@ def generate_W(config, problem, problem_file_path, regions, region_machines_data
                     for task in host_tasks:
                         tasks[task["name"]] = task["finish_time"] - task["start_time"]
 
-                dc_machines_task_time[machine_name] = {}
                 dc_machines_task_time[machine_name] = tasks
 
             dc_region_machines_task_time[region] = dc_machines_task_time
@@ -154,5 +152,11 @@ def generate_W(config, problem, problem_file_path, regions, region_machines_data
 
     else:
         dc_region_machines_task_time = read_yaml("execution_time/" + problem + "_machine_execution_time.yml")
+
+    for region in regions:
+        dc_machines_task_time = dc_region_machines_task_time[region]
+        for machine_name, tasks in dc_machines_task_time.items():
+            tasks["root"] = 0
+            tasks["end"] = 0
 
     return dc_region_machines_task_time

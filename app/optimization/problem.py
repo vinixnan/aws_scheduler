@@ -1,3 +1,4 @@
+import logging
 import math
 from collections import defaultdict
 
@@ -55,12 +56,20 @@ class AWSProblemDirect(ElementwiseProblem):
 
     def calculate_fitness(self, X):
         used_machines = [self.ids[ins] for ins in X if ins > 0]
-        violations = 0
-        if len(used_machines) <= 1:
-            violations = len(used_machines)
-            return float("inf"), float("inf"), dict(), violations
-
-        makespan, price, assignment, machines = self.run_heu(used_machines)
+        if len(used_machines) < 1:
+            return float("inf"), float("inf"), dict(), 1
+        try:
+            makespan, price, assignment, machines = self.run_heu(used_machines)
+        except:
+            logging.warn(
+                "Error on running heuristic for "
+                + str(used_machines)
+                + " in "
+                + self.heu.name
+                + " for the problem "
+                + self.problem_file_path
+            )
+            return float("inf"), float("inf"), dict(), 1
 
         i = 0
         clean_assignment = defaultdict(dict)

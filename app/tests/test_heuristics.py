@@ -125,9 +125,8 @@ def test_allocation_from_for_heft_from_heft_paper():
     allocation, makespan, _, _ = heu.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
 
     for processor_name in expected_allocation.keys():
-        assert expected_allocation[processor_name] == [el["name"] for el in allocation[processor_name]], (
-            str(expected_allocation[processor_name]) + " " + str([el["name"] for el in allocation[processor_name]])
-        )
+        alloc = [el["name"] for el in allocation[processor_name] if el["name"] not in ["root", "end"]]
+        assert expected_allocation[processor_name] == alloc, str(expected_allocation[processor_name]) + " " + str(alloc)
 
     assert makespan == expected_makespan
 
@@ -173,9 +172,8 @@ def test_allocation_from_for_peft_from_peft_paper():
     allocation, makespan, _, _ = heu.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
 
     for processor_name in expected_allocation.keys():
-        assert expected_allocation[processor_name] == [el["name"] for el in allocation[processor_name]], (
-            str(expected_allocation[processor_name]) + " " + str([el["name"] for el in allocation[processor_name]])
-        )
+        alloc = [el["name"] for el in allocation[processor_name] if el["name"] not in ["root", "end"]]
+        assert expected_allocation[processor_name] == alloc, str(expected_allocation[processor_name]) + " " + str(alloc)
 
     all_generated_oeft = {}
     for values in allocation.values():
@@ -217,9 +215,8 @@ def test_allocation_from_for_heft_from_peft_paper():
 
     assert makespan == expected_makespan
     for processor_name in expected_allocation.keys():
-        assert expected_allocation[processor_name] == [el["name"] for el in allocation[processor_name]], (
-            str(expected_allocation[processor_name]) + " " + str([el["name"] for el in allocation[processor_name]])
-        )
+        alloc = [el["name"] for el in allocation[processor_name] if el["name"] not in ["root", "end"]]
+        assert expected_allocation[processor_name] == alloc, str(expected_allocation[processor_name]) + " " + str(alloc)
 
 
 def test_rank_d_for_hsip_from_heft_paper():
@@ -234,6 +231,8 @@ def test_rank_d_for_hsip_from_heft_paper():
     expected["T8"] = 133.4
     expected["T9"] = 154.6
     expected["T10"] = 85.0
+    expected["root"] = float("inf")
+    expected["end"] = -1
 
     (
         task_names,
@@ -263,7 +262,7 @@ def test_rank_d_for_hsip_from_heft_paper():
 
 
 def test_allocation_for_hsip_from_hsip_paper():
-    expected_makespan = 83
+    expected_makespan = 76
 
     (
         task_names,

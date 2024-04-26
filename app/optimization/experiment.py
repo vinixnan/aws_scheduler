@@ -1,3 +1,4 @@
+import logging
 import math
 import os
 import time
@@ -91,7 +92,7 @@ def run_experiment(config, problem_file_path, n_threads):
     gen = int(math.ceil(config.n_gen / qtd_valid_regions))
     print(config, "valid_regions=" + str(qtd_valid_regions), "gen=" + str(gen), "n_var=" + str(n_var))
     pop = []
-    cluster = LocalCluster(n_workers=n_threads)
+    cluster = LocalCluster(n_workers=n_threads, silence_logs=logging.FATAL)
     client = Client(cluster)
     print("DASK STARTED")
     for region_name, machines_data in region_machines_dataset.items():
@@ -150,4 +151,6 @@ def run_experiment(config, problem_file_path, n_threads):
     )
     save_json(to_save, file_output + ".json")
     print("Finished --- %s seconds ---" % (time.time() - very_start_time))
+    client.shutdown()
+
     return to_save
