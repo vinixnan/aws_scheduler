@@ -51,7 +51,7 @@ def data_generation(config, problem_file_path):
     print("Before remove dominated regions", len(region_machines_dataset.keys()))
     region_machines_dataset = remove_non_dominated_per_region(region_machines_dataset)
     print("After remove dominated regions", len(region_machines_dataset.keys()))
-    region_machines_dataset, n_var, _ = remove_bad_performing_machines(
+    region_machines_dataset, _ = remove_bad_performing_machines(
         region_machines_dataset,
         number_of_tasks,
         from_origin_data_trasfer_cost,
@@ -62,7 +62,7 @@ def data_generation(config, problem_file_path):
         len(region_machines_dataset),
         region_machines_dataset.keys(),
     )
-    print("Number of tasks", number_of_tasks, "Average of number of executed machines", n_var)
+    print("Number of tasks", number_of_tasks, "Average of number of executed machines")
     save_json(region_machines_dataset, "ndmachines/" + config.problem_name + "_nd_regions.json")
 
 
@@ -83,11 +83,11 @@ def run_experiment(config, problem_file_path, n_threads):
     W = generate_W(config, config.problem_name, problem_file_path, regions, region_machines_dataset)
 
     problems = {}
-    # full_name_regions = get_aws_regions_full()
-    # region_machines_dataset, regions = generate_aws_dict(full_name_regions, config.eager_aws)
-    region_machines_dataset = {
-        region_name: machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data
-    }
+    full_name_regions = get_aws_regions_full()
+    region_machines_dataset, regions = generate_aws_dict(full_name_regions, config.eager_aws)
+    # region_machines_dataset = {
+    #    region_name: machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data
+    # }
     qtd_valid_regions = len(region_machines_dataset)
     gen = int(math.ceil(config.n_gen / qtd_valid_regions))
     print(config, "valid_regions=" + str(qtd_valid_regions), "gen=" + str(gen), "n_var=" + str(n_var))
@@ -99,7 +99,6 @@ def run_experiment(config, problem_file_path, n_threads):
         if len(machines_data) > 1:
             w = W[region_name]
             heu = get_heuristic(config.heuristic_name, w, machines_data, succ, pred, data)
-            client.restart()
             runners = DaskParallelization(client)
             problem = AWSProblemDirect(
                 n_var,
@@ -112,7 +111,9 @@ def run_experiment(config, problem_file_path, n_threads):
             problems[region_name] = problem
             print(problem.region_name)
 
-            alg = Algorithm(config.algorithm_name, gen, config.pop_size, problem, problem.region_name)
+            alg = Algorithm(
+                config.algorithm_name, gen, config.pop_size, problem, problem.region_name, config.seed, config.verbose
+            )
 
             start_time = time.time()
             res = alg.run()
@@ -140,7 +141,7 @@ def run_experiment(config, problem_file_path, n_threads):
     to_save["considered_regions"] = list(region_machines_dataset.keys())
 
     file_output = (
-        "outputx/"
+        "outputf/"
         + config.algorithm_name
         + "_"
         + str(config.execution_id)

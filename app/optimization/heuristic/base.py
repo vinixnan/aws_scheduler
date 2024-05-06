@@ -2,7 +2,7 @@ import os
 from abc import ABC, abstractmethod
 from collections import OrderedDict, defaultdict
 
-from optimization.pysimgrid.pysim_helper import get_pysim_data
+from optimization.pysimgrid.pysim_helper import generate_ccr_dot_file, get_pysim_data
 from utils.definitions import Machine
 from utils.files import read_yaml, save_yaml
 
@@ -44,13 +44,20 @@ class Heuristic(ABC):
 
     def calc_EST(self, task, task_machine, assignment, c_proc_i_j, makespans, memo):
         if memo.get(task):
-            return memo[task], None
+            return memo[task]
 
         values = []
         for t in self.pred.get(task, []):
-            data, _ = self.calc_EST(t, task_machine, assignment, c_proc_i_j, makespans, memo)
+            data = self.calc_EST(t, task_machine, assignment, c_proc_i_j, makespans, memo)
             if not data.get("machine"):
-                return None, t
+                """
+                this happens because PEFT has a problem in OCT rank,
+                almost never happen, but happens sometimes in Montage_100
+                see test_heuristic to see that we validaded the code using the example provided in the paper
+                """
+                data["machine"] = task_machine
+                memo[t] = data
+
             cj = c_proc_i_j[t][task][data["machine"]][task_machine]
             val = data["AFT"] + cj
             values.append(val)
@@ -66,7 +73,7 @@ class Heuristic(ABC):
             if makespans[task_machine]["AFT"] > to_return:
                 data = makespans[task_machine]
 
-        return data, None
+        return data
 
     def generate_C(self, machines, L_line, B_m_n, B_m_n_line):
         c_proc_i_j = {}
@@ -139,8 +146,8 @@ def generate_W(config, problem, problem_file_path, regions, region_machines_data
                 for i, machine_data in enumerate(selected_region_machines):
                     mach = Machine("host" + str(i), machine_data, "link" + str(i))
                     machines[mach.name] = mach
-
-                resp = get_pysim_data(machines, problem_file_path, "HEFT", False)
+                problem_file_path2 = generate_ccr_dot_file(machine_data, problem_file_path, 0.1)
+                resp = get_pysim_data(machines, problem_file_path2, "HEFT", False)
                 tasks = {}
                 for host_tasks in resp["tasks"].values():
                     for task in host_tasks:

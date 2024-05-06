@@ -11,9 +11,36 @@ from utils.files import save_json, save_xml
 from yattag import Doc, indent
 
 
+def generate_ccr_dot_file(machine_data, file_name, c=0.01):
+    bandwitch_in_mb = machine_data["networkPerformance"] / (1024 * 1024)
+    flops_in_gf = float(machine_data["flop"].replace("e9flops", ""))
+    output_file_name = file_name.replace(".dot", "") + "_ccr.dot"
+    cmd = (
+        "./ccr.sh "
+        + str(bandwitch_in_mb)
+        + " "
+        + str(flops_in_gf)
+        + " "
+        + file_name
+        + " "
+        + str(c)
+        + " "
+        + output_file_name
+    )
+    # print(machine_data['name'], cmd)
+    p = subprocess.Popen(
+        cmd,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    p.wait()
+    return output_file_name
+
+
 def generate_simgrid_xml(machines, machines_as_one=False):
     factor = 1
-    latency = 0.00000001
+    latency = 100
     if machines_as_one:
         factor = 10000000000000
         latency = 0
@@ -35,7 +62,7 @@ def generate_simgrid_xml(machines, machines_as_one=False):
                     "link",
                     id=machine.link,
                     bandwidth=str(machine.data["networkPerformance"] * factor) + "Bps",
-                    latency=str(latency) + "s",
+                    latency=str(latency) + "us",
                 )
             keys = list(machines.keys())
             routes = defaultdict(dict)
@@ -82,27 +109,9 @@ def get_pysim_data(combination, problem_file_path, alg, machines_as_one=False):
     f = open(tf2.name, "w")
     xml_data = generate_simgrid_xml(combination, machines_as_one)
     save_xml(xml_data, tf.name)
-    # start_time = time.time()
     p = FastProcess(["pysim", "--conf", tf.name, "-p", problem_file_path, "-a", alg], stdout=f)
-
-    # p = subprocess.Popen(
-    #    "pysim --conf " + tf.name + " -p " + problem_file_path + " -a " + alg,
-    #    shell=True,
-    #    stdout=subprocess.PIPE,
-    #    stderr=subprocess.STDOUT,
-    #    close_fds=True
-    # )
-
-    # f.close()
-    # with open(tf2.name) as json_data:
-    #    d = json.load(json_data)
-    #    json_data.close()
-
     retval = p.wait()
-    # print("--- %s seconds ---" % (time.time() - start_time))
     if retval == 0:
-        # returned_str = p.stdout.readlines()[0].decode("utf-8").rstrip()
-        # data = json.loads(returned_str)
         with open(tf2.name) as f:
             data = json.load(f)
             f.close()

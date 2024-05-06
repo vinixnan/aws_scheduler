@@ -60,21 +60,10 @@ class PEFT(Heuristic):
         assignment = defaultdict(list)
         assigned_task = {}
         makespans = {machine_name: 0 for machine_name in machines.keys()}
-        q = deque(rank.keys())
-        while len(q) > 0:
-            task_id = q.popleft()
+        for task_id in rank.keys():
             machines_est = {}
-            broken = False
             for machine_name, machine_data in machines.items():
-                dt, negative_task = self.calc_EST(
-                    task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task
-                )
-                if negative_task:
-                    # for Inspiral PEFT breaks, this part forces that a dependency MUST be allocated before
-                    q.insert(0, task_id)
-                    q.insert(0, negative_task)
-                    broken = True
-                    break
+                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task)
                 data = {}
                 data["EST"] = dt["AFT"]
                 data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
@@ -82,9 +71,6 @@ class PEFT(Heuristic):
                 data["machine"] = machine_name
                 data["name"] = task_id
                 machines_est[machine_name] = data
-
-            if broken:
-                continue
 
             machines_est = OrderedDict(sorted(machines_est.items(), key=lambda x: x[1]["OEFT"]))
             selected = list(machines_est.keys())[0]

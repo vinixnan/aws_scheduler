@@ -21,7 +21,7 @@ class HEFT(Heuristic):
             val = self.recursive_transverse(suc, c_i_j_line, w_line, memo) + c_i_j_line[task][suc]
             to_see.append(val)
 
-        memo[task] = round(max(to_see) + w_line[task], 3)
+        memo[task] = max(to_see) + w_line[task]
         return memo[task]
 
     def generate_rank(
@@ -49,7 +49,7 @@ class HEFT(Heuristic):
         for task_id in rank.keys():
             machines_est = {}
             for machine_name, machine_data in machines.items():
-                dt, _ = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task)
+                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task)
                 data = {}
                 data["EST"] = dt["AFT"]
                 data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]

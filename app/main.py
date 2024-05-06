@@ -1,3 +1,5 @@
+import random
+
 import click
 from dotenv import load_dotenv
 from optimization.experiment import run_experiment
@@ -20,7 +22,7 @@ algs = [
     "-p",
     help="Path for the problem definition (.dot file)",
     required=True,
-    default="Inspiral_30.dot",
+    default="Montage_100.dot",
 )
 @click.option(
     "--alg",
@@ -28,9 +30,9 @@ algs = [
     help="Algorithm in (NSGA2, AGEMOEA, SMSEMOA, MOEAD)",
     default="NSGA2",
 )
-@click.option("--heu", "-h", help="Heuristic in " + str(algs), default="HSIP")
-@click.option("--pop", help="Pop size ", default=100)
-@click.option("--gen", help="Generation", default=500)
+@click.option("--heu", "-h", help="Heuristic in " + str(algs), default="PEFT")
+@click.option("--pop", help="Pop size ", default=50)
+@click.option("--gen", help="Generation", default=250)
 def run(
     idexec,
     problem,
@@ -42,7 +44,7 @@ def run(
     problem_file_path = "datasets/" + problem
     problem_name = problem_file_path.split("/")[1].replace(".dot", "")
     config = Config(
-        None,
+        random.randint(0, 10000),
         alg,
         heu,
         gen,
