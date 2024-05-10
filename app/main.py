@@ -56,7 +56,7 @@ def run(
         idexec,
         "us-east-1",
     )
-    n_threads = 6
+    n_threads = 5
     run_experiment(config, problem_file_path, n_threads)
 
 
