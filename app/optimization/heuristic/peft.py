@@ -1,5 +1,6 @@
 from collections import OrderedDict, defaultdict, deque
 
+import numpy as np
 from optimization.heuristic.base import Heuristic
 
 
@@ -13,14 +14,15 @@ class PEFT(Heuristic):
             return memo[task][task_machine]
 
         if not self.succ[task]:
-            memo[task][task_machine] = 0
+            memo[task][task_machine] = [0, None]
             return memo[task][task_machine]
 
         to_see = []
+        to_see_ref = []
         for suc in self.succ[task]:
             find_min = []
             for machine_name, machine_data in machines.items():
-                v = self.OCT(suc, machine_name, machines, c_i_j_line, memo)
+                v, _ = self.OCT(suc, machine_name, machines, c_i_j_line, memo)
 
                 c_i_j = 0
                 if machine_name != task_machine:
@@ -29,8 +31,10 @@ class PEFT(Heuristic):
                 find_min.append(val)
 
             to_see.append(min(find_min))
+            to_see_ref.append(suc)
 
-        memo[task][task_machine] = max(to_see)
+        ind = np.argmax(to_see)
+        memo[task][task_machine] = [to_see[ind], to_see_ref[ind]]
         return memo[task][task_machine]
 
     def generate_rank(self, B_m_n, B_m_n_line, w_line, machines, w=None):
@@ -50,7 +54,7 @@ class PEFT(Heuristic):
             to_add = self.pred[current]
             q.extend(to_add)
 
-        rank_oct = {task_name: (sum([v for v in values.values()]) / P) for task_name, values in oct_table.items()}
+        rank_oct = {task_name: (sum([v[0] for v in values.values()]) / P) for task_name, values in oct_table.items()}
         rank_oct["root"] = float("inf")
         rank_oct["end"] = -1
         rank_oct = OrderedDict(sorted(rank_oct.items(), key=lambda x: x[1], reverse=True))
@@ -67,7 +71,7 @@ class PEFT(Heuristic):
                 data = {}
                 data["EST"] = dt["AFT"]
                 data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
-                data["OEFT"] = data["AFT"] + oct_table[task_id][machine_name]
+                data["OEFT"] = data["AFT"] + oct_table[task_id][machine_name][0]
                 data["machine"] = machine_name
                 data["name"] = task_id
                 machines_est[machine_name] = data

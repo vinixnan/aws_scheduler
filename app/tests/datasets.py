@@ -341,6 +341,95 @@ def generate_data_m_peft_paper():
     rank_u_test["root"] = float("inf")
     rank_u_test["end"] = -1
 
+    oct_table = defaultdict(dict)
+    oct_table["T1"]["P1"] = 48
+    oct_table["T2"]["P1"] = 35
+    oct_table["T3"]["P1"] = 28
+    oct_table["T4"]["P1"] = 38
+    oct_table["T5"]["P1"] = 32
+    oct_table["T6"]["P1"] = 23
+    oct_table["T7"]["P1"] = 21
+    oct_table["T8"]["P1"] = 18
+    oct_table["T9"]["P1"] = 20
+    oct_table["T10"]["P1"] = 0
+    oct_table["root"]["P1"] = 0
+    oct_table["end"]["P1"] = 0
+
+    oct_table["T1"]["P2"] = 38
+    oct_table["T2"]["P2"] = 19
+    oct_table["T3"]["P2"] = 22
+    oct_table["T4"]["P2"] = 19
+    oct_table["T5"]["P2"] = 19
+    oct_table["T6"]["P2"] = 18
+    oct_table["T7"]["P2"] = 7
+    oct_table["T8"]["P2"] = 7
+    oct_table["T9"]["P2"] = 7
+    oct_table["T10"]["P2"] = 0
+    oct_table["root"]["P2"] = 0
+    oct_table["end"]["P2"] = 0
+
+    oct_table["T1"]["P3"] = 53
+    oct_table["T2"]["P3"] = 35
+    oct_table["T3"]["P3"] = 27
+    oct_table["T4"]["P3"] = 36
+    oct_table["T5"]["P3"] = 32
+    oct_table["T6"]["P3"] = 30
+    oct_table["T7"]["P3"] = 16
+    oct_table["T8"]["P3"] = 16
+    oct_table["T9"]["P3"] = 16
+    oct_table["T10"]["P3"] = 0
+    oct_table["root"]["P3"] = 0
+    oct_table["end"]["P3"] = 0
+
+    cps_table = defaultdict(dict)
+    cps_table["T1"]["P1"] = "T2"
+    cps_table["T2"]["P1"] = "T9"
+    cps_table["T3"]["P1"] = "T7"
+    cps_table["T4"]["P1"] = "T9"
+    cps_table["T5"]["P1"] = "T9"
+    cps_table["T6"]["P1"] = "T8"
+    cps_table["T7"]["P1"] = "T10"
+    cps_table["T8"]["P1"] = "T10"
+    cps_table["T9"]["P1"] = "T10"
+    cps_table["T10"]["P1"] = "end"
+    cps_table["root"]["P1"] = None
+    cps_table["end"]["P1"] = None
+
+    cps_table["T1"]["P2"] = "T2"
+    cps_table["T2"]["P2"] = "T9"
+    cps_table["T3"]["P2"] = "T7"
+    cps_table["T4"]["P2"] = "T9"
+    cps_table["T5"]["P2"] = "T9"
+    cps_table["T6"]["P2"] = "T8"
+    cps_table["T7"]["P2"] = "T10"
+    cps_table["T8"]["P2"] = "T10"
+    cps_table["T9"]["P2"] = "T10"
+    cps_table["T10"]["P2"] = "end"
+    cps_table["root"]["P2"] = None
+    cps_table["end"]["P2"] = None
+
+    cps_table["T1"]["P3"] = "T2"
+    cps_table["T2"]["P3"] = "T9"
+    cps_table["T3"]["P3"] = "T7"
+    cps_table["T4"]["P3"] = "T9"
+    cps_table["T5"]["P3"] = "T9"
+    cps_table["T6"]["P3"] = "T8"
+    cps_table["T7"]["P3"] = "T10"
+    cps_table["T8"]["P3"] = "T10"
+    cps_table["T9"]["P3"] = "T10"
+    cps_table["T10"]["P3"] = "end"
+    cps_table["root"]["P3"] = None
+    cps_table["end"]["P3"] = None
+
+    k_table = defaultdict(dict)
+    for task, ms in cps_table.items():
+        for m in ms.keys():
+            k_table[task][m] = 1
+
+    k_table["T1"]["P1"] = 0.3
+    k_table["T1"]["P2"] = 0.3
+    k_table["T1"]["P3"] = 0.3
+
     rank_oct_test["T1"] = 72.7
     rank_oct_test["T2"] = 41
     rank_oct_test["T3"] = 37
@@ -361,4 +450,17 @@ def generate_data_m_peft_paper():
 
     preds["root"] = []
 
-    return (task_names, machines, machine_types, w, data, rank_u_test, rank_oct_test, succ, preds)
+    return (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        rank_oct_test,
+        succ,
+        preds,
+        oct_table,
+        cps_table,
+        k_table,
+    )

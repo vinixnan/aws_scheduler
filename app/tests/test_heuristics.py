@@ -303,6 +303,9 @@ def test_rank_ap_mpeft_paper():
         rank_oct_test,
         succ,
         preds,
+        oct_table,
+        cps_table,
+        k_table,
     ) = generate_data_m_peft_paper()
 
     B_m_n_line = 1
@@ -313,9 +316,30 @@ def test_rank_ap_mpeft_paper():
     heu = MPEFT(w, dataset_machines, succ, preds, data)
     w_line = heu.generate_W_line(machine_types)
 
-    rank_d, c_proc_i_j, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines, w)
-    print(rank_d)
+    rank_d, c_proc_i_j, c_i_j_line = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines, w)
     for task in task_names:
         assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01), (
             task + " " + str(rank_d[task]) + " " + str(rank_u_test[task])
         )
+
+    found_oct_table = heu.calc_oct(machines, c_i_j_line)
+    for task in task_names:
+        for m in machines.keys():
+            assert math.isclose(found_oct_table[task][m][0], oct_table[task][m], rel_tol=0.01), (
+                task + " " + str(found_oct_table[task][m][0]) + " " + str(oct_table[task][m])
+            )
+
+    for task in task_names:
+        for m in machines.keys():
+            print(task, m, found_oct_table[task][m][1], cps_table[task][m])
+            assert found_oct_table[task][m][1] == cps_table[task][m]
+
+    generated_k_table = heu.calc_k_table(rank_d, found_oct_table, machines, c_i_j_line)
+    print("generated", generated_k_table)
+    for task in task_names:
+        for m in machines.keys():
+            print(task, m)
+            if task != "root":
+                assert math.isclose(generated_k_table[task][m], k_table[task][m], rel_tol=0.01), (
+                    task + " " + str(generated_k_table[task][m]) + " " + str(k_table[task][m])
+                )
