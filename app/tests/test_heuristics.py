@@ -4,8 +4,14 @@ from collections import defaultdict
 import pytest
 from optimization.heuristic.heft import HEFT
 from optimization.heuristic.hsip import HSIP
+from optimization.heuristic.mpeft import MPEFT
 from optimization.heuristic.peft import PEFT
-from tests.datasets import generate_data_heft_paper, generate_data_hsip_paper, generate_data_peft_paper
+from tests.datasets import (
+    generate_data_heft_paper,
+    generate_data_hsip_paper,
+    generate_data_m_peft_paper,
+    generate_data_peft_paper,
+)
 
 
 def test_rank_u_heft_paper():
@@ -280,3 +286,36 @@ def test_allocation_for_hsip_from_hsip_paper():
     allocation, makespan, _, _ = heu.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
 
     assert makespan == expected_makespan, str(expected_makespan) + " " + str(makespan)
+
+
+def test_rank_ap_mpeft_paper():
+    task_names = ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"]
+    machines = {"P1": {}, "P2": {}, "P3": {}}
+    machine_types = list(machines.keys())
+
+    (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        rank_oct_test,
+        succ,
+        preds,
+    ) = generate_data_m_peft_paper()
+
+    B_m_n_line = 1
+    B_m_n = {machine_name: 1 for machine_name in machine_types}
+
+    dataset_machines = {}
+
+    heu = MPEFT(w, dataset_machines, succ, preds, data)
+    w_line = heu.generate_W_line(machine_types)
+
+    rank_d, c_proc_i_j, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines, w)
+    print(rank_d)
+    for task in task_names:
+        assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01), (
+            task + " " + str(rank_d[task]) + " " + str(rank_u_test[task])
+        )

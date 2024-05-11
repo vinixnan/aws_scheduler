@@ -24,13 +24,7 @@ class HEFT(Heuristic):
         memo[task] = max(to_see) + w_line[task]
         return memo[task]
 
-    def generate_rank(
-        self,
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-    ):
+    def generate_rank(self, B_m_n, B_m_n_line, w_line, machines, w=None):
         L_m, L_line = self.generate_L(len(machines))
         c_proc_i_j, c_i_j_line = self.generate_C(machines, L_line, B_m_n, B_m_n_line)
         rank_d = {}

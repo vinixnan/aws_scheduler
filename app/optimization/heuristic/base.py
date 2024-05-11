@@ -39,7 +39,7 @@ class Heuristic(ABC):
         pass
 
     @abstractmethod
-    def generate_rank(self, B_m_n, B_m_n_line, w_line, machines):
+    def generate_rank(self, B_m_n, B_m_n_line, w_line, machines, w=None):
         pass
 
     def calc_EST(self, task, task_machine, assignment, c_proc_i_j, makespans, memo):
