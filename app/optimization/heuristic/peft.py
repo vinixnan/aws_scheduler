@@ -58,9 +58,9 @@ class PEFT(Heuristic):
         rank_oct["root"] = float("inf")
         rank_oct["end"] = -1
         rank_oct = OrderedDict(sorted(rank_oct.items(), key=lambda x: x[1], reverse=True))
-        return rank_oct, c_proc_i_j, oct_table
+        return rank_oct, c_proc_i_j, c_i_j_line, oct_table
 
-    def generate_assignment(self, machines, c_proc_i_j, rank, oct_table):
+    def generate_assignment(self, machines, c_proc_i_j, c_i_j_line, rank, oct_table):
         assignment = defaultdict(list)
         assigned_task = {}
         makespans = {machine_name: 0 for machine_name in machines.keys()}

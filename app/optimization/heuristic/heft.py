@@ -34,9 +34,9 @@ class HEFT(Heuristic):
         rank_d["root"] = float("inf")
         rank_d["end"] = -1
         rank_d = OrderedDict(sorted(rank_d.items(), key=lambda x: x[1], reverse=True))
-        return rank_d, c_proc_i_j, None
+        return rank_d, c_proc_i_j, c_i_j_line, None
 
-    def generate_assignment(self, machines, c_proc_i_j, rank, table=None):
+    def generate_assignment(self, machines, c_proc_i_j, c_i_j_line, rank, table=None):
         assignment = defaultdict(list)
         assigned_task = {}
         makespans = {machine_name: 0 for machine_name in machines.keys()}

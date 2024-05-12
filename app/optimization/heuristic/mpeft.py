@@ -32,7 +32,7 @@ class MPEFT(PEFT):
         rank_ap["root"] = float("inf")
         rank_ap["end"] = -1
         rank_ap = OrderedDict(sorted(rank_ap.items(), key=lambda x: x[1], reverse=True))
-        return rank_ap, c_proc_i_j, c_i_j_line
+        return rank_ap, c_proc_i_j, c_i_j_line, self.calc_oct(machines, c_i_j_line)
 
     def generate_offspring(self, task, l):
         for t in self.succ.get(task, []):
@@ -94,9 +94,44 @@ class MPEFT(PEFT):
 
         return k_table
 
-    def generate_assignment(self, machines, c_proc_i_j, rank, table=None):
+    def generate_assignment(self, machines, c_proc_i_j, c_i_j_line, rank, oct_table):
+        k_table = self.calc_k_table(rank, oct_table, machines, c_i_j_line)
         assignment = defaultdict(list)
         assigned_task = {}
         makespans = {machine_name: 0 for machine_name in machines.keys()}
+        for task_id in rank.keys():
+            machines_est = {}
+            for machine_name, machine_data in machines.items():
+                dt = self.calc_EST(task_id, machine_name, assignment, c_proc_i_j, makespans, assigned_task)
+                data = {}
+                data["EST"] = dt["AFT"]
+                data["AFT"] = data["EST"] + self.w[machine_data.data["name"]][task_id]
+                data["OEFT"] = data["AFT"] + oct_table[task_id][machine_name][0] * k_table[task_id][machine_name]
+                data["machine"] = machine_name
+                data["name"] = task_id
+                machines_est[machine_name] = data
 
-        return assignment, 0, None, None
+            machines_est = OrderedDict(sorted(machines_est.items(), key=lambda x: x[1]["OEFT"]))
+            selected = list(machines_est.keys())[0]
+            selected_data = machines_est[selected]
+
+            selected_machine_type = machines[selected].data
+            selected_data["machine_type"] = selected_machine_type
+
+            assigned_task[task_id] = selected_data
+            assignment[selected].append(selected_data)
+            makespans[selected] = selected_data
+
+        last_host = None
+        first_host = None
+        makespan = 0
+        for host_name, l in assignment.items():
+            if l:
+                data = l[-1]
+                if data["AFT"] > makespan:
+                    makespan = data["AFT"]
+                    last_host = host_name
+                data = l[0]
+                if data["EST"] == 0:
+                    first_host = host_name
+        return assignment, makespan, first_host, last_host

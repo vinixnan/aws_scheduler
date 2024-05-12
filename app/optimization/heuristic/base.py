@@ -31,11 +31,11 @@ class Heuristic(ABC):
 
     def schedule_with_data(self, machine_types, machines, B_m_n_line, B_m_n):
         w_line = self.generate_W_line(machine_types)
-        rank, c_proc_i_j, table = self.generate_rank(B_m_n, B_m_n_line, w_line, machines)
-        return self.generate_assignment(machines, c_proc_i_j, rank, table)
+        rank, c_proc_i_j, c_i_j_line, table = self.generate_rank(B_m_n, B_m_n_line, w_line, machines, self.w)
+        return self.generate_assignment(machines, c_proc_i_j, c_i_j_line, rank, table)
 
     @abstractmethod
-    def generate_assignment(self, machines, c_proc_i_j, rank, table=None):
+    def generate_assignment(self, machines, c_proc_i_j, c_i_j_line, rank, table=None):
         pass
 
     @abstractmethod

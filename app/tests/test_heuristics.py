@@ -25,7 +25,7 @@ def test_rank_u_heft_paper():
     heu = HEFT(w, dataset_machines, succ, preds, data)
     w_line = heu.generate_W_line(machine_types)
 
-    rank_d, c_proc_i_j, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
+    rank_d, c_proc_i_j, _, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
 
     for task in task_names:
         assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01), (
@@ -58,7 +58,7 @@ def test_rank_u_peft_paper():
     heu = HEFT(w, dataset_machines, succ, preds, data)
     w_line = heu.generate_W_line(machine_types)
 
-    rank_d, c_proc_i_j, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
+    rank_d, c_proc_i_j, _, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
     for task in task_names:
         assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01), (
             task + " " + str(rank_d[task]) + " " + str(rank_u_test[task])
@@ -90,7 +90,7 @@ def test_rank_oct_peft_paper():
     heu = PEFT(w, dataset_machines, succ, preds, data)
     w_line = heu.generate_W_line(machine_types)
 
-    rank, c_proc_i_j, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
+    rank, c_proc_i_j, _, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
 
     for task in task_names:
         assert math.isclose(rank[task], rank_oct_test[task], rel_tol=0.01), (
@@ -254,7 +254,7 @@ def test_rank_d_for_hsip_from_heft_paper():
     heu = HSIP(w, dataset_machines, succ, preds, data)
     w_line = heu.generate_W_line(machine_types)
 
-    rank_d, c_proc_i_j, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
+    rank_d, c_proc_i_j, _, _ = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines)
 
     for task in task_names:
         assert math.isclose(rank_d[task], expected[task], rel_tol=0.01), (
@@ -316,7 +316,7 @@ def test_rank_ap_mpeft_paper():
     heu = MPEFT(w, dataset_machines, succ, preds, data)
     w_line = heu.generate_W_line(machine_types)
 
-    rank_d, c_proc_i_j, c_i_j_line = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines, w)
+    rank_d, c_proc_i_j, c_i_j_line, table = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines, w)
     for task in task_names:
         assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01), (
             task + " " + str(rank_d[task]) + " " + str(rank_u_test[task])
@@ -343,3 +343,40 @@ def test_rank_ap_mpeft_paper():
                 assert math.isclose(generated_k_table[task][m], k_table[task][m], rel_tol=0.01), (
                     task + " " + str(generated_k_table[task][m]) + " " + str(k_table[task][m])
                 )
+
+
+def test_allocation_from_for_mpeft_from_mpeft_paper():
+    expected_allocation = defaultdict(list)
+    expected_allocation["P3"].extend(["T1", "T2", "T6"])
+    expected_allocation["P2"].extend(["T4", "T5", "T9", "T8", "T10"])
+    expected_allocation["P1"].extend(["T3", "T7"])
+    expected_makespan = 73
+
+    (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        rank_oct_test,
+        succ,
+        preds,
+        oct_table,
+        cps_table,
+        k_table,
+    ) = generate_data_m_peft_paper()
+
+    B_m_n_line = 1
+    B_m_n = {machine_name: 1 for machine_name in machine_types}
+
+    dataset_machines = {}
+
+    heu = MPEFT(w, dataset_machines, succ, preds, data)
+
+    allocation, makespan, _, _ = heu.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
+
+    assert makespan == expected_makespan
+    for processor_name in expected_allocation.keys():
+        alloc = [el["name"] for el in allocation[processor_name] if el["name"] not in ["root", "end"]]
+        assert expected_allocation[processor_name] == alloc, str(expected_allocation[processor_name]) + " " + str(alloc)
