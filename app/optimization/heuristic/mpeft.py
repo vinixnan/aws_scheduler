@@ -1,5 +1,3 @@
-import copy
-import math
 from collections import OrderedDict, defaultdict, deque
 
 from optimization.heuristic.peft import PEFT
@@ -87,7 +85,9 @@ class MPEFT(PEFT):
                     to_sum = [(rank_ap[t2] + c_i_j_line[t][t2]) for t2 in self.succ[t] if t2 != selected_CPS]
                     if selected_CPS:
                         k_table[t][task_machine] = rank_ap[selected_CPS] / sum(to_sum)
-                        print(t, task_machine, selected_CPS, rank_ap[selected_CPS], to_sum, sum(to_sum))
+                    else:
+                        k_table[t][task_machine] = 1.0
+
             else:
                 for task_machine in machines:
                     k_table[t][task_machine] = 1.0

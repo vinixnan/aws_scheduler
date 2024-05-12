@@ -5,8 +5,9 @@ gen=700
 problems="CyberShake_100.dot Epigenomics_100.dot Inspiral_100.dot Montage_100.dot Sipht_100.dot Epigenomics_24.dot CyberShake_30.dot Epigenomics_46.dot Inspiral_30.dot Montage_25.dot Sipht_30.dot CyberShake_50.dot Inspiral_50.dot Montage_50.dot Sipht_60.dot" 
 algs="NSGA2 AGEMOEA"
 heur="HEFT PEFT HSIP"
-qtdExp=12
-idexec=8
+heur="MPEFT"
+qtdExp=20
+idexec=0
 echo "Go"
 
 while [ $idexec -lt $qtdExp ]

@@ -30,7 +30,7 @@ algs = [
     help="Algorithm in (NSGA2, AGEMOEA, SMSEMOA, MOEAD)",
     default="NSGA2",
 )
-@click.option("--heu", "-h", help="Heuristic in " + str(algs), default="PEFT")
+@click.option("--heu", "-h", help="Heuristic in " + str(algs), default="MPEFT")
 @click.option("--pop", help="Pop size ", default=50)
 @click.option("--gen", help="Generation", default=250)
 def run(
@@ -56,7 +56,7 @@ def run(
         idexec,
         "us-east-1",
     )
-    n_threads = 5
+    n_threads = 6
     run_experiment(config, problem_file_path, n_threads)
 
 
