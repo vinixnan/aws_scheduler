@@ -8,7 +8,7 @@ load_dotenv()
 algs = [
     "NSGA",
     "AGEMOEA",
-    #"SMSEMOA",
+    # "SMSEMOA",
 ]
 
 
@@ -52,6 +52,7 @@ def test_PEFT():
 def test_HSIP():
     for alg in algs:
         generate_solutions(alg, "HSIP", 10)
+
 
 def test_MPEFT():
     for alg in algs:

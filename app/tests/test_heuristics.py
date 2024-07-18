@@ -6,11 +6,13 @@ from optimization.heuristic.heft import HEFT
 from optimization.heuristic.hsip import HSIP
 from optimization.heuristic.mpeft import MPEFT
 from optimization.heuristic.peft import PEFT
+from optimization.heuristic.ppts import PPTS
 from tests.datasets import (
     generate_data_heft_paper,
     generate_data_hsip_paper,
     generate_data_m_peft_paper,
     generate_data_peft_paper,
+    generate_data_ppts_paper,
 )
 
 
@@ -31,6 +33,80 @@ def test_rank_u_heft_paper():
         assert math.isclose(rank_d[task], rank_u_test[task], rel_tol=0.01), (
             task + " " + str(rank_d[task]) + " " + str(rank_u_test[task])
         )
+
+
+def test_rank_pcm():
+    task_names = ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"]
+    machines = {"P1": {}, "P2": {}, "P3": {}}
+    machine_types = list(machines.keys())
+
+    (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        rank_oct_test,
+        rank_pcm,
+        succ,
+        preds,
+    ) = generate_data_ppts_paper()
+
+    B_m_n_line = 1
+    B_m_n = {machine_name: 1 for machine_name in machine_types}
+
+    dataset_machines = {}
+
+    heu = PPTS(w, dataset_machines, succ, preds, data)
+    w_line = heu.generate_W_line(machine_types)
+
+    rank_pcm_gen, c_proc_i_j, _, PCM = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines, w)
+    for task in task_names:
+        assert math.isclose(rank_pcm[task], rank_pcm_gen[task], rel_tol=0.01), (
+            task + " " + str(rank_pcm[task]) + " " + str(rank_pcm_gen[task])
+        )
+
+
+def test_allocation_from_for_ppts():
+    expected_allocation = defaultdict(list)
+    expected_allocation["P1"].extend(["T1", "T2", "T3", "T7"])
+    expected_allocation["P2"].extend(["T6", "T4", "T8", "T10"])
+    expected_allocation["P3"].extend(["T5", "T9"])
+    expected_makespan = 115
+
+    (
+        task_names,
+        machines,
+        machine_types,
+        w,
+        data,
+        rank_u_test,
+        rank_oct_test,
+        rank_pcm,
+        succ,
+        preds,
+    ) = generate_data_ppts_paper()
+
+    B_m_n_line = 1
+    B_m_n = {machine_name: 1 for machine_name in machine_types}
+
+    dataset_machines = {}
+
+    heu = PPTS(w, dataset_machines, succ, preds, data)
+
+    allocation, makespan, _, _ = heu.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
+    for processor_name in expected_allocation.keys():
+        alloc = [
+            (el["name"], el["EST"], el["AFT"]) for el in allocation[processor_name] if el["name"] not in ["root", "end"]
+        ]
+        print(processor_name, alloc)
+
+    for processor_name in expected_allocation.keys():
+        alloc = [el["name"] for el in allocation[processor_name] if el["name"] not in ["root", "end"]]
+        assert expected_allocation[processor_name] == alloc, str(expected_allocation[processor_name]) + " " + str(alloc)
+
+    assert makespan == expected_makespan
 
 
 def test_rank_u_peft_paper():

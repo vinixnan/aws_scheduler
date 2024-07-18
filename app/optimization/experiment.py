@@ -2,6 +2,7 @@ import logging
 import math
 import os
 import time
+from pathlib import Path
 
 from aws.aws_preprocessing import remove_bad_performing_machines, remove_non_dominated_per_region
 from aws.ec2 import generate_aws_dict, generate_data_transfer_dict, get_aws_regions_full
@@ -18,7 +19,6 @@ from pymoo.config import Config
 from pymoo.core.problem import DaskParallelization
 from utils.definitions import Machine
 from utils.files import format_solution, get_dot, get_total_input, load_xml_data, read_json, save_json
-from pathlib import Path
 
 Config.warnings["not_compiled"] = False
 
@@ -26,7 +26,7 @@ very_start_time = time.time()
 
 load_dotenv()
 
-base_dir = str(Path(__file__).parent.parent.parent.absolute())+"/"
+base_dir = str(Path(__file__).parent.parent.parent.absolute()) + "/"
 
 
 def get_heuristic(heuristic_name, w, machines_data, succ, pred, data):
@@ -82,11 +82,11 @@ def run_experiment(config, problem_file_path, n_threads):
         region_machines_dataset = read_json(machine_nd_name)
 
     problem_xml_name = problem_file_path.replace(".dot", ".xml")
-    data, graph, pred, succ = load_xml_data(base_dir+problem_xml_name, base_dir+problem_file_path)
+    data, graph, pred, succ = load_xml_data(base_dir + problem_xml_name, base_dir + problem_file_path)
     regions = list(region_machines_dataset.keys())
     n_var = int(len(graph) * 0.05 + 3)
 
-    W = generate_W(config, config.problem_name, base_dir+problem_file_path, regions, region_machines_dataset)
+    W = generate_W(config, config.problem_name, base_dir + problem_file_path, regions, region_machines_dataset)
 
     problems = {}
     full_name_regions = get_aws_regions_full()
@@ -151,8 +151,8 @@ def run_experiment(config, problem_file_path, n_threads):
     to_save["considered_regions"] = list(region_machines_dataset.keys())
 
     file_output = (
-        base_dir +
-        "outputf/"
+        base_dir
+        + "outputf/"
         + config.algorithm_name
         + "_"
         + str(config.execution_id)

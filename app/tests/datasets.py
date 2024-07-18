@@ -111,6 +111,24 @@ def generate_data_heft_paper():
     return task_names, machines, machine_types, w, data, rank_u_test, succ, preds
 
 
+def generate_data_ppts_paper():
+    task_names, machines, machine_types, w, data, rank_u_test, rank_oct_test, succ, preds = generate_data_peft_paper()
+    rank_pcm = {}
+    rank_pcm["T1"] = 154.3
+    rank_pcm["T2"] = 98
+    rank_pcm["T3"] = 96.3
+    rank_pcm["T4"] = 92.7
+    rank_pcm["T5"] = 90.7
+    rank_pcm["T6"] = 98.3
+    rank_pcm["T7"] = 46
+    rank_pcm["T8"] = 69
+    rank_pcm["T9"] = 45.7
+    rank_pcm["T10"] = 20.7
+    rank_pcm["root"] = float("inf")
+    rank_pcm["end"] = -1
+    return (task_names, machines, machine_types, w, data, rank_u_test, rank_oct_test, rank_pcm, succ, preds)
+
+
 def generate_data_peft_paper():
     task_names = ["root", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "end"]
     machines = {"P1": {}, "P2": {}, "P3": {}}
