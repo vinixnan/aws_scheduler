@@ -8,21 +8,27 @@ load_dotenv()
 algs = [
     "NSGA",
     "AGEMOEA",
-    "SMSEMOA",
+    # "SMSEMOA",
 ]
 
 
-def generate_solutions(alg, heuristic, pop_size=5):
-    problem_name = "CyberShake_30.dot"
-    problem_file_path = "datasets/" + problem_name
+def generate_solutions(
+    alg,
+    heu,
+    pop=5,
+    gen=2,
+):
+    problem = "CyberShake_30.dot"
+    problem_file_path = "datasets/" + problem
+    problem_name = problem_file_path.split("/")[1].replace(".dot", "")
     config = Config(
-        None,
+        7,
         alg,
-        heuristic,
-        pop_size,
-        2,
+        heu,
+        gen,
+        pop,
         problem_name,
-        problem_file_path,
+        problem,
         False,
         False,
         666,
@@ -45,4 +51,9 @@ def test_PEFT():
 
 def test_HSIP():
     for alg in algs:
-        generate_solutions(alg, "HSIP", 25)
+        generate_solutions(alg, "HSIP", 10)
+
+
+def test_MPEFT():
+    for alg in algs:
+        generate_solutions(alg, "MPEFT", 10)

@@ -21,16 +21,10 @@ class HEFT(Heuristic):
             val = self.recursive_transverse(suc, c_i_j_line, w_line, memo) + c_i_j_line[task][suc]
             to_see.append(val)
 
-        memo[task] = round(max(to_see) + w_line[task], 3)
+        memo[task] = max(to_see) + w_line[task]
         return memo[task]
 
-    def generate_rank(
-        self,
-        B_m_n,
-        B_m_n_line,
-        w_line,
-        machines,
-    ):
+    def generate_rank(self, B_m_n, B_m_n_line, w_line, machines, w=None):
         L_m, L_line = self.generate_L(len(machines))
         c_proc_i_j, c_i_j_line = self.generate_C(machines, L_line, B_m_n, B_m_n_line)
         rank_d = {}
@@ -40,9 +34,9 @@ class HEFT(Heuristic):
         rank_d["root"] = float("inf")
         rank_d["end"] = -1
         rank_d = OrderedDict(sorted(rank_d.items(), key=lambda x: x[1], reverse=True))
-        return rank_d, c_proc_i_j, None
+        return rank_d, c_proc_i_j, c_i_j_line, None
 
-    def generate_assignment(self, machines, c_proc_i_j, rank, table=None):
+    def generate_assignment(self, machines, c_proc_i_j, c_i_j_line, rank, table=None):
         assignment = defaultdict(list)
         assigned_task = {}
         makespans = {machine_name: 0 for machine_name in machines.keys()}

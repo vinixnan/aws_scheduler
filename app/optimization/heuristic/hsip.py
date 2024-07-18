@@ -95,7 +95,7 @@ class HSIP(Heuristic):
         memo[task] = max(to_see)
         return memo[task]
 
-    def generate_rank(self, B_m_n, B_m_n_line, w_line, machines):
+    def generate_rank(self, B_m_n, B_m_n_line, w_line, machines, w=None):
         L_m, L_line = self.generate_L(len(machines))
         c_proc_i_j, c_i_j_line = self.generate_C(machines, L_line, B_m_n, B_m_n_line)
 
@@ -115,7 +115,7 @@ class HSIP(Heuristic):
         rank_d["root"] = float("inf")
         rank_d["end"] = -1
         rank_d = OrderedDict(sorted(rank_d.items(), key=lambda x: x[1], reverse=True))
-        return rank_d, c_proc_i_j, None
+        return rank_d, c_proc_i_j, c_i_j_line, None
 
     def entry_node_rule(
         self, entry_task, selected, machines, assigned_task, c_proc_i_j, assignment, machines_est, makespans
@@ -142,7 +142,7 @@ class HSIP(Heuristic):
                     assigned_task[entry_task].append(data)
                     makespans[other_machine_name] = data
 
-    def generate_assignment(self, machines, c_proc_i_j, rank_d, table=None):
+    def generate_assignment(self, machines, c_proc_i_j, c_i_j_line, rank_d, table=None):
         no_pred = [task_name for task_name, task_pred in self.pred.items() if not task_pred]
         entry_task = no_pred[0]
         assignment = defaultdict(list)

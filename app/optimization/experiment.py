@@ -2,6 +2,7 @@ import logging
 import math
 import os
 import time
+from pathlib import Path
 
 from aws.aws_preprocessing import remove_bad_performing_machines, remove_non_dominated_per_region
 from aws.ec2 import generate_aws_dict, generate_data_transfer_dict, get_aws_regions_full
@@ -11,6 +12,7 @@ from optimization.algorithm import Algorithm
 from optimization.heuristic.base import generate_W
 from optimization.heuristic.heft import HEFT
 from optimization.heuristic.hsip import HSIP
+from optimization.heuristic.mpeft import MPEFT
 from optimization.heuristic.peft import PEFT
 from optimization.problem import AWSProblemDirect, remove_dominated_sol
 from pymoo.config import Config
@@ -24,6 +26,8 @@ very_start_time = time.time()
 
 load_dotenv()
 
+base_dir = str(Path(__file__).parent.parent.parent.absolute()) + "/"
+
 
 def get_heuristic(heuristic_name, w, machines_data, succ, pred, data):
     if heuristic_name == "HEFT":
@@ -32,6 +36,8 @@ def get_heuristic(heuristic_name, w, machines_data, succ, pred, data):
         return PEFT(w, machines_data, succ, pred, data)
     if heuristic_name == "HSIP":
         return HSIP(w, machines_data, succ, pred, data)
+    if heuristic_name == "MPEFT":
+        return MPEFT(w, machines_data, succ, pred, data)
 
 
 def data_generation(config, problem_file_path):
@@ -51,7 +57,7 @@ def data_generation(config, problem_file_path):
     print("Before remove dominated regions", len(region_machines_dataset.keys()))
     region_machines_dataset = remove_non_dominated_per_region(region_machines_dataset)
     print("After remove dominated regions", len(region_machines_dataset.keys()))
-    region_machines_dataset, n_var, _ = remove_bad_performing_machines(
+    region_machines_dataset, _ = remove_bad_performing_machines(
         region_machines_dataset,
         number_of_tasks,
         from_origin_data_trasfer_cost,
@@ -62,13 +68,13 @@ def data_generation(config, problem_file_path):
         len(region_machines_dataset),
         region_machines_dataset.keys(),
     )
-    print("Number of tasks", number_of_tasks, "Average of number of executed machines", n_var)
+    print("Number of tasks", number_of_tasks, "Average of number of executed machines")
     save_json(region_machines_dataset, "ndmachines/" + config.problem_name + "_nd_regions.json")
 
 
 def run_experiment(config, problem_file_path, n_threads):
     # Get data
-    machine_nd_name = "ndmachines/" + config.problem_name + "_nd_regions.json"
+    machine_nd_name = base_dir + "ndmachines/" + config.problem_name + "_nd_regions.json"
     if not os.path.isfile(machine_nd_name):
         data_generation(config, problem_file_path)
     else:
@@ -76,31 +82,34 @@ def run_experiment(config, problem_file_path, n_threads):
         region_machines_dataset = read_json(machine_nd_name)
 
     problem_xml_name = problem_file_path.replace(".dot", ".xml")
-    data, graph, pred, succ = load_xml_data(problem_xml_name, problem_file_path)
+    data, graph, pred, succ = load_xml_data(base_dir + problem_xml_name, base_dir + problem_file_path)
     regions = list(region_machines_dataset.keys())
     n_var = int(len(graph) * 0.05 + 3)
 
-    W = generate_W(config, config.problem_name, problem_file_path, regions, region_machines_dataset)
+    W = generate_W(config, config.problem_name, base_dir + problem_file_path, regions, region_machines_dataset)
 
     problems = {}
-    # full_name_regions = get_aws_regions_full()
-    # region_machines_dataset, regions = generate_aws_dict(full_name_regions, config.eager_aws)
-    region_machines_dataset = {
-        region_name: machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data
-    }
+    full_name_regions = get_aws_regions_full()
+    region_machines_dataset, regions = generate_aws_dict(full_name_regions, config.eager_aws)
+    # region_machines_dataset = {
+    #    region_name: machines_data for region_name, machines_data in region_machines_dataset.items() if machines_data
+    # }
     qtd_valid_regions = len(region_machines_dataset)
     gen = int(math.ceil(config.n_gen / qtd_valid_regions))
     print(config, "valid_regions=" + str(qtd_valid_regions), "gen=" + str(gen), "n_var=" + str(n_var))
     pop = []
-    cluster = LocalCluster(n_workers=n_threads, silence_logs=logging.FATAL)
-    client = Client(cluster)
-    print("DASK STARTED")
+    cluster = None
+    if n_threads > 1:
+        cluster = LocalCluster(n_workers=n_threads, silence_logs=logging.FATAL)
+        client = Client(cluster)
+        print("DASK STARTED")
     for region_name, machines_data in region_machines_dataset.items():
         if len(machines_data) > 1:
             w = W[region_name]
             heu = get_heuristic(config.heuristic_name, w, machines_data, succ, pred, data)
-            client.restart()
-            runners = DaskParallelization(client)
+            runners = None
+            if cluster:
+                runners = DaskParallelization(client)
             problem = AWSProblemDirect(
                 n_var,
                 machines_data,
@@ -112,7 +121,9 @@ def run_experiment(config, problem_file_path, n_threads):
             problems[region_name] = problem
             print(problem.region_name)
 
-            alg = Algorithm(config.algorithm_name, gen, config.pop_size, problem, problem.region_name)
+            alg = Algorithm(
+                config.algorithm_name, gen, config.pop_size, problem, problem.region_name, config.seed, config.verbose
+            )
 
             start_time = time.time()
             res = alg.run()
@@ -140,7 +151,8 @@ def run_experiment(config, problem_file_path, n_threads):
     to_save["considered_regions"] = list(region_machines_dataset.keys())
 
     file_output = (
-        "outputx/"
+        base_dir
+        + "outputf/"
         + config.algorithm_name
         + "_"
         + str(config.execution_id)
@@ -151,6 +163,7 @@ def run_experiment(config, problem_file_path, n_threads):
     )
     save_json(to_save, file_output + ".json")
     print("Finished --- %s seconds ---" % (time.time() - very_start_time))
-    client.shutdown()
+    if cluster:
+        client.shutdown()
 
     return to_save

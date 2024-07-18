@@ -25,15 +25,25 @@ class AWSProblemDirect(ElementwiseProblem):
         print(region_name, self.ids)
         xl = np.zeros(n_var)
         xu = np.ones(n_var) * max(self.ids.keys())
-        super().__init__(
-            n_var=n_var,
-            n_obj=2,
-            n_constr=1,
-            xl=xl,
-            xu=xu,
-            vtype=int,
-            elementwise_runner=elementwise_runner,
-        )
+        if elementwise_runner:
+            super().__init__(
+                n_var=n_var,
+                n_obj=2,
+                n_constr=1,
+                xl=xl,
+                xu=xu,
+                vtype=int,
+                elementwise_runner=elementwise_runner,
+            )
+        else:
+            super().__init__(
+                n_var=n_var,
+                n_obj=2,
+                n_constr=1,
+                xl=xl,
+                xu=xu,
+                vtype=int,
+            )
 
     def run_heu(self, machine_types):
         assignment, makespan, _, _, machines = self.heu.schedule(machine_types)

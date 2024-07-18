@@ -83,9 +83,10 @@ def remove_non_dominated_per_region(dccv):
 
 
 def remove_bad_performing_machines(final_region_machines, number_of_tasks, data_trasfer_cost, problem_file_path):
-    pop = []
+    all_pop = {}
     qtd_machines = []
     for region_name, machines_data in final_region_machines.items():
+        pop = []
         for machine_name, machine_data in machines_data.items():
             selected_region_machines = [machine_data] * number_of_tasks
             machines = {}
@@ -105,11 +106,12 @@ def remove_bad_performing_machines(final_region_machines, number_of_tasks, data_
             )
             # print(element)
             pop.append(element)
+        ndom_base = remove_dominated(pop)
+        all_pop[region_name] = ndom_base
 
-    n_var = int(sum(qtd_machines) / len(qtd_machines) + 1)
-    ndom_base = remove_dominated(pop)
     final_region_machines2 = defaultdict(dict)
-    for element in ndom_base:
-        machine_name, region_name, _ = element[1]
-        final_region_machines2[region_name][machine_name] = final_region_machines[region_name][machine_name]
-    return final_region_machines2, n_var, ndom_base
+    for region_name, ndom_base in all_pop.items():
+        for element in ndom_base:
+            machine_name, region_name, _ = element[1]
+            final_region_machines2[region_name][machine_name] = final_region_machines[region_name][machine_name]
+    return final_region_machines2, ndom_base
