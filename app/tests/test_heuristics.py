@@ -6,10 +6,11 @@ from optimization.heuristic.heft import HEFT
 from optimization.heuristic.hsip import HSIP
 from optimization.heuristic.mpeft import MPEFT
 from optimization.heuristic.peft import PEFT
-from optimization.heuristic.ppts import PPTS
+from optimization.heuristic.ppts import IPPTS, PPTS
 from tests.datasets import (
     generate_data_heft_paper,
     generate_data_hsip_paper,
+    generate_data_ippts_paper,
     generate_data_m_peft_paper,
     generate_data_peft_paper,
     generate_data_ppts_paper,
@@ -35,7 +36,35 @@ def test_rank_u_heft_paper():
         )
 
 
-def test_rank_pcm():
+def test_ippts_rank_pcm():
+    task_names = ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"]
+    machines = {"P1": {}, "P2": {}, "P3": {}}
+    machine_types = list(machines.keys())
+    _, machines, machine_types, w, data, p_rank_paper, succ, preds, PCM_paper = generate_data_ippts_paper()
+
+    B_m_n_line = 1
+    B_m_n = {machine_name: 1 for machine_name in machine_types}
+
+    dataset_machines = {}
+
+    heu = IPPTS(w, dataset_machines, succ, preds, data)
+    w_line = heu.generate_W_line(machine_types)
+
+    p_rank, c_proc_i_j, _, PCM = heu.generate_rank(B_m_n, B_m_n_line, w_line, machines, w)
+
+    for p in w.keys():
+        for task in task_names:
+            assert math.isclose(PCM_paper[p][task], PCM[p][task], rel_tol=0.01), (
+                task + " " + str(PCM_paper[p][task]) + " " + str(PCM[p][task])
+            )
+
+    for task in task_names:
+        assert math.isclose(p_rank[task], p_rank_paper[task], rel_tol=0.01), (
+            task + " " + str(p_rank[task]) + " " + str(p_rank_paper[task])
+        )
+
+
+def test_ppts_rank_pcm():
     task_names = ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"]
     machines = {"P1": {}, "P2": {}, "P3": {}}
     machine_types = list(machines.keys())
@@ -66,6 +95,35 @@ def test_rank_pcm():
         assert math.isclose(rank_pcm[task], rank_pcm_gen[task], rel_tol=0.01), (
             task + " " + str(rank_pcm[task]) + " " + str(rank_pcm_gen[task])
         )
+
+
+def test_allocation_from_for_ippts():
+    expected_allocation = defaultdict(list)
+    expected_allocation["P1"].extend(["T3", "T6", "T8", "T9", "T10"])
+    expected_allocation["P2"].extend([])
+    expected_allocation["P3"].extend(["T1", "T2", "T5", "T4", "T7"])
+    expected_makespan = 192
+
+    task_names, machines, machine_types, w, data, p_rank_paper, succ, preds, PCM_paper = generate_data_ippts_paper()
+
+    B_m_n_line = 1
+    B_m_n = {machine_name: 1 for machine_name in machine_types}
+
+    dataset_machines = {}
+
+    heu = IPPTS(w, dataset_machines, succ, preds, data)
+
+    allocation, makespan, _, _ = heu.schedule_with_data(machine_types, machines, B_m_n_line, B_m_n)
+    for processor_name in expected_allocation.keys():
+        alloc = [
+            (el["name"], el["EST"], el["AFT"]) for el in allocation[processor_name] if el["name"] not in ["root", "end"]
+        ]
+        print(processor_name, alloc)
+    for processor_name in expected_allocation.keys():
+        alloc = [el["name"] for el in allocation[processor_name] if el["name"] not in ["root", "end"]]
+        assert expected_allocation[processor_name] == alloc, str(expected_allocation[processor_name]) + " " + str(alloc)
+
+    assert makespan == expected_makespan
 
 
 def test_allocation_from_for_ppts():

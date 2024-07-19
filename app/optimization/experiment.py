@@ -14,6 +14,7 @@ from optimization.heuristic.heft import HEFT
 from optimization.heuristic.hsip import HSIP
 from optimization.heuristic.mpeft import MPEFT
 from optimization.heuristic.peft import PEFT
+from optimization.heuristic.ppts import IPPTS, PPTS
 from optimization.problem import AWSProblemDirect, remove_dominated_sol
 from pymoo.config import Config
 from pymoo.core.problem import DaskParallelization
@@ -38,6 +39,10 @@ def get_heuristic(heuristic_name, w, machines_data, succ, pred, data):
         return HSIP(w, machines_data, succ, pred, data)
     if heuristic_name == "MPEFT":
         return MPEFT(w, machines_data, succ, pred, data)
+    if heuristic_name == "PPTS":
+        return PPTS(w, machines_data, succ, pred, data)
+    if heuristic_name == "IPPTS":
+        return IPPTS(w, machines_data, succ, pred, data)
 
 
 def data_generation(config, problem_file_path):
